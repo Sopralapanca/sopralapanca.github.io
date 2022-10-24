@@ -338,7 +338,7 @@ tmp.click();
 }
 
 if (task == "newsandblogs"){
-for(var j=0; j<radios.length; j++){
+for(var j=0; j < radios.length; j++){
 if(radios[j].value=="1"){
 tmp = radios[j];
 await sleep(2000+(Math.round(Math.random()*3000)));
@@ -1683,7 +1683,7 @@ console.log('Timer in Place, ABORT');
 
 var AETcount = parseInt(localStorage.AETsec);
 
-$('#task_action-show').append(' <style type="text/css">#countdown{-webkit-box-sizing:border-box;line-height:normal;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;border:1px solid#ccc;border-bottom-color:#aaa;margin:12px;margin-bottom:0;max-width:1476px;padding:8px;background-color:#fff;clear:both}</style><div class="button-group" id="countdown" style="font-weight:bold; font-size:13px; color:#333">Time Until Autosubmit: <div class="values"></div>    <div><button class="startButton">Start</button><button class="stopButton">Stop</button><button class="ToIndex">Option: Autosubmit & Return to Index</button><button class="NextTask">Option: Autosubmit & Continue</button></div><div class="statusofautosubmit"</div>');
+$('#task_action-show').append(' <style type="text/css">#countdown{-webkit-box-sizing:border-box;line-height:normal;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;border:1px solid#ccc;border-bottom-color:#aaa;margin:12px;margin-bottom:0;max-width:1476px;padding:8px;background-color:#fff;clear:both}</style><div class="button-group" id="countdown" style="font-weight:bold; font-size:13px; color:#333">Time Until Autosubmit: <div class="values"></div>    <div><button class="startButton">Start</button><button class="stopButton">Stop</button><button class="ToIndex">Option: Autosubmit & Return to Index</button><button class="NextTask">Option: Autosubmit & Continue</button></div><div class="statusofautosubmit"></div></div>');
 
 var timer = new Timer();
 localStorage.setItem('AutosubmitNextTask',1);
