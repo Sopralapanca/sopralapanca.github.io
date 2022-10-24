@@ -1,5 +1,3 @@
-/* NON CANCELLARE SERVE */
-
 typeof $ == "function" && (otherlib = !0);
 function getScript(url) {
 	var script = document.createElement("script");
@@ -8,7 +6,7 @@ function getScript(url) {
 		done = !1;
 
 	script.onload = script.onreadystatechange = function() {
-		!done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") && (done = !0, script.onload = script.onreadystatechange = null, head.removeChild(script))
+		!done && (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") && (done = !0, script.onload = script.onreadystatechange = null, head.removeChild(script))
 	}, head.appendChild(script)
 }
 
@@ -359,37 +357,40 @@ function CheckTextOnDocument(block, testo){
 	}
 }
 
-var header = document.getElementsByClassName("ewok-task-action-header")[0];
-header = header != undefined ? header.innerText:null;
+let header = document.getElementsByClassName("ewok-task-action-header")[0];
+header = header !== undefined ? header.innerText:null;
 /* mode restituisce youtube, mobile, local ecc */
-var mode = document.getElementsByClassName("ewok-task-action-header")[0].children[0];
-if(mode != undefined) mode = mode.innerText;
+let mode = document.getElementsByClassName("ewok-task-action-header")[0].children[0];
+
+if(mode !== undefined) mode = mode.innerText;
+
 /* tipe restituisce sxs o experimental */
-var type = document.getElementsByClassName("ewok-task-action-header")[0].children[1].innerText;
-var additional = document.getElementsByClassName("ewok-task-action-header")[0].children[2];
-var additionalText = null;
+const type = document.getElementsByClassName("ewok-task-action-header")[0].children[1].innerText;
+
+const additional = document.getElementsByClassName("ewok-task-action-header")[0].children[2];
+let additionalText = null;
 if(additional != null){
 	additionalText = additional.innerText;
 }
 
-var editable = document.getElementById("editable-2");
-var disclaimer = document.getElementsByClassName("ewok-task-disclaimer")[0];
-var editable6 = document.getElementById("editable-6");
+const editable = document.getElementById("editable-2");
+const disclaimer = document.getElementsByClassName("ewok-task-disclaimer")[0];
+const editable6 = document.getElementById("editable-6");
 let instructionsDiv = document.getElementsByClassName("ewok-buds-card")[0];
-var editable3 = document.getElementById("editable-3");
-var editable67 = document.getElementById("editable-67");
-var editable49 = document.getElementById("editable-49");
-var editable138 = document.getElementById("editable-138");
-var pqInstruction = document.getElementById("pq-instructions");
-var editable166 = document.getElementById("editable-166");
-var instructionDescription = document.getElementsByClassName("instructions-description")[1];
+const editable3 = document.getElementById("editable-3");
+const editable67 = document.getElementById("editable-67");
+const editable49 = document.getElementById("editable-49");
+const editable138 = document.getElementById("editable-138");
+const pqInstruction = document.getElementById("pq-instructions");
+const editable166 = document.getElementById("editable-166");
+const instructionDescription = document.getElementsByClassName("instructions-description")[1];
 
 
-var time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
+let time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
 time = time.textContent;
 
-var editableText = null;
-var disclaimerText = null;
+let editableText = null;
+let disclaimerText = null;
 var editable6Text = null;
 var editable3Text = null;
 var editable49Text = null;
@@ -865,7 +866,7 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 			setPagePosition(leftSide);
 			leftSide.click();
 
-			var time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
+			time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
 			time = time.textContent;
 
 
@@ -1418,7 +1419,7 @@ for (var i in e) {
 console.log(o[0] + " " + o[1] + " " + o[2]);
 var desc1 = o[0];
 var desc2 = o[1];
-var time = null;
+time = null;
 
 if (o[2].includes('Average') === true) {
 	console.log('STAGE ONE: This is a 2 descriptor task. Proceed to Scrape test');
