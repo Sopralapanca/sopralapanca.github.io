@@ -1,6 +1,5 @@
 
 
-
 typeof $ == "function" && (otherlib = !0);
 function getScript(url) {
 	var script = document.createElement("script");
@@ -15,6 +14,14 @@ function getScript(url) {
 
 getScript("//code.jquery.com/jquery.min.js");
 
+(function(e, s) {
+	e.src = s;
+	e.onload = function() {
+		jQuery.noConflict();
+		console.log('jQuery injected');
+	};
+	document.head.appendChild(e);
+})(document.createElement('script'), '//code.jquery.com/jquery-latest.min.js')
 
 
 /***** INIZIO AUTOCOMPLETE *******/
