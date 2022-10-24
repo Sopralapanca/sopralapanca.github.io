@@ -1,28 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-/*
-script jquerify da includere
-javascript:(function(){
-var el=document.createElement("div"),b=document.getElementsByTagName("body")[0],otherlib=!1,msg="";el.style.position="fixed",el.style.height="32px",el.style.width="220px",el.style.marginLeft="-110px",el.style.top="0",el.style.left="50%25",el.style.padding="5px 10px",el.style.zIndex=1001,el.style.fontSize="12px",el.style.color="#222",el.style.backgroundColor="#f99";function showMsg(){var txt=document.createTextNode(msg);el.appendChild(txt),b.appendChild(el),window.setTimeout(function(){txt=null,typeof jQuery=="undefined"?b.removeChild(el):(jQuery(el).fadeOut("slow",function(){jQuery(this).remove()}),otherlib&&(window.$jq=jQuery.noConflict()))},2500)}if(typeof jQuery!="undefined")return msg="This page already using jQuery v"+jQuery.fn.jquery,showMsg();typeof $=="function"&&(otherlib=!0);function getScript(url,success){var script=document.createElement("script");script.src=url;var head=document.getElementsByTagName("head")[0],done=!1;script.onload=script.onreadystatechange=function(){!done&&(!this.readyState||this.readyState=="loaded"||this.readyState=="complete")&&(done=!0,success(),script.onload=script.onreadystatechange=null,head.removeChild(script))},head.appendChild(script)}getScript("//code.jquery.com/jquery.min.js",function(){return typeof jQuery=="undefined"?msg="Sorry, but jQuery was not able to load":(msg="This page is now jQuerified with v"+jQuery.fn.jquery,otherlib&&(msg+=" and noConflict(). Use $jq(), not $().")),showMsg()})})();
-
-*/
-
-/* da sistemare pagina github
-javascript:(function(){
-var addScript=function(filename){
-var e=document.createElement('script');
-e.type='text/javascript';
-e.src=filename;
-if(typeof(e)!=='undefined'){
-document.getElementsByTagName('head')[0].appendChild(e);
-}
-};
-addScript('https://sopralapanca.github.io/')
-})()*/
 
 /* prova jquerify */
 typeof $ == "function" && (otherlib = !0);
+
 function getScript(url) {
 var script = document.createElement("script");
 script.src = url;
@@ -41,18 +23,18 @@ getScript("//code.jquery.com/jquery.min.js");
 /***** INIZIO AUTOCOMPLETE ******/
 
 function sleep(ms) {
-return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function setAts(){
-/* setto ats */
-var side = document.querySelectorAll('input[name=score]');
-for(var j = 0; j< side.length; j++){
-if(side[j].value=="AboutTheSameAs"){
-side[j].checked=true;
-}
+    /* setto ats */
+    var side = document.querySelectorAll('input[name=score]');
+    for(var j = 0; j< side.length; j++){
+        if(side[j].value=="AboutTheSameAs"){
+            side[j].checked=true;
+        }
 
-}
+    }
 }
 
 function setPagePosition(block){
@@ -1683,7 +1665,9 @@ console.log('Timer in Place, ABORT');
 
 var AETcount = parseInt(localStorage.AETsec);
 
-$('#task_action-show').append(' <style type="text/css">#countdown{-webkit-box-sizing:border-box;line-height:normal;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;border:1px solid#ccc;border-bottom-color:#aaa;margin:12px;margin-bottom:0;max-width:1476px;padding:8px;background-color:#fff;clear:both}</style><div class="button-group" id="countdown" style="font-weight:bold; font-size:13px; color:#333">Time Until Autosubmit: <div class="values"></div>    <div><button class="startButton">Start</button><button class="stopButton">Stop</button><button class="ToIndex">Option: Autosubmit & Return to Index</button><button class="NextTask">Option: Autosubmit & Continue</button></div><div class="statusofautosubmit"></div></div>');
+$('#task_action-show').append(' <style type="text/css">#countdown{-webkit-box-sizing:border-box;line-height:normal;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;border:1px solid#ccc;border-bottom-color:#aaa;
+    margin: 12px 12px 0;
+    max-width:1476px;padding:8px;background-color:#fff;clear:both}</style><div class="button-group" id="countdown" style="font-weight:bold; font-size:13px; color:#333">Time Until Autosubmit: <div class="values"></div>    <div><button class="startButton">Start</button><button class="stopButton">Stop</button><button class="ToIndex">Option: Autosubmit & Return to Index</button><button class="NextTask">Option: Autosubmit & Continue</button></div><div class="statusofautosubmit"></div></div>');
 
 var timer = new Timer();
 localStorage.setItem('AutosubmitNextTask',1);
