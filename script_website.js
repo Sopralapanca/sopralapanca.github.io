@@ -1,22 +1,3 @@
-
-
-
-typeof $ == "function" && (otherlib = !0);
-function getScript(url) {
-	var script = document.createElement("script");
-	script.src = url;
-	var head = document.getElementsByTagName("head")[0],
-		done = !1;
-
-	script.onload = script.onreadystatechange = function() {
-		!done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") && (done = !0, script.onload = script.onreadystatechange = null, head.removeChild(script))
-	}, head.appendChild(script)
-}
-
-getScript("//code.jquery.com/jquery.min.js");
-
-
-
 /***** INIZIO AUTOCOMPLETE ******/
 
 function sleep(ms) {
