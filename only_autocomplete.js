@@ -4,17 +4,6 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function setAts(){
-	/* setto ats */
-	var side = document.querySelectorAll('input[name=score]');
-	for(var j = 0; j<side.length; j++){
-		if(side[j].value==="AboutTheSameAs"){
-			side[j].checked=true;
-		}
-
-	}
-}
-
 function setPagePosition(block){
 	/* setta la posizione della pagina alla posizione del risultato */
 	var rect = block.getBoundingClientRect();
@@ -44,6 +33,15 @@ async function setSliders(block, value, task){
 			hiddenValue = "2";
 	}
 
+	if(value === "66.6667%"){
+		if(task === "normal")
+			hiddenValue = "2";
+		else if(task === 'grammar'){
+			hiddenValue = "2";
+		}else
+			hiddenValue = "2";
+	}
+
 	if(value === "70%"){
 		hiddenValue = "3.5";
 	}
@@ -64,7 +62,13 @@ async function setSliders(block, value, task){
 	}
 
 	if(value === "100%"){
-		hiddenValue = "5";
+		if(task === "normal")
+			hiddenValue = "5";
+		else if(task === 'grammar'){
+			hiddenValue = "3";
+		}else
+			hiddenValue = "3";
+
 	}
 
 
@@ -72,6 +76,7 @@ async function setSliders(block, value, task){
 	var sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
 	var hiddenField = block.getElementsByTagName("input");
 	var SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
+
 
 	for (k = 0; k<sliderBar.length; k++){
 		await sleep(2000+(Math.round(Math.random()*3000)));
@@ -95,11 +100,41 @@ function get_and_set_sliders(value,task){
 	task = typeof task !== 'undefined' ? task : 'normal';
 	var allBlocks = document.getElementsByClassName("evl-slider2");
 
+
+
 	for(var i=0; i<allBlocks.length; i++){
 		setPagePosition(allBlocks[i]);
-		setSliders(allBlocks[i],value,task);
+
+		let v = value;
+
+		var allBigTicks = allBlocks[i].getElementsByClassName("evl-slider2-tick-big")
+		let elem;
+		for (elem of allBigTicks){
+			var tmp = elem.getAttribute("data-tick");
+
+			if(tmp == "Too informative"){
+				v = "66.6667%";
+			}
+		}
+
+
+		setSliders(allBlocks[i],v,task);
 	}
 }
+
+
+function set_all_radios(block, value){
+	var radios = block.querySelectorAll('input[type="radio"]');
+
+	for(var j = 0; j<radios.length; j++){
+		setPagePosition(radios[j]);
+		if(radios[j].value===value){
+			radios[j].click();
+
+		}
+	}
+}
+
 
 async function radiosClick(radios, task) {
 	let j;
@@ -334,7 +369,6 @@ async function radiosClick(radios, task) {
 
 function CheckTextOnDocument(block, testo){
 	if ((block.documentElement.textContent || block.documentElement.innerText).indexOf(testo) > -1) {
-		console.log("true");
 		return true;
 	}else{
 		return false;
@@ -357,7 +391,7 @@ if(additional != null){
 var editable = document.getElementById("editable-2");
 var disclaimer = document.getElementsByClassName("ewok-task-disclaimer")[0];
 var editable6 = document.getElementById("editable-6");
-let instructionsDiv = document.getElementsByClassName("ewok-buds-card")[0];
+var instructionsDiv = document.getElementsByClassName("ewok-buds-card")[0];
 var editable3 = document.getElementById("editable-3");
 var editable67 = document.getElementById("editable-67");
 var editable49 = document.getElementById("editable-49");
@@ -381,6 +415,8 @@ var pqInstructionText = null;
 var editable166Text = null;
 var isEditableNull = true;
 var idText = null;
+
+let radios_value;
 
 if (editable != null){
 	editableText = editable.innerText;
@@ -470,23 +506,69 @@ for(var i=0; i< array.length; i++){
 	var win = window.open(array[i], '_blank');
 }
 
+let testo;
+let value;
+/* GRAMMAR */
+
+if (mode === "Mobile" && type === "Experimental"){
+	testo = 'For each query, your job is to evaluate the virtual assistant\'s Response Language Quality (i.e., the quality of language it uses to reply to the user) and its Speech Quality (i.e., the quality of the virtual assistant\'s verbalization of its response).';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("grammar found");
+
+		var task = 'grammar';
+		value = '100%';
+
+		get_and_set_sliders(value, task);
+
+		radios_value = "1";
+		set_all_radios(document, radios_value);
+
+
+		console.log("done");
+	}
+}
+
+/* HIGHLIGHTED DIFFERENCES */
+
+if (mode === "Local" && type === "Side By Side"){
+	testo = 'Tell us which side provides more useful additional information. Differences between the results are highlighted. Keep in mind that more information is not necessarily better.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("HIGHLIGHTED DIFFERENCES found");
+		value = "70%";
+		get_and_set_sliders(value);
+
+		radios_value = "0";
+		set_all_radios(document, radios_value);
+
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value);
+
+		console.log("done");
+	}
+}
+
+
+
+
 /* LITTLE LOCAL */
 
 if (mode === "Local" && type === "Experimental"){
-	var testo = 'In this task, you may see special blocks that are shown at the very top of the search results (e.g., above L1 and/or R1).  They do not contain the Needs Met or E-A-T sliders';
+	testo = 'In this task, you may see special blocks that are shown at the very top of the search results (e.g., above L1 and/or R1).  They do not contain the Needs Met or E-A-T sliders';
 	if (CheckTextOnDocument(document, testo)){
-		console.log("little locale found");
-		var value = "80%";
+		console.log("little local found");
+		value = "80%";
 		get_and_set_sliders(value);
-		setAts();
+
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value);
+
 		console.log("done");
 	}
-
 }
 
 
 /* OTHER UO */
-var testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
+testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
 if (CheckTextOnDocument(document, testo)){
 	console.log("other uo found");
 	var check = document.querySelectorAll('input[name*="Category_None"]');
@@ -499,15 +581,9 @@ if (CheckTextOnDocument(document, testo)){
 		}
 	}
 
-	var radios = document.querySelectorAll('input[type="radio"]');
+	radios_value = "0";
+	set_all_radios(document, radios_value);
 
-	for(var j = 0; j<radios.length; j++){
-		setPagePosition(radios[j]);
-		if(radios[j].value==="0"){
-			radios[j].click();
-
-		}
-	}
 	console.log("done");
 }
 
@@ -526,15 +602,8 @@ if (mode === "Local" && type === "Experimental"){
 				var tmot = setTimeout(function(){win.close();}, 5000);
 			}
 		*/
-		var radios = document.querySelectorAll('input[type="radio"]');
-
-		for(var j = 0; j<radios.length; j++){
-			if(radios[j].value==="0"){
-				var tmp = radios[j];
-				tmp.click();
-
-			}
-		}
+		radios_value = "0";
+		set_all_radios(document, radios_value);
 
 		console.log("done.");
 
@@ -547,9 +616,14 @@ if (mode === "Local" && type === "Experimental"){
 if (mode === "Mobile" && type === "Side By Side"){
 	console.log("mobile sxs found");
 
-	var value = "80%";
+	value = "80%";
 	get_and_set_sliders(value);
-	setAts();
+
+
+	radios_value = "AboutTheSameAs";
+	set_all_radios(document, radios_value);
+
+
 	console.log("done");
 }
 
@@ -559,7 +633,7 @@ if (mode === "Mobile" && type === "Side By Side"){
 if (mode === "YouTube" && type === "Experimental"){
 	if (editable17Text != null && editable17Text.includes("How many users in your locale would find this video racy?")){
 		console.log("yt exp racy found");
-		var value="25%";
+		value = "25%";
 		get_and_set_sliders(value);
 
 		console.log("done.");
@@ -571,9 +645,9 @@ if (mode === "YouTube" && type === "Experimental"){
 
 /* search product sxs */
 if (mode === "Search Product" && type === "Experimental"){
-	instructionsDiv = document.getElementsByClassName("ewok-buds-card");
-	var instructionsDivText = instructionsDiv[3].innerText;
-	if (instructionsDivText != null && instructionsDivText.includes("In this task, you will be provided with a particular User Intent as additional context to the query.")){
+	instructionsDiv2 = document.getElementsByClassName("ewok-buds-card");
+	var instructionsDivText2 = instructionsDiv2[3].innerText;
+	if (instructionsDivText2 != null && instructionsDivText2.includes("In this task, you will be provided with a particular User Intent as additional context to the query.")){
 		console.log("Search product found");
 
 		const clarity = document.querySelectorAll('input[name="clear_need"]');
@@ -596,7 +670,7 @@ if (mode === "Search Product" && type === "Experimental"){
 			}
 		}
 
-		var value="70%";
+		value = "70%";
 		get_and_set_sliders(value, "snippet");
 
 
@@ -617,14 +691,17 @@ if (type === "Side By Side"){
 			for(var i=0; i<allBlocks.length; i++){
 				setPagePosition(allBlocks[i]);
 				/* setto snippet added value */
-				var value = "60%";
+				value = "60%";
 				setSliders(allBlocks[i],value, "snippet");
 				/* setto snippet readability */
 				value = "80%";
 				setSliders(allBlocks[i+1],value, "snippet");
 				i=i+1;
 			}
-			setAts();
+
+			radios_value = "AboutTheSameAs";
+			set_all_radios(document, radios_value);
+
 			console.log("done");
 		}
 	}
@@ -643,7 +720,7 @@ if (istructionsBodyText != null){
 		if(dupesText.includes("Same as")){
 			skip=true;
 		}
-		var value="90%";
+		value = "90%";
 		get_and_set_sliders(value);
 
 		const check = document.querySelectorAll('input[name*="landing_page.N"]');
@@ -748,7 +825,7 @@ if (mode === "Web" && type === "Experimental"){
 				}
 			}
 
-			var value="25%";
+			value = "25%";
 			get_and_set_sliders(value);
 
 
@@ -931,7 +1008,7 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 		}
 
 
-		var value="90%";
+		value = "90%";
 		get_and_set_sliders(value);
 
 	}
@@ -1035,7 +1112,7 @@ if (mode === "Web" && type === "Experimental"){
 				}
 			}
 
-			var value="75%";
+			value = "75%";
 			get_and_set_sliders(value);
 
 		}
@@ -1225,7 +1302,7 @@ if (time === "1 minute" || time === "1.5 minutes"){
 						var mediaBlocks = blocks[i].getElementsByClassName("opa-preview-metadata-row opa-debug");
 
 						/* setto hm */
-						var value = "80%";
+						value = "80%";
 
 						if (mediaBlocks != null && mediaBlocks.length > 1){
 							var url = mediaBlocks[1].getElementsByTagName('a');
@@ -1274,7 +1351,7 @@ if (mode === "YouTube" && type === "Side By Side"){
 			*/
 
 			/* setto mm */
-			var value = "60%";
+			value = "60%";
 
 			for(var i=0; i<allBlocks.length; i++){
 				setSliders(allBlocks[i],value);
@@ -1285,7 +1362,8 @@ if (mode === "YouTube" && type === "Side By Side"){
 				radiosClick(sexuallySafe,task);
 			}
 			/* setto ats */
-			setAts();
+			radios_value = "AboutTheSameAs";
+			set_all_radios(document, radios_value);
 			console.log("done.");
 		}
 
@@ -1367,11 +1445,13 @@ if (mode === "Local" && type === "Side By Side"){
 	if (instructionsDivText != null && instructionsDivText.includes("This is a hotel search task. Please assume that the user issuing the query wants to travel and potentially book a hotel from a list of hotels.")){
 		console.log("local sxs hotel found");
 
-		var value="80%";
+		value = "80%";
 		get_and_set_sliders(value);
 
 
-		setAts();
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value);
+
 		console.log("done.");
 	}
 }
