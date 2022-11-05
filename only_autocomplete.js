@@ -337,7 +337,7 @@ async function radiosClick(radios, task) {
 		}
 	}
 
-	if (task === "headphones"){
+	/* if (task === "headphones"){
 		for(j = 0; j<radios.length; j++){
 			if(radios[j].value==="headphonequiet"){
 				tmp = radios[j];
@@ -354,7 +354,7 @@ async function radiosClick(radios, task) {
 				tmp.click();
 			}
 		}
-	}
+	} */
 
 
 }
@@ -462,7 +462,6 @@ if (instructionDescription != null){
 }
 
 var istructionsBodyText = null;
-var istructionsBody = null;
 var istructionsBody = document.getElementById("instructions-body");
 if (istructionsBody != null){
 	istructionsBodyText = istructionsBody.innerText;
@@ -1241,6 +1240,7 @@ if (mode === "Mobile" && type === "Experimental"){
 	let testo1 = "The Direct Answer Block is intended to provide a direct answer to a user's need in a natural way. Here are some examples on how to use the Needs Met Rating Scale to provide ratings for these kinds of results.";
 	let testo2 = "An Assistant on TV is a virtual voice assistant built in or paired with a TV that can understand voice queries from a user, and give visual results, audio responses, or take actions on the user's behalf.";
 	let testo3 = "In this task, you will be given a query a driver might issue to the voice assistant in their car. In most cases, you will see a corresponding audio response from the car, indicating what action the car would take in response to the voice query. In some cases, you will also see a visual response, like a directions or navigation card.";
+	let found = false;
 
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("va found");
@@ -1339,10 +1339,9 @@ if (mode === "YouTube" && type === "Experimental"){
 
 
 /*EXP SCRB ACCURACY*/
-/* PROVATA E FUNZIONA */
-
 if (mode === "Web" && type === "Experimental"){
-	if (editable6Text != null && editable6Text.includes("You will be given a query and a Special Content Result Block (SCRB)")){
+	testo = "You will be given a query and a Special Content Result Block (SCRB)";
+	if (CheckTextOnDocument(document, testo)){
 		console.log("exp scrb accuracy found");
 
 		/* prendo tutti i bottoni radio */
@@ -1352,6 +1351,7 @@ if (mode === "Web" && type === "Experimental"){
 
 		/* prendo la checkbox finale */
 		var lastCheckBox = document.querySelector('input[name=no_lp_issues]');
+		lastCheckBox.scrollIntoView();
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
 
 
