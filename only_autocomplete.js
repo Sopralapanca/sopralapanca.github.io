@@ -117,13 +117,12 @@ function get_and_set_sliders(value,task){
 
 
 function set_all_radios(block, value){
-	var radios = block.querySelectorAll('input[type="radio"]');
+	const radios = block.querySelectorAll('input[type="radio"]');
 
-	for(var j = 0; j<radios.length; j++){
+	for(let j = 0; j<radios.length; j++){
 		radios[j].scrollIntoView();
 		if(radios[j].value===value){
 			radios[j].click();
-
 		}
 	}
 }
@@ -1316,34 +1315,14 @@ if (mode === "YouTube" && type === "Side By Side"){
 
 
 /*YOUTUBE EXP ADULT*/
-/* manca apri ogni video in una pagina separata  da finire*/
-/* forse si confondono con le yt racy */
 
 if (mode === "YouTube" && type === "Experimental"){
-
-	if (editableText != null && editableText.includes("In this task, you will be given a list of videos. Your job is to identify porn or racy content")){
+	testo = 'In this task, you will be given a list of videos. Your job is to identify porn or racy content';
+	if (CheckTextOnDocument(document, testo)){
 		console.log("youtube exp adult found");
 
-		/* prendo tutti i blocchi */
-		var allBlocks = document.getElementsByClassName("ewok-buds-card ewok-buds-result");
-
-		for(var i=0; i<allBlocks.length; i++){
-
-			/*apro il video in un altra pagina
-			worka ma non mantiene il focus sulla pagina corrente */
-			var videoLinks = allBlocks[i].getElementsByTagName('a'), hrefs = [];
-			for(var j=0; j<videoLinks.length; j++){
-				var win = window.open(videoLinks[j].href, '_blank');
-
-			}
-
-			/* clicco su sexuallySafe */
-			var sexuallySafe = allBlocks[i].querySelectorAll('input[type=radio]');
-			var task = "ytexpadult";
-
-			radiosClick(sexuallySafe, task);
-
-		}
+		/* set sexually safe */
+		set_all_radios(document, "0");
 
 		/* confermo tutti i video aperti */
 		var check = document.querySelectorAll('input[name=confirm-watched-all-videos]');

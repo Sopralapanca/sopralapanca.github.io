@@ -295,6 +295,29 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 
 
 }
+
+if (mode === "YouTube" && type === "Experimental"){
+	testo = 'In this task, you will be given a list of videos. Your job is to identify porn or racy content';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("youtube exp adult found");
+
+		/* set sexually safe */
+		set_all_radios(document, "0");
+
+		/* confermo tutti i video aperti */
+		var check = document.querySelectorAll('input[name=confirm-watched-all-videos]');
+		for(var j = 0; j<check.length; j++){
+			if(check[j].value==="1"){
+				var tmp = check[j];
+				setTimeout(function(){tmp.click()},2000+(Math.round(Math.random()*3000)));
+
+			}
+		}
+		console.log("done.");
+	}
+}
+
+
 if(task_found === false){
 	let cancelButton = document.getElementById("ewok-task-cancel-button");
 	cancelButton.click();
