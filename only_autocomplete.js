@@ -4,13 +4,6 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function setPagePosition(block){
-	/* setta la posizione della pagina alla posizione del risultato */
-	var rect = block.getBoundingClientRect();
-
-	document.documentElement.scrollTop = document.body.scrollTop = rect.top;
-}
-
 async function setSliders(block, value, task){
 
 	let k;
@@ -103,7 +96,7 @@ function get_and_set_sliders(value,task){
 
 
 	for(var i=0; i<allBlocks.length; i++){
-		setPagePosition(allBlocks[i]);
+		allBlocks[i].scrollIntoView();
 
 		let v = value;
 
@@ -127,7 +120,7 @@ function set_all_radios(block, value){
 	var radios = block.querySelectorAll('input[type="radio"]');
 
 	for(var j = 0; j<radios.length; j++){
-		setPagePosition(radios[j]);
+		radios[j].scrollIntoView();
 		if(radios[j].value===value){
 			radios[j].click();
 
@@ -574,7 +567,8 @@ if (CheckTextOnDocument(document, testo)){
 	var check = document.querySelectorAll('input[name*="Category_None"]');
 
 	for(var j = 0; j<check.length; j++){
-		setPagePosition(check[j]);
+		check[j].scrollIntoView();
+
 		if(check[j].value==="1"){
 			check[j].click();
 
@@ -689,7 +683,7 @@ if (type === "Side By Side"){
 			var allBlocks = document.getElementsByClassName("evl-slider2");
 
 			for(var i=0; i<allBlocks.length; i++){
-				setPagePosition(allBlocks[i]);
+				allBlocks[i].scrollIntoView();
 				/* setto snippet added value */
 				value = "60%";
 				setSliders(allBlocks[i],value, "snippet");
@@ -726,7 +720,8 @@ if (istructionsBodyText != null){
 		const check = document.querySelectorAll('input[name*="landing_page.N"]');
 
 		for(var j = 0; j<check.length; j++){
-			setPagePosition(check[j]);
+			check[j].scrollIntoView();
+
 			if(check[j].value==="1"){
 				check[j].click();
 
@@ -851,7 +846,7 @@ if (mode === "Web" && type === "Experimental"){
 				for(var i = 0; i<links.length; i++){
 					var url = links[i].getElementsByTagName('a'), hrefs = [];
 					for(var j=0; j<url.length; j++){
-						setPagePosition(url[j]);
+						url[j].scrollIntoView();
 						var win = window.open(url[j].href, '_blank');
 
 					}
@@ -921,7 +916,8 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 			console.log("audio sxs found");
 
 			/* sxs */
-			setPagePosition(leftSide);
+			leftSide.scrollIntoView();
+
 			leftSide.click();
 
 			var time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
@@ -972,7 +968,8 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 
 		if (clips != null){
 			for(var i = 0; i<clips.length; i++){
-				setPagePosition(clips[i]);
+				clips[i].scrollIntoView();
+
 				clip = clips[i];
 				clip.play();
 				clip.volume = 0.1;
@@ -1194,7 +1191,6 @@ if (mode === "Mobile" && type === "Experimental"){
 
 
 /* PAGE QUALITY YOUTUBE UO */
-/* PROVATA E FUNZIONA */
 
 if (mode === "YouTube" && type === "Experimental"){
 	if (disclaimerText != null && disclaimerText.includes("In this task, you may be exposed to queries, webpages, and/or topics that contain potentially upsetting-offensive (U-O) content")){
@@ -1241,88 +1237,34 @@ if (mode === "Web" && type === "Experimental"){
 
 
 /* VA DA 1M */
-if (time === "1 minute" || time === "1.5 minutes"){
-	var instruction = document.getElementById("general-instructions");
+if (mode === "Mobile" && type === "Experimental"){
+	testo = 'A Virtual Assistant is a service or mobile app that can understand queries from a user, and give visual results, audio responses, or take actions on the user\'s behalf';
+	let testo1 = "The Direct Answer Block is intended to provide a direct answer to a user's need in a natural way. Here are some examples on how to use the Needs Met Rating Scale to provide ratings for these kinds of results.";
+	let testo2 = "An Assistant on TV is a virtual voice assistant built in or paired with a TV that can understand voice queries from a user, and give visual results, audio responses, or take actions on the user's behalf.";
+	let testo3 = "In this task, you will be given a query a driver might issue to the voice assistant in their car. In most cases, you will see a corresponding audio response from the car, indicating what action the car would take in response to the voice query. In some cases, you will also see a visual response, like a directions or navigation card.";
 
-	if (instruction == null){
-		instruction = document.getElementById("wa-instructions");
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("va found");
+		found = true;
+
+	}else if(CheckTextOnDocument(document, testo1)) {
+		console.log("def found");
+		found = true;
+	}else if(CheckTextOnDocument(document, testo2)) {
+		console.log("tv found");
+		found = true;
+	}else if(CheckTextOnDocument(document, testo3)) {
+		console.log("va car found");
+		found = true;
 	}
 
-	if (instruction != null){
+	if (found === true){
 
-		var tmp = instruction.innerText;
+		/* setto hm+ */
+		value = "90%";
+		get_and_set_sliders(value);
 
-		if (tmp != null) {
-
-			var found = null;
-
-			if (tmp.includes("eyes-free voice assistant")) {
-				console.log("va found");
-				found = true;
-			}
-
-			if (tmp.includes("A Virtual Assistant is a service or mobile app that can understand queries from a user, and give visual results, audio responses, or take actions on the user's behalf")){
-				console.log("va found");
-				found = true;
-			}
-
-			if(tmp.includes("The Direct Answer Block is intended to provide a direct answer to a user's need in a natural way. Here are some examples on how to use the Needs Met Rating Scale to provide ratings for these kinds of results.")){
-				console.log("def found");
-				found = true;
-			}
-
-
-			if(tmp.includes("An Assistant on TV is a virtual voice assistant built in or paired with a TV that can understand voice queries from a user, and give visual results, audio responses, or take actions on the user's behalf.")){
-				console.log("tv found");
-				found = true;
-			}
-
-			if(tmp.includes("In this task, you will be given a query a driver might issue to the voice assistant in their car. In most cases, you will see a corresponding audio response from the car, indicating what action the car would take in response to the voice query. In some cases, you will also see a visual response, like a directions or navigation card.")){
-				console.log("va car found");
-				found = true;
-			}
-
-			if (found === true){
-				var blocks = document.getElementsByClassName("ewok-buds-card ewok-buds-result");
-				setPagePosition(blocks[0]);
-
-				for(var i=0; i<blocks.length;i++){
-					if(!(blocks[i].innerText.includes("did not generate any results."))){
-
-						/* aggiungi regola css che mette i blocchi uno sotto l'altro */
-
-						var audio = document.querySelector("#ewok-buds-display-block-left-0 audio");
-
-
-						if (audio != null){
-							audio.play();
-							audio.volume = 0.4;
-						}
-
-						var mediaBlocks = blocks[i].getElementsByClassName("opa-preview-metadata-row opa-debug");
-
-						/* setto hm */
-						value = "80%";
-
-						if (mediaBlocks != null && mediaBlocks.length > 1){
-							var url = mediaBlocks[1].getElementsByTagName('a');
-
-							for(var j=0; j<url.length; j++){
-								var win = window.open(url[j].href, '_blank');
-							}
-
-							/* setto fully */
-							value = "100%";
-						}
-
-						setSliders(blocks[i],value);
-					}
-				}
-				console.log("done");
-			}
-
-
-		}
+		console.log("done");
 	}
 }
 

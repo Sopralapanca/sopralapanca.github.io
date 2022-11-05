@@ -4,17 +4,11 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function setPagePosition(block){
-	/* setta la posizione della pagina alla posizione del risultato */
-	const rect = block.getBoundingClientRect();
-
-	document.documentElement.scrollTop = document.body.scrollTop = rect.top;
-}
 
 function set_all_radios(radios, value){
 
 	for(let j = 0; j<radios.length; j++){
-		setPagePosition(radios[j]);
+		radios[j].scrollIntoView();
 		if(radios[j].value===value){
 			radios[j].click();
 
@@ -114,7 +108,7 @@ function get_and_set_sliders(value,task){
 
 
 	for(var i=0; i<allBlocks.length; i++){
-		setPagePosition(allBlocks[i]);
+		allBlocks[i].scrollIntoView();
 
 		let v = value;
 
@@ -197,7 +191,7 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 			task_found = true;
 
 			/* sxs */
-			setPagePosition(leftSide);
+			leftSide.scrollIntoView();
 			leftSide.click();
 
 
@@ -258,7 +252,7 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 
 		if (clips != null) {
 			for (var i = 0; i < clips.length; i++) {
-				setPagePosition(clips[i]);
+				clips[i].scrollIntoView();
 				clip = clips[i];
 				clip.play();
 				clip.volume = 0.1;
