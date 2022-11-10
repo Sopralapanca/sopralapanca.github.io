@@ -17,6 +17,48 @@ function set_all_radios(radios, value){
 }
 
 
+
+async function radiosClick(radios, task) {
+	let j;
+	let tmp = null;
+
+	if (task === "expscrbaccuracy"){
+		/* forse si può semplificare con solo i value 0  */
+		for(j = 0; j<radios.length; j++){
+			if(radios[j].name==="accuracy" &&  radios[j].value==="1"){
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
+
+			}
+
+			if(radios[j].name==="YMYL" &&  radios[j].value==="0"){
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
+
+			}
+
+			if(radios[j].name==="inflammatory" &&  radios[j].value==="0"){
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
+
+			}
+
+			if(radios[j].name==="disputed_topic" &&  radios[j].value==="0"){
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
+
+			}
+		}
+	}
+
+
+
+}
+
 async function setSliders(block, value, task){
 
 	let k;
@@ -313,6 +355,27 @@ if (mode === "YouTube" && type === "Experimental"){
 
 			}
 		}
+		console.log("done.");
+	}
+}
+
+/*EXP SCRB ACCURACY*/
+if (mode === "Web" && type === "Experimental"){
+	testo = "You will be given a query and a Special Content Result Block (SCRB)";
+	if (CheckTextOnDocument(document, testo)){
+		console.log("exp scrb accuracy found");
+
+		/* prendo tutti i bottoni radio */
+		var radios = document.querySelectorAll('input[type=radio]');
+		var task = "expscrbaccuracy";
+		radiosClick(radios, task);
+
+		/* prendo la checkbox finale */
+		var lastCheckBox = document.querySelector('input[name=no_lp_issues]');
+		lastCheckBox.scrollIntoView();
+		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
+
+
 		console.log("done.");
 	}
 }

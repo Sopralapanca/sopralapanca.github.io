@@ -93,11 +93,9 @@ function get_and_set_sliders(value,task){
 	task = typeof task !== 'undefined' ? task : 'normal';
 	var allBlocks = document.getElementsByClassName("evl-slider2");
 
-
+	allBlocks[0].scrollIntoView();
 
 	for(var i=0; i<allBlocks.length; i++){
-		allBlocks[i].scrollIntoView();
-
 		let v = value;
 
 		var allBigTicks = allBlocks[i].getElementsByClassName("evl-slider2-tick-big")
@@ -116,11 +114,16 @@ function get_and_set_sliders(value,task){
 }
 
 
-function set_all_radios(block, value){
+
+function set_all_radios(block, value, setPagePosition=true){
 	const radios = block.querySelectorAll('input[type="radio"]');
 
 	for(let j = 0; j<radios.length; j++){
-		radios[j].scrollIntoView();
+		if(setPagePosition) {
+			console.log("set page position")
+			radios[j].scrollIntoView();
+		}
+
 		if(radios[j].value===value){
 			radios[j].click();
 		}
@@ -499,8 +502,52 @@ for(var i=0; i< array.length; i++){
 
 let testo;
 let value;
-/* GRAMMAR */
 
+/* RELATED QUESTION */
+if (mode === "Mobile" && type === "Side By Side"){
+	testo = 'In this task, you will be given a user-issued query and a list of computer-generated "related questions". Each related question is accompanied by a computer-selected answer passage taken from the web. Your job is to:';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("related question found");
+
+		value = '80%';
+
+		get_and_set_sliders(value, task);
+
+		radios_value = "no";
+		set_all_radios(document, radios_value, false);
+
+		var blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
+		console.log(blocks);
+		for(let j = 0; j<blocks.length; j++) {
+			var hidden = blocks[j].querySelector('input[type="hidden"]');
+			if(hidden != null){
+				hidden.value = "looks_good";
+
+				var checks = blocks[j].querySelectorAll('input[type="checkbox"]');
+				for (let k = 0; k < checks.length; k++) {
+					if (String(checks[k].name).includes("looks_good")) {
+						checks[k].checked = true;
+						checks[k]
+					}
+				}
+			}
+		}
+		radios_value = "1";
+		set_all_radios(document, radios_value, false);
+
+
+		console.log("done");
+	}
+}
+
+
+
+
+
+
+
+
+/* GRAMMAR */
 if (mode === "Mobile" && type === "Experimental"){
 	testo = 'For each query, your job is to evaluate the virtual assistant\'s Response Language Quality (i.e., the quality of language it uses to reply to the user) and its Speech Quality (i.e., the quality of the virtual assistant\'s verbalization of its response).';
 	if (CheckTextOnDocument(document, testo)){
@@ -520,7 +567,6 @@ if (mode === "Mobile" && type === "Experimental"){
 }
 
 /* HIGHLIGHTED DIFFERENCES */
-
 if (mode === "Local" && type === "Side By Side"){
 	testo = 'Tell us which side provides more useful additional information. Differences between the results are highlighted. Keep in mind that more information is not necessarily better.';
 	if (CheckTextOnDocument(document, testo)){
@@ -606,17 +652,20 @@ if (mode === "Local" && type === "Experimental"){
 
 /* mobile sxs hm e ats tipo le news */
 if (mode === "Mobile" && type === "Side By Side"){
-	console.log("mobile sxs found");
-
-	value = "80%";
-	get_and_set_sliders(value);
-
-
-	radios_value = "AboutTheSameAs";
-	set_all_radios(document, radios_value);
+	testo = 'for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("mobile sxs found");
+		value = "80%";
+		get_and_set_sliders(value);
 
 
-	console.log("done");
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value, false);
+
+		console.log("done");
+	}
+
+
 }
 
 
