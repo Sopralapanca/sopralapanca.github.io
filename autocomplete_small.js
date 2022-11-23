@@ -196,6 +196,27 @@ let task_found = false;
 let task;
 let radios;
 
+/* OTHER UO */
+testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
+if (CheckTextOnDocument(document, testo)){
+	console.log("other uo found");
+	var check = document.querySelectorAll('input[name*="Category_None"]');
+
+	for(var j = 0; j<check.length; j++){
+		check[j].scrollIntoView();
+
+		if(check[j].value==="1"){
+			check[j].click();
+
+		}
+	}
+
+	radios_value = "0";
+	set_all_radios(document, radios_value);
+
+	console.log("done");
+}
+
 /* GRAMMAR */
 if (mode === "Mobile" && type === "Experimental"){
 	text_to_find = 'For each query, your job is to evaluate the virtual assistant\'s Response Language Quality (i.e., the quality of language it uses to reply to the user) and its Speech Quality (i.e., the quality of the virtual assistant\'s verbalization of its response).';

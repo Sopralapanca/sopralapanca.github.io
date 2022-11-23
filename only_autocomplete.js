@@ -120,7 +120,6 @@ function set_all_radios(block, value, setPagePosition=true){
 
 	for(let j = 0; j<radios.length; j++){
 		if(setPagePosition) {
-			console.log("set page position")
 			radios[j].scrollIntoView();
 		}
 
