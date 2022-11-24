@@ -502,6 +502,21 @@ for(var i=0; i< array.length; i++){
 let testo;
 let value;
 
+/* SHORT DESCRIPTION */
+if (mode === "Web" && type === "Experimental"){
+
+	testo = 'In this task, you will be given an entity (e.g., a person, company, place, book, etc.) and a short description of the entity.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("short description found");
+
+		radios_value = "best";
+		set_all_radios(document, radios_value, true);
+
+		console.log("done");
+	}
+}
+
+
 /* RELATED QUESTION */
 if (mode === "Mobile" && type === "Side By Side"){
 	testo = 'In this task, you will be given a user-issued query and a list of computer-generated "related questions". Each related question is accompanied by a computer-selected answer passage taken from the web. Your job is to:';
