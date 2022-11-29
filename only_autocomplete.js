@@ -620,11 +620,12 @@ if (mode === "Local" && type === "Experimental"){
 
 /* OTHER UO */
 testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
+let j;
 if (CheckTextOnDocument(document, testo)){
 	console.log("other uo found");
 	var check = document.querySelectorAll('input[name*="Category_None"]');
 
-	for(var j = 0; j<check.length; j++){
+	for(j = 0; j<check.length; j++){
 		check[j].scrollIntoView();
 
 		if(check[j].value==="1"){
@@ -707,7 +708,7 @@ if (mode === "Search Product" && type === "Experimental"){
 
 		const clarity = document.querySelectorAll('input[name="clear_need"]');
 
-		for(var j = 0; j<clarity.length; j++){
+		for(j = 0; j<clarity.length; j++){
 			if(clarity[j].value==="clear"){
 				var tmp = clarity[j];
 				tmp.click();
@@ -717,7 +718,7 @@ if (mode === "Search Product" && type === "Experimental"){
 
 		const confirm_button = document.querySelectorAll('input[name="acknowledgement"]');
 
-		for(var j = 0; j<confirm_button.length; j++){
+		for(j = 0; j<confirm_button.length; j++){
 			if(confirm_button[j].value==="1"){
 				var tmp = confirm_button[j];
 				tmp.click();
@@ -780,15 +781,13 @@ if (istructionsBodyText != null){
 
 		const check = document.querySelectorAll('input[name*="landing_page.N"]');
 
-		for(var j = 0; j<check.length; j++){
-			check[j].scrollIntoView();
+		for(j = 0; j<check.length; j++){
 
 			if(check[j].value==="1"){
 				check[j].click();
 
 			}
 			if(skip){
-				console.log("ci sono");
 				break;
 			}
 		}
@@ -819,7 +818,7 @@ if (mode === "SafeSearch" && type === "Result Review"){
 			editable4Text = editable4.innerText;
 
 			var url = editable4.getElementsByTagName('a'), hrefs = [];
-			for(var j=0; j<url.length; j++){
+			for(j = 0; j<url.length; j++){
 				var win = window.open(url[j].href, '_blank');
 
 			}
@@ -827,7 +826,7 @@ if (mode === "SafeSearch" && type === "Result Review"){
 
 			var radios = document.querySelectorAll('input[name=SafeSearch3]');
 
-			for(var j = 0; j<radios.length; j++){
+			for(j = 0; j<radios.length; j++){
 				if(radios[j].value==="Not Porn"){
 					var tmp = radios[j];
 					setTimeout(function(){tmp.click()},5000+(Math.round(Math.random()*3000)));
@@ -864,7 +863,7 @@ if (mode === "Web" && type === "Experimental"){
 				editable14Text = editable14.innerText;
 
 				var url = editable14.getElementsByTagName('a'), hrefs = [];
-				for(var j=0; j<url.length; j++){
+				for(j = 0; j<url.length; j++){
 					var win = window.open(url[j].href, '_blank');
 					/* non funziona il close
 					setTimeout(function() { win.close();}, 10); */
@@ -875,7 +874,7 @@ if (mode === "Web" && type === "Experimental"){
 			/* uo video da 6 minuti */
 			const elements = document.querySelectorAll(`[href^="https://www.google.com/evaluation/url"]`);
 			if (elements.length > 0){
-				for(var j=0; j<elements.length; j++){
+				for(j = 0; j<elements.length; j++){
 					var win = window.open(elements[j].href, '_blank');
 
 				}
@@ -887,7 +886,7 @@ if (mode === "Web" && type === "Experimental"){
 
 			var check = document.querySelectorAll('input[name^=isNoOtherDIsturbingOffensive]');
 
-			for(var j = 0; j<check.length; j++){
+			for(j = 0; j<check.length; j++){
 				if(check[j].value==="1"){
 					var tmp = check[j];
 					tmp.click();
@@ -906,7 +905,7 @@ if (mode === "Web" && type === "Experimental"){
 
 				for(var i = 0; i<links.length; i++){
 					var url = links[i].getElementsByTagName('a'), hrefs = [];
-					for(var j=0; j<url.length; j++){
+					for(j = 0; j<url.length; j++){
 						url[j].scrollIntoView();
 						var win = window.open(url[j].href, '_blank');
 
@@ -916,7 +915,7 @@ if (mode === "Web" && type === "Experimental"){
 
 				var radiobutton = document.querySelectorAll('input[type=radio]');
 
-				for(var j = 0; j<radiobutton.length; j++){
+				for(j = 0; j<radiobutton.length; j++){
 					if(radiobutton[j].value==="likely_yes"){
 						radiobutton[j].click();
 
@@ -1041,7 +1040,7 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 
 			var radiobutton = document.querySelectorAll('input[type=radio]');
 
-			for(var j = 0; j<radiobutton.length; j++){
+			for(j = 0; j<radiobutton.length; j++){
 				if(radiobutton[j].value==="Good"){
 					radiobutton[j].click();
 				}
@@ -1128,7 +1127,7 @@ if (mode === "Web" && type === "Experimental"){
 
 			var tableBlocks = document.getElementsByClassName("item_table ewok-editor-editable-columngroup");
 
-			for(var j=0; j<tableBlocks.length; j++){
+			for(j = 0; j<tableBlocks.length; j++){
 
 				var radios = tableBlocks[j].querySelectorAll('input[type=radio]');
 				var task = "combined";
@@ -1145,7 +1144,7 @@ if (mode === "Web" && type === "Experimental"){
 
 			if (editable597 != null){
 				var url = editable597.getElementsByTagName('a'), hrefs = [];
-				for(var j=0; j<url.length; j++){
+				for(j = 0; j<url.length; j++){
 					var win = window.open(url[j].href, '_blank');
 
 				}
@@ -1153,7 +1152,7 @@ if (mode === "Web" && type === "Experimental"){
 
 
 			var radios = document.querySelectorAll('input[type=checkbox]');
-			for(var j = 0; j<radios.length; j++){
+			for(j = 0; j<radios.length; j++){
 				if(radios[j].name==="politics" || radios[j].name==="medical" ){
 					var tmp = radios[j];
 					tmp.click();
@@ -1163,7 +1162,7 @@ if (mode === "Web" && type === "Experimental"){
 
 			var radios = document.querySelectorAll('input[type=radio]');
 
-			for(var j = 0; j<radios.length; j++){
+			for(j = 0; j<radios.length; j++){
 				if(radios[j].value==="likely_yes" || radios[j].value==="persuade"){
 					var tmp = radios[j];
 					tmp.click();
@@ -1193,7 +1192,7 @@ if (mode === "Web" && type === "Experimental"){
 
 			var editable387 = document.getElementById("editable-387");
 			var url = editable387.getElementsByTagName('a'), hrefs = [];
-			for(var j=0; j<url.length; j++){
+			for(j = 0; j<url.length; j++){
 				var win = window.open(url[j].href, '_blank');
 
 			}
@@ -1389,7 +1388,7 @@ if (mode === "YouTube" && type === "Experimental"){
 
 		/* confermo tutti i video aperti */
 		var check = document.querySelectorAll('input[name=confirm-watched-all-videos]');
-		for(var j = 0; j<check.length; j++){
+		for(j = 0; j<check.length; j++){
 			if(check[j].value==="1"){
 				var tmp = check[j];
 				setTimeout(function(){tmp.click()},2000+(Math.round(Math.random()*3000)));
