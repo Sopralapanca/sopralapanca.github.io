@@ -501,6 +501,20 @@ for(var i=0; i< array.length; i++){
 
 let testo;
 let value;
+let blocks;
+
+/* QUERY-TOPIC RELEVANT */
+if (mode === "Web" && type === "Experimental"){
+	testo = 'In this task, you will be given a query and a topic. If the query intent is directly relevant to the topic, you will be asked three questions about the intent of the query with respect to the topic.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("query topic relevant");
+		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
+		console.log("done");
+	}
+}
+
+
+
 
 /* SHORT DESCRIPTION */
 if (mode === "Web" && type === "Experimental"){
@@ -530,8 +544,8 @@ if (mode === "Mobile" && type === "Side By Side"){
 		radios_value = "no";
 		set_all_radios(document, radios_value, false);
 
-		var blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
-		console.log(blocks);
+		blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
+
 		for(let j = 0; j<blocks.length; j++) {
 			var hidden = blocks[j].querySelector('input[type="hidden"]');
 			if(hidden != null){
@@ -906,22 +920,14 @@ if (mode === "Web" && type === "Experimental"){
 				for(var i = 0; i<links.length; i++){
 					var url = links[i].getElementsByTagName('a'), hrefs = [];
 					for(j = 0; j<url.length; j++){
-						url[j].scrollIntoView();
 						var win = window.open(url[j].href, '_blank');
 
 					}
 				}
 
+				radios_value = "likely_yes";
+				set_all_radios(document, radios_value, setPagePosition=false);
 
-				var radiobutton = document.querySelectorAll('input[type=radio]');
-
-				for(j = 0; j<radiobutton.length; j++){
-					if(radiobutton[j].value==="likely_yes"){
-						radiobutton[j].click();
-
-
-					}
-				}
 			}
 
 			console.log("done");
@@ -944,7 +950,7 @@ if (time === "4 minutes"){
 
 			console.log("pq da 4 found");
 
-			var blocks = document.getElementsByClassName("ewok-send-to-device");
+			blocks = document.getElementsByClassName("ewok-send-to-device");
 
 			for(var i=0; i<blocks.length;i++){
 
