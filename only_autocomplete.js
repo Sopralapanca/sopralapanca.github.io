@@ -40,7 +40,11 @@ async function setSliders(block, value, task){
 	}
 
 	if(value === "75%"){
-		hiddenValue = "3";
+		if(task === "normal")
+			hiddenValue = "3";
+		else if(task === 'uo_not_at_all'){
+			hiddenValue = "2";
+		}
 	}
 
 	if(value === "80%"){
@@ -503,6 +507,30 @@ let testo;
 let value;
 let blocks;
 
+/* UO NOT AT ALL */
+if (mode === "Web" && type === "Experimental") {
+	testo = "In this task, you will be given links to landing pages, and asked to what extent each landing page is";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("UO NOT AT ALL FOUND");
+
+		var div_urls = document.getElementsByClassName("wrap-long-url");
+		for(let j = 0; j<div_urls.length; j++){
+			let url = div_urls[j].getElementsByTagName('a')[0].innerHTML;
+			var win = window.open(url, '_blank');
+			j++;
+
+		}
+
+		value = '75%';
+
+		get_and_set_sliders(value, "uo_not_at_all");
+		console.log("done");
+	}
+}
+
+
+
+
 /* QUERY-TOPIC RELEVANT */
 if (mode === "Web" && type === "Experimental"){
 	testo = 'In this task, you will be given a query and a topic. If the query intent is directly relevant to the topic, you will be asked three questions about the intent of the query with respect to the topic.';
@@ -539,7 +567,7 @@ if (mode === "Mobile" && type === "Side By Side"){
 
 		value = '80%';
 
-		get_and_set_sliders(value, task);
+		get_and_set_sliders(value);
 
 		radios_value = "no";
 		set_all_radios(document, radios_value, false);
