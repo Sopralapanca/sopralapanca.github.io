@@ -98,6 +98,9 @@ function get_and_set_sliders(value,task,search_string){
 	var allBlocks = document.getElementsByClassName("evl-slider2");
 
 	allBlocks[0].scrollIntoView();
+	setTimeout(() => {
+		window.scrollBy(0,-400)
+	}, 200);
 	let v = value;
 
 	for(var i=0; i<allBlocks.length; i++){
