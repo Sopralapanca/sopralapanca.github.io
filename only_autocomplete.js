@@ -92,15 +92,16 @@ async function setSliders(block, value, task){
 }
 
 /*get all evl-slider2 and set values */
-function get_and_set_sliders(value,task){
+function get_and_set_sliders(value,task,search_string){
 
 	task = typeof task !== 'undefined' ? task : 'normal';
 	var allBlocks = document.getElementsByClassName("evl-slider2");
 
 	allBlocks[0].scrollIntoView();
+	let v = value;
 
 	for(var i=0; i<allBlocks.length; i++){
-		let v = value;
+
 
 		var allBigTicks = allBlocks[i].getElementsByClassName("evl-slider2-tick-big")
 		let elem;
@@ -111,7 +112,6 @@ function get_and_set_sliders(value,task){
 				v = "66.6667%";
 			}
 		}
-
 
 		setSliders(allBlocks[i],v,task);
 	}
@@ -365,12 +365,30 @@ async function radiosClick(radios, task) {
 
 }
 
-function CheckTextOnDocument(block, testo){
-	if ((block.documentElement.textContent || block.documentElement.innerText).indexOf(testo) > -1) {
-		return true;
-	}else{
-		return false;
+function CheckTextOnDocument(block, string){
+	let first = null;
+
+	try {
+		first = block.documentElement.textContent;
+		if(String(first).includes(string))
+			return true;
+	} catch (error) {
 	}
+	try {
+		first = block.documentElement.innerText;
+		if(String(first).includes(string))
+			return true;
+	} catch (error) {
+	}
+	try {
+		first = block.documentElement.innerHTML;
+		if(String(first).includes(string))
+			return true;
+
+	} catch (error) {
+	}
+	return false;
+
 }
 
 var header = document.getElementsByClassName("ewok-task-action-header")[0];
@@ -507,6 +525,87 @@ let testo;
 let value;
 let blocks;
 
+let winnerSide;
+let otherSide;
+
+
+
+/* QUERY-TOPIC RELEVANT */
+if (mode === "Web" && type === "Experimental"){
+	testo = 'In this task, you will be given a query and a topic. If the query intent is directly relevant to the topic, you will be asked three questions about the intent of the query with respect to the topic.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("query topic relevant");
+		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
+		console.log("done");
+	}
+}
+
+
+/* MINI NEWS AND BLOGS */
+if (mode === "News and Blogs" && type === "Side By Side") {
+	testo = "A story is important if it would typically feature prominently on the front page of national or local newspapers, or major publications on the topic.";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("MINI NEWS AND BLOGS FOUND");
+
+		var querybox = document.querySelector('h2[role="textbox"]');
+		var tmp = querybox.innerText.split(":")[1];
+		var strings = tmp.trim().split(" ");
+		strings.splice(strings.length - 2, 2);
+
+		var query = strings.join(" ");
+
+		testo = "The right side did not generate any results."
+		if (CheckTextOnDocument(document, testo)) {
+			winnerSide = "left side";
+			otherSide = "right side";
+			radios_value = "MuchBetterThan";
+		}else{
+			winnerSide = "right side";
+			otherSide = "left side";
+			radios_value = "MuchWorseThan";
+		}
+
+		var allBlocks = document.getElementsByClassName("evl-slider2");
+
+		for (let k = 0; k < allBlocks.length; k++) {
+			var s = allBlocks[k].textContent;
+
+			if(s.includes("How important is this story for the topic?")){
+				value = '80%';
+			}
+
+			if(s.includes("How up-to-date is this article as of the time of the query above?")) {
+				value = '100%';
+			}
+
+			if(s.includes("How informative is the title?")) {
+				value = '80%';
+			}
+
+			if(s.includes("Page Quality Rating")) {
+				value = '60%';
+			}
+
+			setSliders(allBlocks[k],value);
+
+		}
+
+		var list_of_srtings =
+			[otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
+		];
+
+
+
+		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
+		document.getElementById('ewok-buds-validation-comment').value = item;
+		set_all_radios(document, radios_value, false);
+		console.log("done");
+	}
+}
+
+
+
+
 /* UO NOT AT ALL */
 if (mode === "Web" && type === "Experimental") {
 	testo = "In this task, you will be given links to landing pages, and asked to what extent each landing page is";
@@ -527,21 +626,6 @@ if (mode === "Web" && type === "Experimental") {
 		console.log("done");
 	}
 }
-
-
-
-
-/* QUERY-TOPIC RELEVANT */
-if (mode === "Web" && type === "Experimental"){
-	testo = 'In this task, you will be given a query and a topic. If the query intent is directly relevant to the topic, you will be asked three questions about the intent of the query with respect to the topic.';
-	if (CheckTextOnDocument(document, testo)){
-		console.log("query topic relevant");
-		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
-		console.log("done");
-	}
-}
-
-
 
 
 /* SHORT DESCRIPTION */
