@@ -563,6 +563,7 @@ if (mode === "Search Product" && type === "Experimental") {
 	testo = "You will first answer a question about the clarity of user needs based on the information provided by the query, user location, and user intent. Next, you will be asked to rate each result using the Needs Met scale based on your understanding of the needs of the user who issued the query.";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("BACKGROUND AND REPUTATION");
+		OpenAllLinks(wait_time_sec);
 		set_all_radios(document, "clear", true);
 		var lastCheckBox = document.querySelector('input[type="checkbox"]');
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
