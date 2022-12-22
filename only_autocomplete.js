@@ -120,8 +120,6 @@ function get_and_set_sliders(value,task,search_string){
 	}
 }
 
-
-
 function set_all_radios(block, value, setPagePosition=true){
 	const radios = block.querySelectorAll('input[type="radio"]');
 
@@ -135,7 +133,6 @@ function set_all_radios(block, value, setPagePosition=true){
 		}
 	}
 }
-
 
 async function radiosClick(radios, task) {
 	let j;
@@ -394,17 +391,21 @@ function CheckTextOnDocument(block, string){
 
 }
 
+
 /* open all links */
-function OpenAllLinks() {
+function OpenAllLinks(wait_time) {
 	var buds_html = document.querySelectorAll('[class=ewok-buds-result-html][id^=ewok-buds-display-block]');
+
 	const mySet1 = new Set();
+	var opened_pages = [];
 
 	for(var i=0; i< buds_html.length; i++){
 		try{
 			var a = buds_html[i].querySelector("a");
 			var url = a.dataset.oldhref;
 			if(typeof url !== "undefined"){
-				mySet1.add(url);
+				var s = decodeURIComponent(url).split("q")[1].replace("=", "");
+				mySet1.add(s);
 			}
 
 		} catch (error){
@@ -415,9 +416,18 @@ function OpenAllLinks() {
 
 	const array = Array.from(mySet1);
 
-	for(var i=0; i< array.length; i++){
-		var win = window.open(array[i], '_blank');
+	for(i=0; i<array.length; i++){
+		let openWindow = window.open(array[i], '_blank');
+		opened_pages.push(openWindow);
 	}
+
+	setTimeout(()=>{
+		for(let win of opened_pages){
+			win.close();
+		}
+	}, wait_time);
+
+
 }
 
 var header = document.getElementsByClassName("ewok-task-action-header")[0];
@@ -448,6 +458,9 @@ var instructionDescription = document.getElementsByClassName("instructions-descr
 
 var time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
 time = time.textContent;
+var wait_time = time.split(" ")[2];
+var wait_time_sec = ((parseInt(wait_time) * 60)/2)*1000;
+
 
 var editableText = null;
 var disclaimerText = null;
@@ -526,8 +539,6 @@ if(editable17 != null){
 	editable17Text = editable17.innerText;
 }
 
-
-
 let testo;
 let value;
 let blocks;
@@ -546,6 +557,22 @@ if (mode === "Web" && type === "Experimental"){
 		console.log("done");
 	}
 }
+
+/* BACKGROUND AND REPUTATION */
+if (mode === "Search Product" && type === "Experimental") {
+	testo = "You will first answer a question about the clarity of user needs based on the information provided by the query, user location, and user intent. Next, you will be asked to rate each result using the Needs Met scale based on your understanding of the needs of the user who issued the query.";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("BACKGROUND AND REPUTATION");
+		set_all_radios(document, "clear", true);
+		var lastCheckBox = document.querySelector('input[type="checkbox"]');
+		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
+		value = "80%";
+		get_and_set_sliders(value);
+
+		console.log("done");
+	}
+}
+
 /* ROSETTA */
 if (mode === "Rosetta" && type === "Experimental") {
 	testo = "In this task, you will be asked to rate the quality of two different translations of the source text, using the rating scale below";
@@ -573,8 +600,6 @@ if (mode === "Rosetta" && type === "Experimental") {
 		console.log("done");
 	}
 }
-
-
 
 /* MINI NEWS AND BLOGS */
 if (mode === "News and Blogs" && type === "Side By Side") {
@@ -831,7 +856,7 @@ if (mode === "Mobile" && type === "Side By Side"){
 	testo = 'for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("mobile sxs found");
-		OpenAllLinks();
+		OpenAllLinks(wait_time_sec);
 		value = "70%";
 		get_and_set_sliders(value);
 
@@ -1087,34 +1112,6 @@ if (mode === "Web" && type === "Experimental"){
 
 
 
-
-/* PQ DA 4 */
-/* PROVATA E FUNZIONA */
-if (time === "4 minutes"){
-	if (mode === "Mobile" && type === "Experimental"){
-
-		if (editable3Text != null && editable3Text.includes("Please visit each landing page in this task and assign a Page Quality rating for each landing page. Page Quality ratings should be determined based on instructions in the")){
-
-			console.log("pq da 4 found");
-
-			blocks = document.getElementsByClassName("ewok-send-to-device");
-
-			for(var i=0; i<blocks.length;i++){
-
-				var win = window.open(blocks[i].innerText, '_blank');
-			}
-
-			console.log("done");
-
-		}
-
-	}
-}
-
-
-
-
-
 /* AUDIO SXS E NON SXS DA 1M */
 if ((mode === "Headphones" && type === "Side By Side") ||
 	(mode === "Web" && type === "Experimental")){
@@ -1133,15 +1130,7 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 
 			leftSide.click();
 
-			var time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
-			time = time.textContent;
-
-
-			var wait_time = time.split(" ")[2];
-			var sec = ((parseInt(wait_time) * 60)/2)*1000;
-			console.log(wait_time);
-			console.log(sec);
-			setTimeout(function(){rightSide.click()},sec);
+			setTimeout(function(){rightSide.click()},wait_time_sec);
 
 
 			var side = document.getElementById("AboutTheSameAs");
@@ -1592,6 +1581,11 @@ if (mode === "Local" && type === "Side By Side"){
 	}
 }
 
-
+/* NEEDS MET */
+if (mode === "Mobile" && type === "Experimental") {
+	console.log("NEEDS MET FOUND");
+	OpenAllLinks(wait_time_sec);
+	console.log("done");
+}
 /***** FINE AUTOCOMPLETE *****/
 
