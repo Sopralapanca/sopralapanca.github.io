@@ -551,7 +551,9 @@ if (mode === "Rosetta" && type === "Experimental") {
 	testo = "In this task, you will be asked to rate the quality of two different translations of the source text, using the rating scale below";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("ROSETTA FOUND");
-		var evaluation = Array.from({length: 2}, () => Math.floor(Math.random()*(6 - 4) + 4));
+		let min = 4;
+		let max = 7;
+		var evaluation = Array.from({length: 2}, () => Math.floor(Math.random()*(max - min) + min));
 
 		var r = document.querySelectorAll('input[type="radio"]');
 
@@ -830,9 +832,8 @@ if (mode === "Mobile" && type === "Side By Side"){
 	if (CheckTextOnDocument(document, testo)){
 		console.log("mobile sxs found");
 		OpenAllLinks();
-		value = "80%";
+		value = "70%";
 		get_and_set_sliders(value);
-
 
 		radios_value = "AboutTheSameAs";
 		set_all_radios(document, radios_value, false);
