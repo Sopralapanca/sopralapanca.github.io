@@ -803,6 +803,7 @@ if (mode === "Mobile" && type === "Side By Side"){
 	testo = 'for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("mobile sxs found");
+		OpenAllLinks();
 		value = "80%";
 		get_and_set_sliders(value);
 
