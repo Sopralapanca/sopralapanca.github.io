@@ -394,6 +394,32 @@ function CheckTextOnDocument(block, string){
 
 }
 
+/* open all links */
+function OpenAllLinks() {
+	var buds_html = document.querySelectorAll('[class=ewok-buds-result-html][id^=ewok-buds-display-block]');
+	const mySet1 = new Set();
+
+	for(var i=0; i< buds_html.length; i++){
+		try{
+			var a = buds_html[i].querySelector("a");
+			var url = a.dataset.oldhref;
+			if(typeof url !== "undefined"){
+				mySet1.add(url);
+			}
+
+		} catch (error){
+			console.log("open all links");
+			console.log(error);
+		}
+	}
+
+	const array = Array.from(mySet1);
+
+	for(var i=0; i< array.length; i++){
+		var win = window.open(array[i], '_blank');
+	}
+}
+
 var header = document.getElementsByClassName("ewok-task-action-header")[0];
 header = header != undefined ? header.innerText:null;
 /* mode restituisce youtube, mobile, local ecc */
@@ -500,29 +526,7 @@ if(editable17 != null){
 	editable17Text = editable17.innerText;
 }
 
-/* open all links */
-var buds_html = document.querySelectorAll('[class=ewok-buds-result-html][id^=ewok-buds-display-block]');
-const mySet1 = new Set();
 
-for(var i=0; i< buds_html.length; i++){
-	try{
-		var a = buds_html[i].querySelector("a");
-		var url = a.dataset.oldhref;
-		if(typeof url !== "undefined"){
-			mySet1.add(url);
-		}
-
-	} catch (error){
-		console.log("open all links");
-		console.log(error);
-	}
-}
-
-const array = Array.from(mySet1);
-
-for(var i=0; i< array.length; i++){
-	var win = window.open(array[i], '_blank');
-}
 
 let testo;
 let value;
