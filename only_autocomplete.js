@@ -546,6 +546,32 @@ if (mode === "Web" && type === "Experimental"){
 		console.log("done");
 	}
 }
+/* ROSETTA */
+if (mode === "Rosetta" && type === "Experimental") {
+	testo = "In this task, you will be asked to rate the quality of two different translations of the source text, using the rating scale below";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("ROSETTA FOUND");
+		var evaluation = Array.from({length: 2}, () => Math.floor(Math.random()*(6 - 4) + 4));
+
+		var r = document.querySelectorAll('input[type="radio"]');
+
+		for(let j = 0; j<r.length; j++){
+			r[j].scrollIntoView();
+
+			if(r[j].name==="sys0" && r[j].value===String(evaluation[1])){
+
+				r[j].click();
+			}
+
+			if(r[j].name==="sys1" && r[j].value===String(evaluation[0])){
+				r[j].click();
+			}
+		}
+
+		console.log("done");
+	}
+}
+
 
 
 /* MINI NEWS AND BLOGS */
