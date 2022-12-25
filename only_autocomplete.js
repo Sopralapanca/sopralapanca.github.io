@@ -1658,7 +1658,7 @@ if (mode === "Mobile" && type === "Experimental") {
 		OpenAllLinks(wait_time_sec);
 
 		value = "80%";
-		/get_and_set_sliders(value);*/
+		get_and_set_sliders(value);
 
 		console.log("done");
 	}
