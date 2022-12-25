@@ -92,10 +92,11 @@ async function setSliders(block, value, task){
 }
 
 /*get all evl-slider2 and set values */
-function get_and_set_sliders(value,task,search_string){
+function get_and_set_sliders(value,task){
 
 	task = typeof task !== 'undefined' ? task : 'normal';
-	var allBlocks = document.getElementsByClassName("evl-slider2");
+	var allBlocks = document.querySelectorAll(
+		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight");
 
 	allBlocks[0].scrollIntoView();
 	setTimeout(() => {
@@ -104,19 +105,26 @@ function get_and_set_sliders(value,task,search_string){
 	let v = value;
 
 	for(var i=0; i<allBlocks.length; i++){
+		if(String(allBlocks[i].innerText).includes("No Rating Required")){
+			continue;
 
+		}
 
 		var allBigTicks = allBlocks[i].getElementsByClassName("evl-slider2-tick-big")
 		let elem;
 		for (elem of allBigTicks){
 			var tmp = elem.getAttribute("data-tick");
 
-			if(tmp == "Too informative"){
+			if(tmp === "Too informative"){
 				v = "66.6667%";
 			}
 		}
+		console.log(allBlocks[i]);
+		var evlBlock = allBlocks[i].getElementsByClassName("evl-slider2");
+		for(let eval of evlBlock){
+			setSliders(eval,v,task);
+		}
 
-		setSliders(allBlocks[i],v,task);
 	}
 }
 
@@ -394,36 +402,48 @@ function CheckTextOnDocument(block, string){
 
 /* open all links */
 function OpenAllLinks(wait_time) {
-	var buds_html = document.querySelectorAll('[class=ewok-buds-result-html][id^=ewok-buds-display-block]');
+	var allBlocks = document.querySelectorAll(
+		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight");
 
 	const mySet1 = new Set();
 	var opened_pages = [];
 
-	for(var i=0; i< buds_html.length; i++){
-		try{
-			var a = buds_html[i].querySelector("a");
-			var url = a.dataset.oldhref;
-			if(typeof url !== "undefined"){
-				var s = decodeURIComponent(url).split("q")[1].replace("=", "");
-				mySet1.add(s);
-			}
+	for(var i=0; i<allBlocks.length; i++) {
 
-		} catch (error){
-			console.log("open all links");
-			console.log(error);
+		if (String(allBlocks[i].innerText).includes("No Rating Required")) {
+			continue;
 		}
+
+		var buds_html = allBlocks[i].querySelectorAll('[class=ewok-buds-result-html][id^=ewok-buds-display-block]');
+
+
+
+		for (var j = 0; j < buds_html.length; j++) {
+			try {
+				var a = buds_html[j].querySelector("a");
+				var url = a.dataset.oldhref;
+				if (typeof url !== "undefined") {
+					var s = decodeURIComponent(url).split("q")[1].replace("=", "");
+					mySet1.add(s);
+				}
+
+			} catch (error) {
+				console.log("open all links");
+				console.log(error);
+			}
+		}
+
 	}
 
 	const array = Array.from(mySet1);
 
-	for(i=0; i<array.length; i++){
-		let openWindow = window.open(array[i], '_blank');
-		self.focus();
+	for (j = 0; j < array.length; j++) {
+		let openWindow = window.open(array[j], '_blank');
 		opened_pages.push(openWindow);
 	}
 
-	setTimeout(()=>{
-		for(let win of opened_pages){
+	setTimeout(() => {
+		for (let win of opened_pages) {
 			win.close();
 		}
 	}, wait_time);
@@ -442,7 +462,6 @@ function ExactText(element, testo){
 	for(let block of blocks){
 		let s = String(block.innerText).trim().replace((/  |\r\n|\n|\r/gm),"");
 		if(s===testo){
-			console.log("ci sono");
 			return true;
 		}
 	}
@@ -593,7 +612,7 @@ if (mode === "Mobile" && type === "Experimental"){
 				"user wanted to search information about " + query + ", the result is a scrb that shows helpful information",
 				"this result is very helpful for the query " +query+".",
 				"the query is "+query+" this result is very helpful",
-				"The result does not have nay problem with the query",
+				"The result does not have any problem with the query",
 			];
 
 
@@ -1639,7 +1658,7 @@ if (mode === "Mobile" && type === "Experimental") {
 		OpenAllLinks(wait_time_sec);
 
 		value = "80%";
-		/*get_and_set_sliders(value);*/
+		/get_and_set_sliders(value);*/
 
 		console.log("done");
 	}
