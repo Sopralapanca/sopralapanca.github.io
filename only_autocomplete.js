@@ -1586,6 +1586,10 @@ if (mode === "Local" && type === "Side By Side"){
 if (mode === "Mobile" && type === "Experimental") {
 	console.log("NEEDS MET FOUND");
 	OpenAllLinks(wait_time_sec);
+
+	value = "80%";
+	get_and_set_sliders(value);
+
 	console.log("done");
 }
 /***** FINE AUTOCOMPLETE *****/
