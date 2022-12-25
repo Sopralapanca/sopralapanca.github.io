@@ -423,7 +423,7 @@ function OpenAllLinks(wait_time) {
 				var a = buds_html[j].querySelector("a");
 				var url = a.dataset.oldhref;
 				if (typeof url !== "undefined") {
-					var s = decodeURIComponent(url).split("q")[1].replace("=", "");
+					var s = decodeURIComponent(url).split("q=")[1];
 					mySet1.add(s);
 				}
 
