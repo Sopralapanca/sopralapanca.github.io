@@ -418,6 +418,7 @@ function OpenAllLinks(wait_time) {
 
 	for(i=0; i<array.length; i++){
 		let openWindow = window.open(array[i], '_blank');
+		self.focus();
 		opened_pages.push(openWindow);
 	}
 
@@ -428,6 +429,24 @@ function OpenAllLinks(wait_time) {
 	}, wait_time);
 
 
+}
+
+
+function GetQuery(){
+	let query = document.getElementsByClassName("ewok-buds-query ewok-task-query")[0].innerHTML;
+	return String(query);
+}
+
+function ExactText(element, testo){
+	let blocks = element.getElementsByClassName("ewok-buds-card");
+	for(let block of blocks){
+		let s = String(block.innerText).trim().replace((/  |\r\n|\n|\r/gm),"");
+		if(s===testo){
+			console.log("ci sono");
+			return true;
+		}
+	}
+	return false;
 }
 
 var header = document.getElementsByClassName("ewok-task-action-header")[0];
@@ -556,6 +575,36 @@ if (mode === "Web" && type === "Experimental"){
 		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
 		console.log("done");
 	}
+}
+
+/* PSYCHO */
+if (mode === "Mobile" && type === "Experimental"){
+	testo = "InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale."
+	if(ExactText(document, testo)){
+		console.log("psycho");
+
+		value = "90%";
+		get_and_set_sliders(value);
+		let query = GetQuery();
+
+		var list_of_srtings =
+			["User intent was to search information about " + query + ". The result is very helpful because provides helpful information about " + query+"",
+				"user intent was to search information about " + query + ", the result provides correct information",
+				"user wanted to search information about " + query + ", the result is a scrb that shows helpful information",
+				"this result is very helpful for the query " +query+".",
+				"the query is "+query+" this result is very helpful",
+				"The result does not have nay problem with the query",
+			];
+
+
+
+		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
+		document.getElementsByName('comment')[0].value = item;
+
+
+		console.log("done");
+	}
+
 }
 
 /* BACKGROUND AND REPUTATION */
@@ -1584,13 +1633,17 @@ if (mode === "Local" && type === "Side By Side"){
 
 /* NEEDS MET */
 if (mode === "Mobile" && type === "Experimental") {
-	console.log("NEEDS MET FOUND");
-	OpenAllLinks(wait_time_sec);
+	testo="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.";
+	if(ExactText(document, testo)){
+		console.log("NEEDS MET FOUND");
+		OpenAllLinks(wait_time_sec);
 
-	value = "80%";
-	get_and_set_sliders(value);
+		value = "80%";
+		get_and_set_sliders(value);
 
-	console.log("done");
+		console.log("done");
+	}
+
 }
 /***** FINE AUTOCOMPLETE *****/
 
