@@ -119,7 +119,7 @@ function get_and_set_sliders(value,task){
 				v = "66.6667%";
 			}
 		}
-		console.log(allBlocks[i]);
+
 		var evlBlock = allBlocks[i].getElementsByClassName("evl-slider2");
 		for(let eval of evlBlock){
 			setSliders(eval,v,task);
@@ -416,14 +416,14 @@ function OpenAllLinks(wait_time) {
 
 		var buds_html = allBlocks[i].querySelectorAll('[class=ewok-buds-result-html][id^=ewok-buds-display-block]');
 
-
-
 		for (var j = 0; j < buds_html.length; j++) {
 			try {
 				var a = buds_html[j].querySelector("a");
 				var url = a.dataset.oldhref;
 				if (typeof url !== "undefined") {
-					var s = decodeURIComponent(url).split("q=")[1];
+					var uri = String(decodeURIComponent(url))
+					let [first, ...s] = uri.split("q=")
+					s = s.join("q=");
 					mySet1.add(s);
 				}
 
