@@ -96,7 +96,7 @@ function get_and_set_sliders(value,task){
 
 	task = typeof task !== 'undefined' ? task : 'normal';
 	var allBlocks = document.querySelectorAll(
-		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight");
+		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
 	allBlocks[0].scrollIntoView();
 	setTimeout(() => {
