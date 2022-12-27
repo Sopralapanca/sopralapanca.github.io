@@ -1286,7 +1286,7 @@ if (mode === "Local" && type === "Side By Side"){
 	testo="Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results from the perspective of a mobile user";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("SXS LOCAL FOUND");
-		value = "75%";
+		value = "70%";
 	}
 
 	OpenAllLinks(wait_time_sec);
