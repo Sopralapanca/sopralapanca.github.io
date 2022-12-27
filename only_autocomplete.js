@@ -130,16 +130,16 @@ function get_and_set_sliders(value,task){
 
 function set_all_radios(block, value, setPagePosition=true){
 	const radios = block.querySelectorAll('input[type="radio"]');
-
-	for(let j = 0; j<radios.length; j++){
-		if(setPagePosition) {
-			radios[j].scrollIntoView();
-		}
-
-		if(radios[j].value===value){
-			radios[j].click();
-		}
+	if(setPagePosition) {
+		radios[0].scrollIntoView();
 	}
+	setTimeout(() => {
+		for(let j = 0; j<radios.length; j++){
+			if(radios[j].value===value){
+				radios[j].click();
+			}
+		}
+	}, 2000+(Math.round(Math.random()*3000)));
 }
 
 async function radiosClick(radios, task) {
@@ -169,7 +169,6 @@ async function radiosClick(radios, task) {
 
 		}
 	}
-
 
 	if (task === "pquo"){
 		for(j = 0; j<radios.length; j++){
@@ -232,16 +231,6 @@ async function radiosClick(radios, task) {
 
 	}
 
-	if (task === "ytsxsracy"){
-		for(j = 0; j<radios.length; j++){
-			if(radios[j].value === "0"){
-				tmp = radios[j];
-				await sleep(2000+(Math.round(Math.random()*3000)));
-				tmp.click();
-			}
-		}
-	}
-
 	if (task === "ytexpadult"){
 		/* forse si può semplificare con solo i value 0  */
 		for(j = 0; j<radios.length; j++){
@@ -299,7 +288,6 @@ async function radiosClick(radios, task) {
 		}
 	}
 
-
 	if (task === "ytpquo" || task === "commonpq"){
 		for(j = 0; j<radios.length; j++){
 			if(radios[j].name==="badpage" &&  radios[j].value==="no"){
@@ -310,66 +298,6 @@ async function radiosClick(radios, task) {
 			}
 		}
 	}
-
-	if (task === "completions"){
-		for(j = 0; j<radios.length; j++){
-			if(radios[j].value==="0"){
-				tmp = radios[j];
-				await sleep(2000+(Math.round(Math.random()*3000)));
-				tmp.click();
-
-			}
-		}
-	}
-
-	if (task === "combined"){
-		for(j = 0; j<radios.length; j++){
-			if(radios[j].value==="1"){
-				tmp = radios[j];
-				await sleep(2000+(Math.round(Math.random()*3000)));
-				tmp.click();
-
-			}
-
-			if(radios[j].value==="4"){
-				tmp = radios[j];
-				await sleep(2000+(Math.round(Math.random()*3000)));
-				tmp.click();
-
-			}
-		}
-	}
-
-	if (task === "newsandblogs"){
-		for(j = 0; j<radios.length; j++){
-			if(radios[j].value==="1"){
-				tmp = radios[j];
-				await sleep(2000+(Math.round(Math.random()*3000)));
-				tmp.click();
-
-			}
-		}
-	}
-
-	/* if (task === "headphones"){
-		for(j = 0; j<radios.length; j++){
-			if(radios[j].value==="headphonequiet"){
-				tmp = radios[j];
-				await sleep(2000+(Math.round(Math.random()*3000)));
-				tmp.click();
-			}
-		}
-
-
-		for(j = 0; j<radios.length; j++){
-			if(radios[j].value==="Good"){
-				tmp = radios[j];
-				await sleep(2000+(Math.round(Math.random()*3000)));
-				tmp.click();
-			}
-		}
-	} */
-
 
 }
 
@@ -396,9 +324,7 @@ function CheckTextOnDocument(block, string){
 	} catch (error) {
 	}
 	return false;
-
 }
-
 
 /* open all links */
 function OpenAllLinks(wait_time) {
@@ -448,9 +374,7 @@ function OpenAllLinks(wait_time) {
 		}
 	}, wait_time);
 
-
 }
-
 
 function GetQuery(){
 	let query = document.getElementsByClassName("ewok-buds-query ewok-task-query")[0].innerHTML;
@@ -487,11 +411,7 @@ var editable6 = document.getElementById("editable-6");
 var instructionsDiv = document.getElementsByClassName("ewok-buds-card")[0];
 var editable3 = document.getElementById("editable-3");
 var editable67 = document.getElementById("editable-67");
-var editable49 = document.getElementById("editable-49");
-var editable138 = document.getElementById("editable-138");
 var pqInstruction = document.getElementById("pq-instructions");
-var editable166 = document.getElementById("editable-166");
-var instructionDescription = document.getElementsByClassName("instructions-description")[1];
 
 
 var time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
@@ -502,15 +422,11 @@ var wait_time_sec = ((parseInt(wait_time) * 60)/2)*1000;
 
 var editableText = null;
 var disclaimerText = null;
-var editable6Text = null;
 var editable3Text = null;
-var editable49Text = null;
 var instructionsDivText = null;
 var editable67Text = null;
 var pqInstructionText = null;
-var editable166Text = null;
 var isEditableNull = true;
-var idText = null;
 
 let radios_value;
 
@@ -527,24 +443,9 @@ if (editable3 != null){
 	editable3Text = editable3.innerText;
 	isEditableNull = false;
 }
-if (editable6 != null){
-	editable6Text = editable6.innerText;
-	isEditableNull = false;
-}
 
 if (editable67 != null){
 	editable67Text = editable67.innerText;
-	isEditableNull = false;
-}
-
-
-if (editable166 != null){
-	editable166Text = editable166.innerText;
-	isEditableNull = false;
-}
-
-if (editable138 != null){
-	editable138Text = editable138.innerText;
 	isEditableNull = false;
 }
 
@@ -552,17 +453,8 @@ if (instructionsDiv != null){
 	instructionsDivText = instructionsDiv.innerText;
 }
 
-if (editable49 != null){
-	editable49Text = editable49.innerText;
-	isEditableNull = false;
-}
-
 if (pqInstruction != null){
 	pqInstructionText = pqInstruction.innerText;
-}
-
-if (instructionDescription != null){
-	idText = instructionDescription.innerText;
 }
 
 var istructionsBodyText = null;
@@ -571,16 +463,10 @@ if (istructionsBody != null){
 	istructionsBodyText = istructionsBody.innerText;
 }
 
-var editable17 = document.getElementById("editable-17");
-var editable17Text = null;
-if(editable17 != null){
-	editable17Text = editable17.innerText;
-}
 
 let testo;
 let value;
 let blocks;
-
 let winnerSide;
 let otherSide;
 
@@ -594,36 +480,6 @@ if (mode === "Web" && type === "Experimental"){
 		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
 		console.log("done");
 	}
-}
-
-/* PSYCHO */
-if (mode === "Mobile" && type === "Experimental"){
-	testo = "InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale."
-	if(ExactText(document, testo)){
-		console.log("psycho");
-
-		value = "90%";
-		get_and_set_sliders(value);
-		let query = GetQuery();
-
-		var list_of_srtings =
-			["User intent was to search information about " + query + ". The result is very helpful because provides helpful information about " + query+"",
-				"user intent was to search information about " + query + ", the result provides correct information",
-				"user wanted to search information about " + query + ", the result is a scrb that shows helpful information",
-				"this result is very helpful for the query " +query+".",
-				"the query is "+query+" this result is very helpful",
-				"The result does not have any problem with the query",
-			];
-
-
-
-		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
-		document.getElementsByName('comment')[0].value = item;
-
-
-		console.log("done");
-	}
-
 }
 
 /* BACKGROUND AND REPUTATION */
@@ -723,8 +579,6 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 			[otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
 		];
 
-
-
 		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
 		document.getElementById('ewok-buds-validation-comment').value = item;
 		set_all_radios(document, radios_value, false);
@@ -734,9 +588,8 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 
 
 
-
-/* UO NOT AT ALL */
 if (mode === "Web" && type === "Experimental") {
+	/* UO NOT AT ALL */
 	testo = "In this task, you will be given links to landing pages, and asked to what extent each landing page is";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("UO NOT AT ALL FOUND");
@@ -746,20 +599,13 @@ if (mode === "Web" && type === "Experimental") {
 			let url = div_urls[j].getElementsByTagName('a')[0].innerHTML;
 			var win = window.open(url, '_blank');
 			j++;
-
 		}
-
 		value = '75%';
-
 		get_and_set_sliders(value, "uo_not_at_all");
 		console.log("done");
 	}
-}
 
-
-/* SHORT DESCRIPTION */
-if (mode === "Web" && type === "Experimental"){
-
+	/* SHORT DESCRIPTION */
 	testo = 'In this task, you will be given an entity (e.g., a person, company, place, book, etc.) and a short description of the entity.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("short description found");
@@ -770,7 +616,6 @@ if (mode === "Web" && type === "Experimental"){
 		console.log("done");
 	}
 }
-
 
 /* RELATED QUESTION */
 if (mode === "Mobile" && type === "Side By Side"){
@@ -803,34 +648,6 @@ if (mode === "Mobile" && type === "Side By Side"){
 		}
 		radios_value = "1";
 		set_all_radios(document, radios_value, false);
-
-
-		console.log("done");
-	}
-}
-
-
-
-
-
-
-
-
-/* GRAMMAR */
-if (mode === "Mobile" && type === "Experimental"){
-	testo = 'For each query, your job is to evaluate the virtual assistant\'s Response Language Quality (i.e., the quality of language it uses to reply to the user) and its Speech Quality (i.e., the quality of the virtual assistant\'s verbalization of its response).';
-	if (CheckTextOnDocument(document, testo)){
-		console.log("grammar found");
-
-		var task = 'grammar';
-		value = '100%';
-
-		get_and_set_sliders(value, task);
-
-		radios_value = "1";
-		set_all_radios(document, radios_value);
-
-
 		console.log("done");
 	}
 }
@@ -848,16 +665,11 @@ if (mode === "Local" && type === "Side By Side"){
 
 		radios_value = "AboutTheSameAs";
 		set_all_radios(document, radios_value);
-
 		console.log("done");
 	}
 }
 
-
-
-
 /* LITTLE LOCAL */
-
 if (mode === "Local" && type === "Experimental"){
 	testo = 'In this task, you may see special blocks that are shown at the very top of the search results (e.g., above L1 and/or R1).  They do not contain the Needs Met or E-A-T sliders';
 	if (CheckTextOnDocument(document, testo)){
@@ -876,9 +688,10 @@ if (mode === "Local" && type === "Experimental"){
 /* OTHER UO */
 testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
 let j;
+let check;
 if (CheckTextOnDocument(document, testo)){
 	console.log("other uo found");
-	var check = document.querySelectorAll('input[name*="Category_None"]');
+	check = document.querySelectorAll('input[name*="Category_None"]');
 
 	for(j = 0; j<check.length; j++){
 		check[j].scrollIntoView();
@@ -888,37 +701,21 @@ if (CheckTextOnDocument(document, testo)){
 
 		}
 	}
-
 	radios_value = "0";
 	set_all_radios(document, radios_value);
-
 	console.log("done");
 }
 
 /* LODGING INTENT */
 if (mode === "Local" && type === "Experimental"){
-	if (editable138Text != null && editable138Text.includes("In this task, you will be given a query and asked to decide what lodging intent the user has, if any")){
+	testo="In this task, you will be given a query and asked to decide what lodging intent the user has, if any";
+	if (CheckTextOnDocument(document, testo)){
 		console.log("lodging intent found");
-
-		/*
-		NON FUNZIONA IL CLOSE AL TIMEOUT, SISTEMARE
-		var query = document.getElementById("editable-92");
-		var win = null;
-		var url = query.getElementsByTagName('a'), hrefs = [];
-			for(var j=0; j<url.length; j++){
-				win = window.open(url[j].href, '_blank');
-				var tmot = setTimeout(function(){win.close();}, 5000);
-			}
-		*/
 		radios_value = "0";
 		set_all_radios(document, radios_value);
-
 		console.log("done.");
-
 	}
-
 }
-
 
 /* mobile sxs hm e ats tipo le news */
 if (mode === "Mobile" && type === "Side By Side"){
@@ -928,31 +725,21 @@ if (mode === "Mobile" && type === "Side By Side"){
 		OpenAllLinks(wait_time_sec);
 		value = "70%";
 		get_and_set_sliders(value);
-
 		radios_value = "AboutTheSameAs";
 		set_all_radios(document, radios_value, false);
-
 		console.log("done");
 	}
-
-
 }
-
-
 
 /* YOUTUBE EXP RACY */
 if (mode === "YouTube" && type === "Experimental"){
-	if (editable17Text != null && editable17Text.includes("How many users in your locale would find this video racy?")){
+	if (CheckTextOnDocument(document, "How many users in your locale would find this video racy?")){
 		console.log("yt exp racy found");
 		value = "25%";
 		get_and_set_sliders(value);
-
 		console.log("done.");
-
 	}
-
 }
-
 
 /* search product sxs */
 if (mode === "Search Product" && type === "Experimental"){
@@ -990,34 +777,31 @@ if (mode === "Search Product" && type === "Experimental"){
 }
 
 /* SNIPPET */
-
 if (type === "Side By Side"){
-	if (editable49Text != null){
-		if(editable49Text.includes("The only difference between the content of the result blocks will be the snippet.")){
-			console.log("Snippet SXS found");
+	testo="The only difference between the content of the result blocks will be the snippet.";
+	if (CheckTextOnDocument(document, testo)){
+		console.log("Snippet SXS found");
 
-			/* prendo tutti i blocchi e setta gli sldier */
-			var allBlocks = document.getElementsByClassName("evl-slider2");
+		/* prendo tutti i blocchi e setta gli sldier */
+		var allBlocks = document.getElementsByClassName("evl-slider2");
 
-			for(var i=0; i<allBlocks.length; i++){
-				allBlocks[i].scrollIntoView();
-				/* setto snippet added value */
-				value = "60%";
-				setSliders(allBlocks[i],value, "snippet");
-				/* setto snippet readability */
-				value = "80%";
-				setSliders(allBlocks[i+1],value, "snippet");
-				i=i+1;
-			}
-
-			radios_value = "AboutTheSameAs";
-			set_all_radios(document, radios_value);
-
-			console.log("done");
+		for(var i=0; i<allBlocks.length; i++){
+			allBlocks[i].scrollIntoView();
+			/* setto snippet added value */
+			value = "60%";
+			setSliders(allBlocks[i],value, "snippet");
+			/* setto snippet readability */
+			value = "80%";
+			setSliders(allBlocks[i+1],value, "snippet");
+			i=i+1;
 		}
+
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value);
+
+		console.log("done");
 	}
 }
-
 
 /* BIG DEF */
 if (istructionsBodyText != null){
@@ -1062,8 +846,8 @@ if (istructionsBodyText != null){
 
 /*SAFESEARCH 1M PORN */
 if (mode === "SafeSearch" && type === "Result Review"){
-	if (idText != null && idText.includes("For each task, you will be given a URL. Please click the URL and visit the landing page. Please rate the given URLs using the labels \"Porn\", \"Didn't Load\", \"Foreign Language\" or \"Not Porn\" as follows:")){
-
+	testo="For each task, you will be given a URL. Please click the URL and visit the landing page. Please rate the given URLs using the labels \"Porn\", \"Didn't Load\", \"Foreign Language\" or \"Not Porn\" as follows:";
+	if (CheckTextOnDocument(document, testo)){
 		console.log("safesearch");
 
 		var editable4 = document.getElementById("editable-4");
@@ -1077,8 +861,6 @@ if (mode === "SafeSearch" && type === "Result Review"){
 				var win = window.open(url[j].href, '_blank');
 
 			}
-
-
 			var radios = document.querySelectorAll('input[name=SafeSearch3]');
 
 			for(j = 0; j<radios.length; j++){
@@ -1090,18 +872,13 @@ if (mode === "SafeSearch" && type === "Result Review"){
 			}
 
 			setTimeout(function(){win.close()}, 5000);
-
-
 		}
 		console.log("done");
 
 	}
 }
 
-
-
 /* UO */
-/* PROVARE UO 6 MINUTI VIDEO*/
 if (mode === "Web" && type === "Experimental"){
 
 	if (editable3Text != null) {
@@ -1138,8 +915,7 @@ if (mode === "Web" && type === "Experimental"){
 			value = "25%";
 			get_and_set_sliders(value);
 
-
-			var check = document.querySelectorAll('input[name^=isNoOtherDIsturbingOffensive]');
+			check = document.querySelectorAll('input[name^=isNoOtherDIsturbingOffensive]');
 
 			for(j = 0; j<check.length; j++){
 				if(check[j].value==="1"){
@@ -1165,21 +941,13 @@ if (mode === "Web" && type === "Experimental"){
 
 					}
 				}
-
 				radios_value = "likely_yes";
 				set_all_radios(document, radios_value, setPagePosition=false);
-
 			}
-
 			console.log("done");
-
 		}
-
 	}
 }
-
-
-
 
 /* AUDIO SXS E NON SXS DA 1M */
 if ((mode === "Headphones" && type === "Side By Side") ||
@@ -1278,30 +1046,18 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 
 		value = "90%";
 		get_and_set_sliders(value);
-
 	}
-
-
 }
 
-
-
-
 /* NEWS AND BLOGS */
-/* PROVATO E FUNZIONA */
-
 if (mode === "News and Blogs" && type === "Experimental"){
-
-	if(editable6Text != null && editable6Text.includes("Review each snapshot and make a note of the Top 3 Prominent News Topics that are common between them.")){
-
+	testo="Review each snapshot and make a note of the Top 3 Prominent News Topics that are common between them.";
+	if(CheckTextOnDocument(document, testo)){
 		console.log("news and blogs found");
-
 		var columns = document.getElementsByClassName("ewok-editor-editable-column");
 
 		/* gli screenshot stanno in posizione 3 4 e 5 */
 		/* altrimenti prende anche altre colonne che non interessano ma con lo stesso nome della calsse */
-
-
 		var url1 = columns[3].getElementsByTagName('a');
 		var url2 = columns[4].getElementsByTagName('a');
 		var url3 = columns[5].getElementsByTagName('a');
@@ -1317,86 +1073,61 @@ if (mode === "News and Blogs" && type === "Experimental"){
 		for(var i=0; i<url3.length; i++){
 			var win = window.open(url3[i].href, '_blank');
 		}
-
-
-		var radios = document.querySelectorAll('input[type=radio]');
-		var task = "newsandblogs";
-		radiosClick(radios,task);
-
-
+		set_all_radios(document, "1", false);
 
 		console.log("done.");
 	}
 }
 
-/* COMBINED */
-
 if (mode === "Web" && type === "Experimental"){
-	if(editable67Text != null){
-		if(editable67Text.includes("Your job is to determine if the First Query and Second Query are related, if they can be combined and how well a given Combined Query represents the user's intent for the Second Query.")){
-			console.log("combined found");
+	/* COMBINED */
+	testo="Your job is to determine if the First Query and Second Query are related, if they can be combined and how well a given Combined Query represents the user's intent for the Second Query.";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("combined found");
+		set_all_radios(document, "1", false);
+		set_all_radios(document, "4", false);
+		console.log("done.");
+	}
 
-			var tableBlocks = document.getElementsByClassName("item_table ewok-editor-editable-columngroup");
+	/* PQ 4M UO */
+	testo="In some questions you will be asked about the intended audience of the content";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("pq 4m uofound");
+		var editable597 = document.getElementById("editable-597");
 
-			for(j = 0; j<tableBlocks.length; j++){
+		if (editable597 != null){
+			var url = editable597.getElementsByTagName('a'), hrefs = [];
+			for(j = 0; j<url.length; j++){
+				var win = window.open(url[j].href, '_blank');
 
-				var radios = tableBlocks[j].querySelectorAll('input[type=radio]');
-				var task = "combined";
-				radiosClick(radios,task);
 			}
-
-			console.log("done.");
 		}
 
-		if(editable67Text.includes("In some questions you will be asked about the intended audience of the content")){
-			console.log("pq 4m uofound");
+		let checkbox = document.querySelectorAll('input[type=checkbox]');
+		for(j = 0; j<checkbox.length; j++){
+			if(checkbox[j].name==="politics" || checkbox[j].name==="medical" ){
+				let tmp = checkbox[j];
+				tmp.click();
 
-			var editable597 = document.getElementById("editable-597");
-
-			if (editable597 != null){
-				var url = editable597.getElementsByTagName('a'), hrefs = [];
-				for(j = 0; j<url.length; j++){
-					var win = window.open(url[j].href, '_blank');
-
-				}
 			}
-
-
-			var radios = document.querySelectorAll('input[type=checkbox]');
-			for(j = 0; j<radios.length; j++){
-				if(radios[j].name==="politics" || radios[j].name==="medical" ){
-					var tmp = radios[j];
-					tmp.click();
-
-				}
-			}
-
-			var radios = document.querySelectorAll('input[type=radio]');
-
-			for(j = 0; j<radios.length; j++){
-				if(radios[j].value==="likely_yes" || radios[j].value==="persuade"){
-					var tmp = radios[j];
-					tmp.click();
-				}
-			}
-
-			value = "75%";
-			get_and_set_sliders(value);
-
 		}
+
+		set_all_radios(document, "likely_yes", false);
+		set_all_radios(document, "persuade", false);
+
+		value = "75%";
+		get_and_set_sliders(value);
+		console.log("done");
 	}
 }
 
 
 /* PAGE QUALITY UO */
-/* PROVATA E FUNZIONA */
-
 if (mode === "Web" && type === "Experimental"){
 	if (disclaimerText != null && disclaimerText.includes("In this task, you may be exposed to queries, webpages, and/or topics that contain potentially upsetting-offensive (U-O) content")){
 
 		if(editable67Text != null && editable67Text.includes("In this task, you will be given a link to a landing page and asked a few questions about it.")){
 			console.log("page quality uo found");
-
 			var radios = document.querySelectorAll('input[type=radio]');
 			var task = "pquo";
 			radiosClick(radios,task);
@@ -1407,62 +1138,13 @@ if (mode === "Web" && type === "Experimental"){
 				var win = window.open(url[j].href, '_blank');
 
 			}
-
 			console.log("done.");
-
 		}
-
 	}
-}
-
-/* COMPLETIONS */
-/* PROVATA E FUNZIONA */
-if (mode === "Web" && type === "Experimental"){
-	if (editable166Text != null && editable166Text.includes("In this task, you will be asked to evaluate two sets of possible completions to a partial query. Importantly, the query will contain a ^ symbol to indicate the position of the cursor within the partial query.")){
-		console.log("completions found");
-
-		/* prendo tutti i radio e clicco su appropriate for all */
-
-		var radios = document.querySelectorAll('input[type=radio]');
-		var task = "completions";
-		radiosClick(radios, task);
-
-		console.log("done.");
-
-	}
-
-}
-
-
-/* PAGE QUALITY NORMALI */
-
-if (mode === "Mobile" && type === "Experimental"){
-	/* solo il testo delle pq potrebbe confondersi con altri tipi di pq controllare meglio */
-	if(pqInstructionText != null && pqInstructionText.includes("In each task, you will be given a URL and some questions about the landing page. Please use the PQ grid to check Page Quality characteristics and assign an overall rating.")){
-		console.log("common pq found");
-
-		var pqMain = document.getElementsByClassName("pq-task-main-info");
-		var pqMainText = pqMain[0].innerText;
-		var strings = pqMainText.split(/[\s,]+/);
-		var pageLink = strings[2];
-
-		var win = window.open(pageLink, '_blank');
-
-		/* click sul radio button al punto 3 */
-		var pqShortcut = document.getElementsByClassName("pq-shortcut-question");
-		var radios = pqShortcut[0].querySelectorAll('input[type=radio]');
-		var task = "commonpq";
-		radiosClick(radios,task);
-
-		console.log("done.");
-
-	}
-
 }
 
 
 /* PAGE QUALITY YOUTUBE UO */
-
 if (mode === "YouTube" && type === "Experimental"){
 	if (disclaimerText != null && disclaimerText.includes("In this task, you may be exposed to queries, webpages, and/or topics that contain potentially upsetting-offensive (U-O) content")){
 		if(pqInstructionText != null && pqInstructionText.includes("In this task, you will be asked to evaluate the Page Quality of landing pages for a given Video URL and Content Creator URL.")){
@@ -1490,58 +1172,7 @@ if (mode === "YouTube" && type === "Experimental"){
 	}
 }
 
-
-
-/* ENTITY SUBTOPIC */
-if (mode === "Web" && type === "Experimental"){
-	if(editable67Text != null && editable67Text.includes("In this task, you will be given a query and an entity-subtopic pair associated with the query.")){
-		console.log("entity subtopic found");
-		/* prendo tutti i rado button */
-		var radios = document.querySelectorAll('input[type=radio]');
-		var task = "entitysubtopic";
-		radiosClick(radios,task);
-
-		console.log("done");
-	}
-
-}
-
-
-/* VA DA 1M */
-if (mode === "Mobile" && type === "Experimental"){
-	testo = 'A Virtual Assistant is a service or mobile app that can understand queries from a user, and give visual results, audio responses, or take actions on the user\'s behalf';
-	let testo1 = "The Direct Answer Block is intended to provide a direct answer to a user's need in a natural way. Here are some examples on how to use the Needs Met Rating Scale to provide ratings for these kinds of results.";
-	let testo2 = "An Assistant on TV is a virtual voice assistant built in or paired with a TV that can understand voice queries from a user, and give visual results, audio responses, or take actions on the user's behalf.";
-	let testo3 = "In this task, you will be given a query a driver might issue to the voice assistant in their car. In most cases, you will see a corresponding audio response from the car, indicating what action the car would take in response to the voice query. In some cases, you will also see a visual response, like a directions or navigation card.";
-	let found = false;
-
-	if (CheckTextOnDocument(document, testo)) {
-		console.log("va found");
-		found = true;
-
-	}else if(CheckTextOnDocument(document, testo1)) {
-		console.log("def found");
-		found = true;
-	}else if(CheckTextOnDocument(document, testo2)) {
-		console.log("tv found");
-		found = true;
-	}else if(CheckTextOnDocument(document, testo3)) {
-		console.log("va car found");
-		found = true;
-	}
-
-	if (found === true){
-
-		/* setto hm+ */
-		value = "90%";
-		get_and_set_sliders(value);
-
-		console.log("done");
-	}
-}
-
 /* YOUTUBE SXS RACY o ADULT*/
-/* DA PROVARE */
 if (mode === "YouTube" && type === "Side By Side"){
 	if (disclaimerText != null && disclaimerText.includes("In this task, you may be exposed to queries, webpages, and/or topics that contain potentially pornographic content.")){
 		if (editableText != null && editableText.includes("In this task, you will be asked to provide Needs Met and Page Quality ratings for queries that were issued on www.youtube.com. Please be aware of the user intent difference when the query is issued on YouTube rather than a general search engine.")){
@@ -1569,12 +1200,9 @@ if (mode === "YouTube" && type === "Side By Side"){
 
 			for(var i=0; i<allBlocks.length; i++){
 				setSliders(allBlocks[i],value);
-
-				/* clicco su sexuallySafe */
-				var sexuallySafe = allBlocks[i].querySelectorAll('input[type=radio]');
-				var task = "ytsxsracy";
-				radiosClick(sexuallySafe,task);
 			}
+
+			set_all_radios(document, "0");
 			/* setto ats */
 			radios_value = "AboutTheSameAs";
 			set_all_radios(document, radios_value);
@@ -1585,10 +1213,7 @@ if (mode === "YouTube" && type === "Side By Side"){
 
 }
 
-
-
 /*YOUTUBE EXP ADULT*/
-
 if (mode === "YouTube" && type === "Experimental"){
 	testo = 'In this task, you will be given a list of videos. Your job is to identify porn or racy content';
 	if (CheckTextOnDocument(document, testo)){
@@ -1598,7 +1223,7 @@ if (mode === "YouTube" && type === "Experimental"){
 		set_all_radios(document, "0");
 
 		/* confermo tutti i video aperti */
-		var check = document.querySelectorAll('input[name=confirm-watched-all-videos]');
+		check = document.querySelectorAll('input[name=confirm-watched-all-videos]');
 		for(j = 0; j<check.length; j++){
 			if(check[j].value==="1"){
 				var tmp = check[j];
@@ -1627,31 +1252,145 @@ if (mode === "Web" && type === "Experimental"){
 		lastCheckBox.scrollIntoView();
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
 
-
 		console.log("done.");
 	}
+
+	/* COMPLETIONS */
+	testo="In this task, you will be asked to evaluate two sets of possible completions to a partial query. Importantly, the query will contain a ^ symbol to indicate the position of the cursor within the partial query.";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("completions found");
+		set_all_radios(document, "0");
+		console.log("done.");
+	}
+
+	testo="In this task, you will be given a query and an entity-subtopic pair associated with the query.";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("entity subtopic found");
+		var radios = document.querySelectorAll('input[type=radio]');
+		var task = "entitysubtopic";
+		radiosClick(radios,task);
+		console.log("done");
+	}
+
 }
 
-/* SXS LOCAL HOTEL */
-/* PROVATA E FUNZIONA */
-
+/* SXS LOCAL */
 if (mode === "Local" && type === "Side By Side"){
-	if (instructionsDivText != null && instructionsDivText.includes("This is a hotel search task. Please assume that the user issuing the query wants to travel and potentially book a hotel from a list of hotels.")){
+	let value="";
+	teso="This is a hotel search task. Please assume that the user issuing the query wants to travel and potentially book a hotel from a list of hotels.";
+	if (CheckTextOnDocument(document, testo)){
 		console.log("local sxs hotel found");
-
 		value = "80%";
-		get_and_set_sliders(value);
-
-
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value);
-
-		console.log("done.");
 	}
+
+	testo="Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results from the perspective of a mobile user";
+	if (CheckTextOnDocument(document, testo)){
+		console.log("SXS LOCAL FOUND");
+		value = "75%";
+	}
+
+	OpenAllLinks(wait_time_sec);
+	get_and_set_sliders(value);
+
+	radios_value = "AboutTheSameAs";
+	set_all_radios(document, radios_value);
+
+	console.log("done.");
 }
 
-/* NEEDS MET */
 if (mode === "Mobile" && type === "Experimental") {
+	/* PAGE QUALITY NORMALI */
+	testo="In each task, you will be given a URL and some questions about the landing page. Please use the PQ grid to check Page Quality characteristics and assign an overall rating.";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("common pq found");
+
+		var pqMain = document.getElementsByClassName("pq-task-main-info");
+		var pqMainText = pqMain[0].innerText;
+		var strings = pqMainText.split(/[\s,]+/);
+		var pageLink = strings[2];
+
+		var win = window.open(pageLink, '_blank');
+
+		/* click sul radio button al punto 3 */
+		var pqShortcut = document.getElementsByClassName("pq-shortcut-question");
+		var radios = pqShortcut[0].querySelectorAll('input[type=radio]');
+		var task = "commonpq";
+		radiosClick(radios,task);
+
+		console.log("done.");
+
+	}
+
+	/* VA */
+	testo = 'A Virtual Assistant is a service or mobile app that can understand queries from a user, and give visual results, audio responses, or take actions on the user\'s behalf';
+	let testo1 = "The Direct Answer Block is intended to provide a direct answer to a user's need in a natural way. Here are some examples on how to use the Needs Met Rating Scale to provide ratings for these kinds of results.";
+	let testo2 = "An Assistant on TV is a virtual voice assistant built in or paired with a TV that can understand voice queries from a user, and give visual results, audio responses, or take actions on the user's behalf.";
+	let testo3 = "In this task, you will be given a query a driver might issue to the voice assistant in their car. In most cases, you will see a corresponding audio response from the car, indicating what action the car would take in response to the voice query. In some cases, you will also see a visual response, like a directions or navigation card.";
+	let found = false;
+
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("va found");
+		found = true;
+	}else if(CheckTextOnDocument(document, testo1)) {
+		console.log("def found");
+		found = true;
+	}else if(CheckTextOnDocument(document, testo2)) {
+		console.log("tv found");
+		found = true;
+	}else if(CheckTextOnDocument(document, testo3)) {
+		console.log("va car found");
+		found = true;
+	}
+
+	if (found === true){
+		/* setto hm+ */
+		value = "90%";
+		get_and_set_sliders(value);
+		console.log("done");
+	}
+
+	/* GRAMMAR */
+	testo = 'For each query, your job is to evaluate the virtual assistant\'s Response Language Quality (i.e., the quality of language it uses to reply to the user) and its Speech Quality (i.e., the quality of the virtual assistant\'s verbalization of its response).';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("grammar found");
+
+		var task = 'grammar';
+		value = '100%';
+
+		get_and_set_sliders(value, task);
+
+		radios_value = "1";
+		set_all_radios(document, radios_value);
+		console.log("done");
+	}
+
+	/* PSYCHO */
+	testo = "InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale."
+	if(ExactText(document, testo)){
+		console.log("psycho");
+
+		value = "90%";
+		get_and_set_sliders(value);
+		let query = GetQuery();
+
+		var list_of_srtings =
+			["User intent was to search information about " + query + ". The result is very helpful because provides helpful information about " + query+"",
+				"user intent was to search information about " + query + ", the result provides correct information",
+				"user wanted to search information about " + query + ", the result is a scrb that shows helpful information",
+				"this result is very helpful for the query " +query+".",
+				"the query is "+query+" this result is very helpful",
+				"The result does not have any problem with the query",
+			];
+
+
+
+		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
+		document.getElementsByName('comment')[0].value = item;
+
+		console.log("done");
+	}
+
+	/* NEEDS MET */
 	testo="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.";
 	if(ExactText(document, testo)){
 		console.log("NEEDS MET FOUND");
@@ -1665,4 +1404,3 @@ if (mode === "Mobile" && type === "Experimental") {
 
 }
 /***** FINE AUTOCOMPLETE *****/
-
