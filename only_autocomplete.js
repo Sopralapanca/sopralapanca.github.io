@@ -1154,7 +1154,6 @@ if (mode === "YouTube" && type === "Experimental"){
 			var editable11Text = editable11.innerText;
 			var strings = editable11Text.split(/[\s,]+/);
 			var videoLink = strings[2];
-			var contentCreatorLink = strings[6];
 
 			/* apro solo il link del video */
 			var win = window.open(videoLink, '_blank');
@@ -1396,7 +1395,7 @@ if (mode === "Mobile" && type === "Experimental") {
 		console.log("NEEDS MET FOUND");
 		OpenAllLinks(wait_time_sec);
 
-		value = "80%";
+		value = "70%";
 		get_and_set_sliders(value);
 
 		console.log("done");
