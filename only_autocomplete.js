@@ -100,7 +100,7 @@ function get_and_set_sliders(value,task){
 
 	allBlocks[0].scrollIntoView();
 	setTimeout(() => {
-		window.scrollBy(0,-400)
+		window.scrollBy(0,-100)
 	}, 200);
 	let v = value;
 
