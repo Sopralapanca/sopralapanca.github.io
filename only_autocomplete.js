@@ -98,16 +98,13 @@ function get_and_set_sliders(value,task){
 	var allBlocks = document.querySelectorAll(
 		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
-	allBlocks[0].scrollIntoView();
-	setTimeout(() => {
-		window.scrollBy(0,-50)
-	}, 200);
+	allBlocks[2].scrollIntoView();
+
 	let v = value;
 
 	for(var i=0; i<allBlocks.length; i++){
 		if(String(allBlocks[i].innerText).includes("No Rating Required")){
 			continue;
-
 		}
 
 		var allBigTicks = allBlocks[i].getElementsByClassName("evl-slider2-tick-big")
