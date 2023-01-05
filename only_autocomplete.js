@@ -495,7 +495,7 @@ if (mode === "Search Product" && type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("BACKGROUND AND REPUTATION");
 		OpenAllLinks(wait_time_sec);
-		await set_all_radios(document, "clear", true);
+		set_all_radios(document, "clear", true);
 		var lastCheckBox = document.querySelector('input[type="checkbox"]');
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
 		value = "80%";
@@ -578,7 +578,7 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 				value = '60%';
 			}
 
-			await setSliders(allBlocks[k],value);
+			setSliders(allBlocks[k],value);
 
 		}
 
@@ -588,7 +588,7 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 
 		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
 		document.getElementById('ewok-buds-validation-comment').value = item;
-		await set_all_radios(document, radios_value, false);
+		set_all_radios(document, radios_value, false);
 		console.log("done");
 	}
 }
@@ -636,6 +636,20 @@ if (mode === "Web" && type === "Experimental") {
 		console.log("TOXIC COMMENTS FOUND");
 		radios_value = "0";
 		await set_all_radios(document, radios_value, true);
+		console.log("done");
+	}
+
+	/* YMYL */
+	testo = 'This task is an extension to the Your Money, Your Life (YMYL) assessment described in the General Guidelines (Section 2.3). Your task is to determine to what extent a page may significantly harm a person’s happiness, health, financial stability, or safety.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("YMYL");
+		let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+		for(let j = 0; j<checkboxes.length; j++){
+			if(checkboxes[j].value==="1" && checkboxes[j].name==="not_url1" ){
+				checkboxes[j].checked = true;
+			}
+		}
 		console.log("done");
 	}
 }
@@ -818,10 +832,10 @@ if (type === "Side By Side"){
 			allBlocks[i].scrollIntoView();
 			/* setto snippet added value */
 			value = "60%";
-			await setSliders(allBlocks[i],value, "snippet");
+			setSliders(allBlocks[i],value, "snippet");
 			/* setto snippet readability */
 			value = "80%";
-			await setSliders(allBlocks[i+1],value, "snippet");
+			setSliders(allBlocks[i+1],value, "snippet");
 			i=i+1;
 		}
 
@@ -1227,7 +1241,7 @@ if (mode === "YouTube" && type === "Side By Side"){
 			value = "60%";
 
 			for(var i=0; i<allBlocks.length; i++){
-				await setSliders(allBlocks[i],value);
+				setSliders(allBlocks[i],value);
 			}
 
 			await set_all_radios(document, "0");
