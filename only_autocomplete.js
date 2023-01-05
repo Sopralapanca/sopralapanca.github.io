@@ -98,7 +98,10 @@ function get_and_set_sliders(value,task){
 	var allBlocks = document.querySelectorAll(
 		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
-	allBlocks[2].scrollIntoView();
+	if (typeof allBlocks[2] !== 'undefined') {
+		allBlocks[2].scrollIntoView();
+	}
+	console.log(allBlocks);
 
 	let v = value;
 
@@ -122,6 +125,14 @@ function get_and_set_sliders(value,task){
 			setSliders(eval,v,task);
 		}
 
+	}
+
+	if(allBlocks.length === 0){
+		var evlBlock = document.getElementsByClassName("evl-slider2");
+		evlBlock[0].scrollIntoView();
+		for(let eval of evlBlock){
+			setSliders(eval,v,task);
+		}
 	}
 }
 
@@ -736,7 +747,7 @@ if (mode === "Mobile" && type === "Side By Side"){
 
 /* YOUTUBE EXP RACY */
 if (mode === "YouTube" && type === "Experimental"){
-	if (CheckTextOnDocument(document, "How many users in your locale would find this video racy?")){
+	if (CheckTextOnDocument(document, "In this task, you will be given titles and thumbnails of many videos. For each video, your job is to evaluate: How many users in your locale would find this video racy? When rating, please assume users have not previously watched or searched for similar videos.")){
 		console.log("yt exp racy found");
 		value = "25%";
 		get_and_set_sliders(value);
