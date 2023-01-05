@@ -136,14 +136,13 @@ function get_and_set_sliders(value,task){
 	}
 }
 
-async function set_all_radios(block, value, setPagePosition=true){
+function set_all_radios(block, value, setPagePosition=true){
 	const radios = block.querySelectorAll('input[type="radio"]');
 	if(setPagePosition) {
 		radios[0].scrollIntoView();
 	}
 	for(let j = 0; j<radios.length; j++){
 		if(radios[j].value===value){
-			await sleep(500+(Math.round(Math.random()*1000)));
 			radios[j].click();
 		}
 	}
@@ -618,7 +617,7 @@ if (mode === "Web" && type === "Experimental") {
 		console.log("short description found");
 
 		radios_value = "best";
-		await set_all_radios(document, radios_value, true);
+		set_all_radios(document, radios_value, true);
 
 		console.log("done");
 	}
@@ -635,7 +634,7 @@ if (mode === "Web" && type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("TOXIC COMMENTS FOUND");
 		radios_value = "0";
-		await set_all_radios(document, radios_value, true);
+		set_all_radios(document, radios_value, true);
 		console.log("done");
 	}
 
@@ -665,7 +664,7 @@ if (mode === "Mobile" && type === "Side By Side"){
 		get_and_set_sliders(value);
 
 		radios_value = "no";
-		await set_all_radios(document, radios_value, false);
+		set_all_radios(document, radios_value, false);
 
 		blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
 
@@ -684,7 +683,7 @@ if (mode === "Mobile" && type === "Side By Side"){
 			}
 		}
 		radios_value = "1";
-		await set_all_radios(document, radios_value, false);
+		set_all_radios(document, radios_value, false);
 		console.log("done");
 	}
 }
@@ -698,10 +697,10 @@ if (mode === "Local" && type === "Side By Side"){
 		get_and_set_sliders(value);
 
 		radios_value = "0";
-		await set_all_radios(document, radios_value);
+		set_all_radios(document, radios_value);
 
 		radios_value = "AboutTheSameAs";
-		await set_all_radios(document, radios_value);
+		set_all_radios(document, radios_value);
 		console.log("done");
 	}
 }
@@ -715,7 +714,7 @@ if (mode === "Local" && type === "Experimental"){
 		get_and_set_sliders(value);
 
 		radios_value = "AboutTheSameAs";
-		await set_all_radios(document, radios_value);
+		set_all_radios(document, radios_value);
 
 		console.log("done");
 	}
@@ -724,7 +723,7 @@ if (mode === "Local" && type === "Experimental"){
 	if (CheckTextOnDocument(document, testo)){
 		console.log("lodging intent found");
 		radios_value = "0";
-		await set_all_radios(document, radios_value);
+		set_all_radios(document, radios_value);
 		console.log("done.");
 	}
 
@@ -755,7 +754,7 @@ if (CheckTextOnDocument(document, testo)){
 		}
 	}
 	radios_value = "0";
-	await set_all_radios(document, radios_value);
+	set_all_radios(document, radios_value);
 	console.log("done");
 }
 
@@ -769,7 +768,7 @@ if (mode === "Mobile" && type === "Side By Side"){
 		value = "70%";
 		get_and_set_sliders(value);
 		radios_value = "AboutTheSameAs";
-		await set_all_radios(document, radios_value, false);
+		set_all_radios(document, radios_value, false);
 		console.log("done");
 	}
 }
@@ -840,7 +839,7 @@ if (type === "Side By Side"){
 		}
 
 		radios_value = "AboutTheSameAs";
-		await set_all_radios(document, radios_value);
+		set_all_radios(document, radios_value);
 
 		console.log("done");
 	}
@@ -985,7 +984,7 @@ if (mode === "Web" && type === "Experimental"){
 					}
 				}
 				radios_value = "likely_yes";
-				await set_all_radios(document, radios_value, setPagePosition=false);
+				set_all_radios(document, radios_value, setPagePosition=false);
 			}
 			console.log("done");
 		}
@@ -1116,7 +1115,7 @@ if (mode === "News and Blogs" && type === "Experimental"){
 		for(var i=0; i<url3.length; i++){
 			var win = window.open(url3[i].href, '_blank');
 		}
-		await set_all_radios(document, "1", false);
+		set_all_radios(document, "1", false);
 
 		console.log("done.");
 	}
@@ -1127,8 +1126,8 @@ if (mode === "Web" && type === "Experimental"){
 	testo="Your job is to determine if the First Query and Second Query are related, if they can be combined and how well a given Combined Query represents the user's intent for the Second Query.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log("combined found");
-		await set_all_radios(document, "1", false);
-		await set_all_radios(document, "4", false);
+		set_all_radios(document, "1", false);
+		set_all_radios(document, "4", false);
 		console.log("done.");
 	}
 
@@ -1155,8 +1154,8 @@ if (mode === "Web" && type === "Experimental"){
 			}
 		}
 
-		await set_all_radios(document, "likely_yes", false);
-		await set_all_radios(document, "persuade", false);
+		set_all_radios(document, "likely_yes", false);
+		set_all_radios(document, "persuade", false);
 
 		value = "75%";
 		get_and_set_sliders(value);
@@ -1244,10 +1243,10 @@ if (mode === "YouTube" && type === "Side By Side"){
 				setSliders(allBlocks[i],value);
 			}
 
-			await set_all_radios(document, "0");
+			set_all_radios(document, "0");
 			/* setto ats */
 			radios_value = "AboutTheSameAs";
-			await set_all_radios(document, radios_value);
+			set_all_radios(document, radios_value);
 			console.log("done.");
 		}
 
@@ -1262,7 +1261,7 @@ if (mode === "YouTube" && type === "Experimental"){
 		console.log("youtube exp adult found");
 
 		/* set sexually safe */
-		await set_all_radios(document, "0");
+		set_all_radios(document, "0");
 
 		/* confermo tutti i video aperti */
 		check = document.querySelectorAll('input[name=confirm-watched-all-videos]');
@@ -1301,7 +1300,7 @@ if (mode === "Web" && type === "Experimental"){
 	testo="In this task, you will be asked to evaluate two sets of possible completions to a partial query. Importantly, the query will contain a ^ symbol to indicate the position of the cursor within the partial query.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log("completions found");
-		await set_all_radios(document, "0");
+		set_all_radios(document, "0");
 		console.log("done.");
 	}
 
@@ -1335,7 +1334,7 @@ if (mode === "Local" && type === "Side By Side"){
 	get_and_set_sliders(value);
 
 	radios_value = "AboutTheSameAs";
-	await set_all_radios(document, radios_value);
+	set_all_radios(document, radios_value);
 
 	console.log("done.");
 }
@@ -1402,7 +1401,7 @@ if (mode === "Mobile" && type === "Experimental") {
 		get_and_set_sliders(value, task);
 
 		radios_value = "1";
-		await set_all_radios(document, radios_value);
+		set_all_radios(document, radios_value);
 		console.log("done");
 	}
 
