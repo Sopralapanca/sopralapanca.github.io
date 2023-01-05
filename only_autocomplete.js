@@ -679,6 +679,22 @@ if (mode === "Local" && type === "Experimental"){
 
 		console.log("done");
 	}
+
+	testo="In this task, you will be given a query and asked to decide what lodging intent the user has, if any";
+	if (CheckTextOnDocument(document, testo)){
+		console.log("lodging intent found");
+		radios_value = "0";
+		set_all_radios(document, radios_value);
+		console.log("done.");
+	}
+
+	testo = 'In this task, you may see special blocks that are shown at the very top of the search results (e.g., above L1 and/or R1).  They do not contain the Needs Met or Page Quality sliders.  Please see the screenshot example below.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("local exp found");
+		value = "80%";
+		get_and_set_sliders(value);
+		console.log("done");
+	}
 }
 
 
@@ -703,16 +719,6 @@ if (CheckTextOnDocument(document, testo)){
 	console.log("done");
 }
 
-/* LODGING INTENT */
-if (mode === "Local" && type === "Experimental"){
-	testo="In this task, you will be given a query and asked to decide what lodging intent the user has, if any";
-	if (CheckTextOnDocument(document, testo)){
-		console.log("lodging intent found");
-		radios_value = "0";
-		set_all_radios(document, radios_value);
-		console.log("done.");
-	}
-}
 
 /* mobile sxs hm e ats tipo le news */
 if (mode === "Mobile" && type === "Side By Side"){
