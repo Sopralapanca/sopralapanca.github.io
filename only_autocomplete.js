@@ -101,7 +101,6 @@ function get_and_set_sliders(value,task){
 	if (typeof allBlocks[2] !== 'undefined') {
 		allBlocks[2].scrollIntoView();
 	}
-	console.log(allBlocks);
 
 	let v = value;
 
@@ -332,6 +331,13 @@ function CheckTextOnDocument(block, string){
 	return false;
 }
 
+function DecodeStringUrl(url){
+	var uri = String(decodeURIComponent(url))
+	let [first, ...s] = uri.split("q=")
+	s = s.join("q=");
+	return s;
+}
+
 /* open all links */
 function OpenAllLinks(wait_time) {
 	var allBlocks = document.querySelectorAll(
@@ -353,9 +359,7 @@ function OpenAllLinks(wait_time) {
 				var a = buds_html[j].querySelector("a");
 				var url = a.dataset.oldhref;
 				if (typeof url !== "undefined") {
-					var uri = String(decodeURIComponent(url))
-					let [first, ...s] = uri.split("q=")
-					s = s.join("q=");
+					var s = DecodeStringUrl(url);
 					mySet1.add(s);
 				}
 
@@ -363,6 +367,19 @@ function OpenAllLinks(wait_time) {
 				console.log("open all links");
 				console.log(error);
 			}
+		}
+
+		if(buds_html.length === 0){
+			console.log(allBlocks[i]);
+			var url_block = allBlocks[i].getElementsByTagName('a')[0];
+			console.log(url_block);
+			if (typeof url_block !== "undefined") {
+				var search_link = url_block.href;
+				var s = DecodeStringUrl(search_link);
+				console.log(s);
+				mySet1.add(s);
+			}
+
 		}
 
 	}
@@ -379,6 +396,14 @@ function OpenAllLinks(wait_time) {
 			win.close();
 		}
 	}, wait_time);
+
+}
+
+
+/* opens one link */
+function OpenLink(block) {
+	var search_link = block.getElementsByTagName('a')[0].href;
+	var openWindow = window.open(search_link, '_blank');
 
 }
 
@@ -649,6 +674,27 @@ if (mode === "Web" && type === "Experimental") {
 				checkboxes[j].checked = true;
 			}
 		}
+		console.log("done");
+	}
+
+	/* PERSON NAME */
+	testo = 'In this task, you will be given a person\'s name and a reference URL to a page that mentions this name. Your job is to:';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("PERSON NAME FOUND");
+		radios_value = "yes";
+		set_all_radios(document, radios_value, true);
+		var div = document.getElementById("editable-92");
+		OpenLink(div);
+		div = document.getElementById("editable-117");
+		OpenLink(div);
+
+		var divs = document.querySelectorAll('[id^=editable-214]');
+		for(let d of divs){
+			OpenLink(d);
+		}
+
+		value = '20%';
+		get_and_set_sliders(value);
 		console.log("done");
 	}
 }
