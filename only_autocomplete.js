@@ -1467,6 +1467,7 @@ if (mode === "Mobile" && type === "Experimental") {
 				"this result is very helpful for the query " +query+".",
 				"the query is "+query+" this result is very helpful",
 				"The result does not have any problem with the query",
+				"the result is a scrb that shows helpful information"
 			];
 
 
