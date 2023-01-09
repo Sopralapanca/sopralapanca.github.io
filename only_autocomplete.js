@@ -395,7 +395,7 @@ function OpenAllLinks(wait_time) {
 		for (let win of opened_pages) {
 			win.close();
 		}
-	}, wait_time);
+	}, wait_time-500);
 
 }
 
