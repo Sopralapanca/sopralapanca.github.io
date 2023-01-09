@@ -1395,7 +1395,7 @@ if (mode === "Local" && type === "Side By Side"){
 		get_and_set_sliders(value);
 
 		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value);
+		set_all_radios(document, radios_value, false);
 	}
 
 	console.log("done.");
