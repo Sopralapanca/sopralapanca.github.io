@@ -370,13 +370,13 @@ function OpenAllLinks(wait_time) {
 		}
 
 		if(buds_html.length === 0){
-			console.log(allBlocks[i]);
+
 			var url_block = allBlocks[i].getElementsByTagName('a')[0];
-			console.log(url_block);
+
 			if (typeof url_block !== "undefined") {
 				var search_link = url_block.href;
 				var s = DecodeStringUrl(search_link);
-				console.log(s);
+
 				mySet1.add(s);
 			}
 
@@ -1361,26 +1361,42 @@ if (mode === "Web" && type === "Experimental"){
 
 }
 
-/* SXS LOCAL */
+
 if (mode === "Local" && type === "Side By Side"){
 	let value="";
+	/* SXS LOCAL HOTEL */
 	teso="This is a hotel search task. Please assume that the user issuing the query wants to travel and potentially book a hotel from a list of hotels.";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("local sxs hotel found");
 		value = "80%";
 	}
 
+	/* SXS LOCAL */
 	testo="Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results from the perspective of a mobile user";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("SXS LOCAL FOUND");
 		value = "70%";
 	}
 
-	OpenAllLinks(wait_time_sec);
-	get_and_set_sliders(value);
+	/* SXS LOCAL VIEWPORT*/
+	testo="Understand the user's intent by considering the query in the context of the area of interest, which may be determined by the following:\n" +
+		"Some location mentioned in the query text itself.\n" +
+		"The user's location, which may be shown on the Map as a blue dot or a blue rectangle.\n" +
+		"The \"viewport\", which is the map that the user was viewing prior to issuing the query (represented by a red rectangle on the Map).";
 
-	radios_value = "AboutTheSameAs";
-	set_all_radios(document, radios_value);
+	if (CheckTextOnDocument(document, testo)){
+		console.log("SXS LOCAL VIEWPORT FOUND");
+		value = "80%";
+	}
+
+
+	if(value !== ""){
+		OpenAllLinks(wait_time_sec);
+		get_and_set_sliders(value);
+
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value);
+	}
 
 	console.log("done.");
 }
