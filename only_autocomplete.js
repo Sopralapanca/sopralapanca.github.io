@@ -794,10 +794,8 @@ let check;
 if (CheckTextOnDocument(document, testo)){
 	console.log("other uo found");
 	check = document.querySelectorAll('input[name*="Category_None"]');
-
+	check[0].scrollIntoView();
 	for(j = 0; j<check.length; j++){
-		check[j].scrollIntoView();
-
 		if(check[j].value==="1"){
 			check[j].click();
 
