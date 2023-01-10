@@ -69,24 +69,29 @@ async function setSliders(block, value, task){
 	}
 
 
-	var sliderBar = block.getElementsByClassName("evl-slider2-bar-selected");
-	var sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
-	var hiddenField = block.getElementsByTagName("input");
-	var SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
+	const sliderBar = block.getElementsByClassName("evl-slider2-bar-selected");
+	const sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
+	const hiddenField = block.getElementsByTagName("input");
+	const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
+
+	const min = 1500;
+	const max = 3000;
 
 
 	for (k = 0; k<sliderBar.length; k++){
-		await sleep(2000+(Math.round(Math.random()*3000)));
+		await sleep(2000+(Math.round(Math.random()*(max - min) + min)));
 		sliderBar[k].style.width = value;
 		sliderTriangle[k].style.left = value;
 
 	}
 
 	for (k = 0; k<hiddenField.length; k++){
+		await sleep(2000+(Math.round(Math.random()*(max - min) + min)));
 		hiddenField[k].value = hiddenValue;
 	}
 
 	for (k = 0; k<SpeakerSimilarityField.length; k++){
+		await sleep(2000+(Math.round(Math.random()*(max - min) + min)));
 		SpeakerSimilarityField[k].value = hiddenValue;
 	}
 }
