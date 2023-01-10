@@ -68,7 +68,6 @@ async function setSliders(block, value, task){
 
 	}
 
-
 	const sliderBar = block.getElementsByClassName("evl-slider2-bar-selected");
 	const sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
 	const hiddenField = block.getElementsByTagName("input");
