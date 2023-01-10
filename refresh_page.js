@@ -14,4 +14,4 @@ setInterval(async () => {
         document.getElementsByTagName('frame')[0].src += ''
 
     },
-    60000);
+    61000);
