@@ -1338,8 +1338,15 @@ if (mode === "Web" && type === "Experimental"){
 
 		/* prendo la checkbox finale */
 		var lastCheckBox = document.querySelector('input[name=no_lp_issues]');
-		lastCheckBox.scrollIntoView();
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
+
+
+		var comments = ["the scrb is good", "this scrb provides helpful information", "ths scrb is good",
+			"scrb is ok", "the special block looks very good and accurate",
+			"this scrb is accurate", "the scrb looks good"];
+
+		var item = comments[Math.floor(Math.random()*comments.length)];
+		document.getElementsByName('comment')[0].value = item;
 
 		console.log("done.");
 	}
