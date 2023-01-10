@@ -1,14 +1,17 @@
 document.write(`<frameset><frame src="${location.href}"></frameset>`);
 
-setInterval(() => {
+setInterval(async () => {
         const doc = window.frames[0].document;
-        console.log(doc.getElementsByClassName("container")[0].innerText);
-        /*var acquire_buttons=document.getElementsByClassName("button");
-        for(let button of acquire_buttons){
-            console.log(button);
+        const button = doc.querySelectorAll('.button')[0];
+        if (button !== undefined) {
+            const audio = new Audio("https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/changes-cut.mp3?raw=true");
+            audio.play();
+            await new Promise(r => setTimeout(r, 6500));
+            button.click();
         }
-        */
+
+
         document.getElementsByTagName('frame')[0].src += ''
 
     },
-    2000);
+    60000);
