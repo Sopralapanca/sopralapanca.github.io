@@ -894,44 +894,42 @@ if (type === "Side By Side"){
 }
 
 /* BIG DEF */
-if (istructionsBodyText != null){
-	if(istructionsBodyText.includes("Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.")){
-		console.log("big def found");
+testo="Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.";
+if (CheckTextOnDocument(document, testo)){
+	console.log("big def found");
 
-		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
+	var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
 
-		var dupesText = dupes1.innerText;
-		var skip=false;
-		if(dupesText.includes("Same as")){
-			skip=true;
-		}
-		value = "90%";
-		get_and_set_sliders(value);
-
-		const check = document.querySelectorAll('input[name*="landing_page.N"]');
-
-		for(j = 0; j<check.length; j++){
-
-			if(check[j].value==="1"){
-				check[j].click();
-
-			}
-			if(skip){
-				break;
-			}
-		}
-
-		/*
-		sistemare, anche se apre la pagina segnala come non aperta
-		var url = document.querySelectorAll('a[id*="result.0.landing_page_url"]');
-		for(var j=0; j<url.length; j++){
-			url[j].click();
-
-		}
-		*/
-
-		console.log("done");
+	var dupesText = dupes1.innerText;
+	var skip=false;
+	if(dupesText.includes("Same as")){
+		skip=true;
 	}
+	value = "90%";
+	get_and_set_sliders(value);
+
+	const check = document.querySelectorAll('input[name*="landing_page.N"]');
+
+	for(j = 0; j<check.length; j++){
+		if(check[j].value==="1"){
+			check[j].click();
+		}
+		if(skip){
+			break;
+		}
+	}
+
+	/*
+	sistemare, anche se apre la pagina segnala come non aperta
+	var url = document.querySelectorAll('a[id*="result.0.landing_page_url"]');
+	for(var j=0; j<url.length; j++){
+		url[j].click();
+
+	}
+	*/
+
+	console.log("done");
+
 }
 
 /*SAFESEARCH 1M PORN */
