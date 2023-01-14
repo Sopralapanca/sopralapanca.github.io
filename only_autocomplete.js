@@ -1484,13 +1484,14 @@ if (mode === "Mobile" && type === "Experimental") {
 		let query = GetQuery();
 
 		var list_of_srtings =
-			["User intent was to search information about " + query + ". The result is very helpful because provides helpful information about " + query+"",
-				"user intent was to search information about " + query + ", the result provides correct information",
-				"user wanted to search information about " + query + ", the result is a scrb that shows helpful information",
-				"this result is very helpful for the query " +query+".",
-				"the query is "+query+" this result is very helpful",
+			["The result is very helpful because provides helpful information about the query",
+				"the result provides correct information",
+				"the result is a scrb that shows helpful information",
+				"this result is very helpful for the query",
+				"this result is very helpful",
 				"The result does not have any problem with the query",
-				"the result is a scrb that shows helpful information"
+				"the result is a scrb that shows helpful information", "the result is good", "the result is ok",
+				"this result does not have any problem"
 			];
 
 
