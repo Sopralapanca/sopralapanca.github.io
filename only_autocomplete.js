@@ -499,6 +499,18 @@ if (istructionsBody != null){
 }
 
 
+var list_of_srtings =
+	["The result is very helpful because provides helpful information about the query",
+		"the result provides correct information",
+		"the result is a scrb that shows helpful information",
+		"this result is very helpful for the query",
+		"this result is very helpful",
+		"The result does not have any problem with the query",
+		"the result is a scrb that shows helpful information", "the result is good", "the result is ok",
+		"this result does not have any problem"
+	];
+
+
 let testo;
 let value;
 let blocks;
@@ -1456,6 +1468,15 @@ if (mode === "Mobile" && type === "Experimental") {
 		/* setto hm+ */
 		value = "90%";
 		get_and_set_sliders(value);
+
+		try{
+			var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
+			document.getElementsByName('comment')[0].value = item;
+		}catch(error){
+			console.log(error)
+		}
+
+
 		console.log("done");
 	}
 
@@ -1481,20 +1502,6 @@ if (mode === "Mobile" && type === "Experimental") {
 
 		value = "90%";
 		get_and_set_sliders(value);
-		let query = GetQuery();
-
-		var list_of_srtings =
-			["The result is very helpful because provides helpful information about the query",
-				"the result provides correct information",
-				"the result is a scrb that shows helpful information",
-				"this result is very helpful for the query",
-				"this result is very helpful",
-				"The result does not have any problem with the query",
-				"the result is a scrb that shows helpful information", "the result is good", "the result is ok",
-				"this result does not have any problem"
-			];
-
-
 
 		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
 		document.getElementsByName('comment')[0].value = item;
