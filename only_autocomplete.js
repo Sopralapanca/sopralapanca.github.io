@@ -510,14 +510,26 @@ var list_of_srtings =
 		"this result does not have any problem"
 	];
 
-
 let testo;
 let value;
 let blocks;
 let winnerSide;
 let otherSide;
 
+/* IMAGE-SXS  DA FINIRE*/
+if (mode === "Image" && type === "Side By Side"){
+	testo = 'In this task you will be given a query issued to image search followed by two sets of image search results. Your job is to understand the query and the underlying user task or journey using the research links provided.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("IMAGE SXS FOUND");
 
+		set_all_radios(document, "0", true);
+
+		value = "80%";
+		get_and_set_sliders(value);
+
+		console.log("done");
+	}
+}
 
 /* QUERY-TOPIC RELEVANT */
 if (mode === "Web" && type === "Experimental"){
