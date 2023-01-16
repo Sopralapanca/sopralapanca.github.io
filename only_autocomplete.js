@@ -527,6 +527,9 @@ if (mode === "Image" && type === "Side By Side"){
 		value = "80%";
 		get_and_set_sliders(value);
 
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value);
+
 		console.log("done");
 	}
 }
