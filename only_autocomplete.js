@@ -507,7 +507,7 @@ var list_of_srtings =
 		"this result is very helpful",
 		"The result does not have any problem with the query",
 		"the result is a scrb that shows helpful information", "the result is good", "the result is ok",
-		"this result does not have any problem"
+		"this result does not have any problem", "the result is very good for the query", "the result is very good",
 	];
 
 let testo;
@@ -1350,8 +1350,8 @@ if (mode === "YouTube" && type === "Experimental"){
 }
 
 
-/*EXP SCRB ACCURACY*/
 if (mode === "Web" && type === "Experimental"){
+	/*EXP SCRB ACCURACY*/
 	testo = "You will be given a query and a Special Content Result Block (SCRB)";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("exp scrb accuracy found");
