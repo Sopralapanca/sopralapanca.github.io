@@ -1,9 +1,7 @@
 /***** INIZIO AUTOCOMPLETE *******/
-
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
-
 async function setSliders(block, value, task){
 
 	let k;
@@ -354,20 +352,16 @@ function getUrlFromTag(a){
 	}
 
 	return undefined;
-
-
 }
 
 /* open all links */
 function OpenAllLinks(wait_time) {
-	var allBlocks = document.querySelectorAll(
-		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight");
+	var allBlocks = document.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
 	const mySet1 = new Set();
 	var opened_pages = [];
 
 	for(var i=0; i<allBlocks.length; i++) {
-
 		if (String(allBlocks[i].innerText).includes("No Rating Required")) {
 			continue;
 		}
@@ -377,8 +371,8 @@ function OpenAllLinks(wait_time) {
 		for (var j = 0; j < buds_html.length; j++) {
 			try {
 				var a = buds_html[j].querySelector("a");
-
 				var url = getUrlFromTag(a);
+
 				if (typeof url !== "undefined") {
 					var s = DecodeStringUrl(url);
 					mySet1.add(s);
@@ -395,16 +389,12 @@ function OpenAllLinks(wait_time) {
 			var url_block = allBlocks[i].getElementsByTagName('a')[0];
 
 			if (typeof url_block !== "undefined") {
-				var search_link = url_block.href;
+				var search_link = getUrlFromTag(url_block);
 				var s = DecodeStringUrl(search_link);
-
-				mySet1.add(s);
+				if (s!== "") mySet1.add(s);
 			}
-
 		}
-
 	}
-
 	const array = Array.from(mySet1);
 
 	for (j = 0; j < array.length; j++) {
@@ -416,21 +406,15 @@ function OpenAllLinks(wait_time) {
 		for (let win of opened_pages) {
 			win.close();
 		}
-	}, wait_time-2100);
+	}, wait_time-2000);
 
 }
-
 
 /* opens one link */
 function OpenLink(block) {
 	var search_link = block.getElementsByTagName('a')[0].href;
 	var openWindow = window.open(search_link, '_blank');
 
-}
-
-function GetQuery(){
-	let query = document.getElementsByClassName("ewok-buds-query ewok-task-query")[0].innerHTML;
-	return String(query);
 }
 
 function ExactText(element, testo){
@@ -459,18 +443,15 @@ if(additional != null){
 
 var editable = document.getElementById("editable-2");
 var disclaimer = document.getElementsByClassName("ewok-task-disclaimer")[0];
-var editable6 = document.getElementById("editable-6");
 var instructionsDiv = document.getElementsByClassName("ewok-buds-card")[0];
 var editable3 = document.getElementById("editable-3");
 var editable67 = document.getElementById("editable-67");
 var pqInstruction = document.getElementById("pq-instructions");
 
-
 var time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
 time = time.textContent;
 var wait_time = time.split(" ")[2];
 var wait_time_sec = ((parseInt(wait_time) * 60)/2)*1000;
-
 
 var editableText = null;
 var disclaimerText = null;
@@ -515,23 +496,60 @@ if (istructionsBody != null){
 	istructionsBodyText = istructionsBody.innerText;
 }
 
-
 var list_of_srtings =
-	["The result is very helpful because provides helpful information about the query",
-		"the result provides correct information",
-		"the result is a scrb that shows helpful information",
-		"this result is very helpful for the query",
-		"this result is very helpful",
-		"The result does not have any problem with the query",
-		"the result is a scrb that shows helpful information", "the result is good", "the result is ok",
-		"this result does not have any problem", "the result is very good for the query", "the result is very good",
-	];
+	["The result is very helpful because provides helpful information about the query", "the result provides correct information",
+		"the result is a scrb that shows helpful information", "this result is very helpful for the query", "this result is very helpful", "The result does not have any problem with the query", "the result is a scrb that shows helpful information", "the result is good", "the result is ok",
+		"this result does not have any problem", "the result is very good for the query", "the result is very good", "the scrb is good", "this scrb provides helpful information", "scrb is ok", "the special block looks very good and accurate", "this scrb is accurate", "the scrb looks good"];
 
 let testo;
 let value;
 let blocks;
 let winnerSide;
 let otherSide;
+
+/* QUERY-TOPIC RELEVANT */
+if (mode === "Web" && type === "Experimental"){
+	testo = 'In this task, you will be given a query and a topic. If the query intent is directly relevant to the topic, you will be asked three questions about the intent of the query with respect to the topic.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("query topic relevant");
+		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
+		console.log("done");
+	}
+}
+
+if (mode === "Web" && type === "Side By Side"){
+	/* SXS NO NEEDS MET */
+	testo = 'In this task, you will be asked to compare two Search result pages, arranged side by side.\n' +
+		'You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result pages.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("SXS NO NEEDS MET");
+
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value);
+
+		console.log("done");
+	}
+
+	/* WEB SXS */
+	testo = 'Instructions\n' +
+		'\n' +
+		'IMPORTANT (PLEASE READ): For the purposes of this task, please assume the query was issued on a desktop computer.\n' +
+		'\n' +
+		'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("WEB SXS");
+
+		OpenAllLinks(wait_time_sec);
+
+		value = "80%";
+		get_and_set_sliders(value);
+
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value);
+
+		console.log("done");
+	}
+}
 
 /* IMAGE-SXS  DA FINIRE*/
 if (mode === "Image" && type === "Side By Side"){
@@ -547,16 +565,6 @@ if (mode === "Image" && type === "Side By Side"){
 		radios_value = "AboutTheSameAs";
 		set_all_radios(document, radios_value);
 
-		console.log("done");
-	}
-}
-
-/* QUERY-TOPIC RELEVANT */
-if (mode === "Web" && type === "Experimental"){
-	testo = 'In this task, you will be given a query and a topic. If the query intent is directly relevant to the topic, you will be asked three questions about the intent of the query with respect to the topic.';
-	if (CheckTextOnDocument(document, testo)){
-		console.log("query topic relevant");
-		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
 		console.log("done");
 	}
 }
@@ -745,6 +753,145 @@ if (mode === "Web" && type === "Experimental") {
 		get_and_set_sliders(value);
 		console.log("done");
 	}
+
+	/*EXP SCRB ACCURACY*/
+	testo = "You will be given a query and a Special Content Result Block (SCRB)";
+	if (CheckTextOnDocument(document, testo)){
+		console.log("exp scrb accuracy found");
+
+		/* prendo tutti i bottoni radio */
+		var radios = document.querySelectorAll('input[type=radio]');
+		var task = "expscrbaccuracy";
+		radiosClick(radios, task);
+
+		/* prendo la checkbox finale */
+		var lastCheckBox = document.querySelector('input[name=no_lp_issues]');
+		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
+
+		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
+		document.getElementsByName('comment')[0].value = item;
+
+		console.log("done.");
+	}
+
+	/* COMPLETIONS */
+	testo="In this task, you will be asked to evaluate two sets of possible completions to a partial query. Importantly, the query will contain a ^ symbol to indicate the position of the cursor within the partial query.";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("completions found");
+		set_all_radios(document, "0");
+		console.log("done.");
+	}
+
+	testo="In this task, you will be given a query and an entity-subtopic pair associated with the query.";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("entity subtopic found");
+		var radios = document.querySelectorAll('input[type=radio]');
+		var task = "entitysubtopic";
+		radiosClick(radios,task);
+		console.log("done");
+	}
+
+	/* COMBINED */
+	testo="Your job is to determine if the First Query and Second Query are related, if they can be combined and how well a given Combined Query represents the user's intent for the Second Query.";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("combined found");
+		set_all_radios(document, "1", false);
+		set_all_radios(document, "4", false);
+		console.log("done.");
+	}
+
+	/* PQ 4M UO */
+	testo="In some questions you will be asked about the intended audience of the content";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("pq 4m uofound");
+		var editable597 = document.getElementById("editable-597");
+
+		if (editable597 != null){
+			var url = editable597.getElementsByTagName('a'), hrefs = [];
+			for(j = 0; j<url.length; j++){
+				var win = window.open(url[j].href, '_blank');
+
+			}
+		}
+
+		let checkbox = document.querySelectorAll('input[type=checkbox]');
+		for(j = 0; j<checkbox.length; j++){
+			if(checkbox[j].name==="politics" || checkbox[j].name==="medical" ){
+				let tmp = checkbox[j];
+				tmp.click();
+
+			}
+		}
+
+		set_all_radios(document, "likely_yes", false);
+		set_all_radios(document, "persuade", false);
+
+		value = "75%";
+		get_and_set_sliders(value);
+		console.log("done");
+	}
+
+	/* UO */
+	if (CheckTextOnDocument(document,"In this task, you will be given the link to an article and a list of categories that may describe the content of the article. Your job is to evaluate whether the article’s content relates to any of the categories shown and if so, to rate the corresponding intensity level of issues related to that category as conveyed in the article.")
+		|| CheckTextOnDocument(document,"In this task, you will be shown one or more videos and a list of categories that may describe the nature of the video.")){
+
+		console.log("uo not at all found");
+
+		var editable14 = document.getElementById("editable-14");
+		var editable14Text = null;
+
+		if (editable14 != null){
+			editable14Text = editable14.innerText;
+
+			var url = editable14.getElementsByTagName('a'), hrefs = [];
+			for(j = 0; j<url.length; j++){
+				var win = window.open(url[j].href, '_blank');
+				/* non funziona il close
+				setTimeout(function() { win.close();}, 10); */
+
+			}
+		}
+
+		/* uo video da 6 minuti */
+		const elements = document.querySelectorAll(`[href^="https://www.google.com/evaluation/url"]`);
+		if (elements.length > 0){
+			for(j = 0; j<elements.length; j++){
+				var win = window.open(elements[j].href, '_blank');
+
+			}
+		}
+
+		value = "25%";
+		get_and_set_sliders(value);
+
+		check = document.querySelectorAll('input[name^=isNoOtherDIsturbingOffensive]');
+
+		for(j = 0; j<check.length; j++){
+			if(check[j].value==="1"){
+				var tmp = check[j];
+				tmp.click();
+
+			}
+		}
+		console.log("done");
+	}
+
+	if (CheckTextOnDocument(document,"In this task, you will be given links to landing pages and asked if each landing page corresponds to any of following categories of Lowest Quality content, as defined in")){
+		console.log("uo harmful found");
+		var links = document.querySelectorAll('[id$="editable-50"]');
+
+		for(var i = 0; i<links.length; i++){
+			var url = links[i].getElementsByTagName('a'), hrefs = [];
+			for(j = 0; j<url.length; j++){
+				var win = window.open(url[j].href, '_blank');
+
+			}
+		}
+		radios_value = "likely_yes";
+		set_all_radios(document, radios_value, setPagePosition=false);
+
+		console.log("done");
+	}
 }
 
 /* RELATED QUESTION */
@@ -754,7 +901,6 @@ if (mode === "Mobile" && type === "Side By Side"){
 		console.log("related question found");
 
 		value = '80%';
-
 		get_and_set_sliders(value);
 
 		radios_value = "no";
@@ -777,6 +923,18 @@ if (mode === "Mobile" && type === "Side By Side"){
 			}
 		}
 		radios_value = "1";
+		set_all_radios(document, radios_value, false);
+		console.log("done");
+	}
+
+	/* mobile sxs hm e ats tipo le news */
+	testo = 'for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("mobile sxs found");
+		OpenAllLinks(wait_time_sec);
+		value = "70%";
+		get_and_set_sliders(value);
+		radios_value = "AboutTheSameAs";
 		set_all_radios(document, radios_value, false);
 		console.log("done");
 	}
@@ -850,20 +1008,6 @@ if (CheckTextOnDocument(document, testo)){
 	console.log("done");
 }
 
-
-/* mobile sxs hm e ats tipo le news */
-if (mode === "Mobile" && type === "Side By Side"){
-	testo = 'for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own';
-	if (CheckTextOnDocument(document, testo)){
-		console.log("mobile sxs found");
-		OpenAllLinks(wait_time_sec);
-		value = "70%";
-		get_and_set_sliders(value);
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value, false);
-		console.log("done");
-	}
-}
 
 /* YOUTUBE EXP RACY */
 if (mode === "YouTube" && type === "Experimental"){
@@ -1010,76 +1154,7 @@ if (mode === "SafeSearch" && type === "Result Review"){
 	}
 }
 
-/* UO */
-if (mode === "Web" && type === "Experimental"){
 
-	if (editable3Text != null) {
-		/* PROVARE UO 6 MINUTI VIDEO NOT AT ALL*/
-		if( editable3Text.includes("In this task, you will be given the link to an article and a list of categories that may describe the content of the article. Your job is to evaluate whether the article’s content relates to any of the categories shown and if so, to rate the corresponding intensity level of issues related to that category as conveyed in the article.")
-			|| editable3Text.includes("In this task, you will be shown one or more videos and a list of categories that may describe the nature of the video.")){
-
-			console.log("uo not at all found");
-
-			var editable14 = document.getElementById("editable-14");
-			var editable14Text = null;
-
-			if (editable14 != null){
-				editable14Text = editable14.innerText;
-
-				var url = editable14.getElementsByTagName('a'), hrefs = [];
-				for(j = 0; j<url.length; j++){
-					var win = window.open(url[j].href, '_blank');
-					/* non funziona il close
-					setTimeout(function() { win.close();}, 10); */
-
-				}
-			}
-
-			/* uo video da 6 minuti */
-			const elements = document.querySelectorAll(`[href^="https://www.google.com/evaluation/url"]`);
-			if (elements.length > 0){
-				for(j = 0; j<elements.length; j++){
-					var win = window.open(elements[j].href, '_blank');
-
-				}
-			}
-
-			value = "25%";
-			get_and_set_sliders(value);
-
-			check = document.querySelectorAll('input[name^=isNoOtherDIsturbingOffensive]');
-
-			for(j = 0; j<check.length; j++){
-				if(check[j].value==="1"){
-					var tmp = check[j];
-					tmp.click();
-
-				}
-			}
-
-			console.log("done");
-		}
-
-		if(editable3Text.includes("In this task, you will be given links to landing pages and asked if each landing page corresponds to any of following categories of Lowest Quality content, as defined in")){
-			console.log("uo harmful found");
-			if (editable6 != null){
-
-				var links = document.querySelectorAll('[id$="editable-50"]');
-
-				for(var i = 0; i<links.length; i++){
-					var url = links[i].getElementsByTagName('a'), hrefs = [];
-					for(j = 0; j<url.length; j++){
-						var win = window.open(url[j].href, '_blank');
-
-					}
-				}
-				radios_value = "likely_yes";
-				set_all_radios(document, radios_value, setPagePosition=false);
-			}
-			console.log("done");
-		}
-	}
-}
 
 /* AUDIO SXS E NON SXS DA 1M */
 if ((mode === "Headphones" && type === "Side By Side") ||
@@ -1186,70 +1261,12 @@ if (mode === "News and Blogs" && type === "Experimental"){
 	testo="Review each snapshot and make a note of the Top 3 Prominent News Topics that are common between them.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log("news and blogs found");
-		var columns = document.getElementsByClassName("ewok-editor-editable-column");
 
-		/* gli screenshot stanno in posizione 3 4 e 5 */
-		/* altrimenti prende anche altre colonne che non interessano ma con lo stesso nome della calsse */
-		var url1 = columns[3].getElementsByTagName('a');
-		var url2 = columns[4].getElementsByTagName('a');
-		var url3 = columns[5].getElementsByTagName('a');
+		OpenAllLinks(wait_time_sec);
 
-		for(var i=0; i<url1.length; i++){
-			var win = window.open(url1[i].href, '_blank');
-		}
-
-		for(var i=0; i<url2.length; i++){
-			var win = window.open(url2[i].href, '_blank');
-		}
-
-		for(var i=0; i<url3.length; i++){
-			var win = window.open(url3[i].href, '_blank');
-		}
 		set_all_radios(document, "1", false);
 
 		console.log("done.");
-	}
-}
-
-if (mode === "Web" && type === "Experimental"){
-	/* COMBINED */
-	testo="Your job is to determine if the First Query and Second Query are related, if they can be combined and how well a given Combined Query represents the user's intent for the Second Query.";
-	if(CheckTextOnDocument(document, testo)){
-		console.log("combined found");
-		set_all_radios(document, "1", false);
-		set_all_radios(document, "4", false);
-		console.log("done.");
-	}
-
-	/* PQ 4M UO */
-	testo="In some questions you will be asked about the intended audience of the content";
-	if(CheckTextOnDocument(document, testo)){
-		console.log("pq 4m uofound");
-		var editable597 = document.getElementById("editable-597");
-
-		if (editable597 != null){
-			var url = editable597.getElementsByTagName('a'), hrefs = [];
-			for(j = 0; j<url.length; j++){
-				var win = window.open(url[j].href, '_blank');
-
-			}
-		}
-
-		let checkbox = document.querySelectorAll('input[type=checkbox]');
-		for(j = 0; j<checkbox.length; j++){
-			if(checkbox[j].name==="politics" || checkbox[j].name==="medical" ){
-				let tmp = checkbox[j];
-				tmp.click();
-
-			}
-		}
-
-		set_all_radios(document, "likely_yes", false);
-		set_all_radios(document, "persuade", false);
-
-		value = "75%";
-		get_and_set_sliders(value);
-		console.log("done");
 	}
 }
 
@@ -1345,53 +1362,6 @@ if (mode === "YouTube" && type === "Experimental"){
 		console.log("done.");
 	}
 }
-
-
-if (mode === "Web" && type === "Experimental"){
-	/*EXP SCRB ACCURACY*/
-	testo = "You will be given a query and a Special Content Result Block (SCRB)";
-	if (CheckTextOnDocument(document, testo)){
-		console.log("exp scrb accuracy found");
-
-		/* prendo tutti i bottoni radio */
-		var radios = document.querySelectorAll('input[type=radio]');
-		var task = "expscrbaccuracy";
-		radiosClick(radios, task);
-
-		/* prendo la checkbox finale */
-		var lastCheckBox = document.querySelector('input[name=no_lp_issues]');
-		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
-
-
-		var comments = ["the scrb is good", "this scrb provides helpful information", "ths scrb is good",
-			"scrb is ok", "the special block looks very good and accurate",
-			"this scrb is accurate", "the scrb looks good"];
-
-		var item = comments[Math.floor(Math.random()*comments.length)];
-		document.getElementsByName('comment')[0].value = item;
-
-		console.log("done.");
-	}
-
-	/* COMPLETIONS */
-	testo="In this task, you will be asked to evaluate two sets of possible completions to a partial query. Importantly, the query will contain a ^ symbol to indicate the position of the cursor within the partial query.";
-	if(CheckTextOnDocument(document, testo)){
-		console.log("completions found");
-		set_all_radios(document, "0");
-		console.log("done.");
-	}
-
-	testo="In this task, you will be given a query and an entity-subtopic pair associated with the query.";
-	if(CheckTextOnDocument(document, testo)){
-		console.log("entity subtopic found");
-		var radios = document.querySelectorAll('input[type=radio]');
-		var task = "entitysubtopic";
-		radiosClick(radios,task);
-		console.log("done");
-	}
-
-}
-
 
 if (mode === "Local" && type === "Side By Side"){
 	let value="";
@@ -1525,7 +1495,8 @@ if (mode === "Mobile" && type === "Experimental") {
 	/* NEEDS MET */
 	testo="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.";
 	testo2="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
-	if(ExactText(document, testo) || ExactText(document, testo2)){
+	testo3="InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
+	if(ExactText(document, testo) || ExactText(document, testo2) || ExactText(document, testo3)){
 		console.log("NEEDS MET FOUND");
 		OpenAllLinks(wait_time_sec);
 
