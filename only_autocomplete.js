@@ -342,6 +342,22 @@ function DecodeStringUrl(url){
 	return s;
 }
 
+function getUrlFromTag(a){
+	var url = a.dataset.oldhref;
+	if (typeof url !== "undefined") {
+		return url;
+	}
+
+	url = a.href;
+	if (typeof url !== "undefined") {
+		return url;
+	}
+
+	return undefined;
+
+
+}
+
 /* open all links */
 function OpenAllLinks(wait_time) {
 	var allBlocks = document.querySelectorAll(
@@ -361,7 +377,8 @@ function OpenAllLinks(wait_time) {
 		for (var j = 0; j < buds_html.length; j++) {
 			try {
 				var a = buds_html[j].querySelector("a");
-				var url = a.dataset.oldhref;
+
+				var url = getUrlFromTag(a);
 				if (typeof url !== "undefined") {
 					var s = DecodeStringUrl(url);
 					mySet1.add(s);
@@ -1288,40 +1305,20 @@ if (mode === "YouTube" && type === "Experimental"){
 
 /* YOUTUBE SXS RACY o ADULT*/
 if (mode === "YouTube" && type === "Side By Side"){
-	if (disclaimerText != null && disclaimerText.includes("In this task, you may be exposed to queries, webpages, and/or topics that contain potentially pornographic content.")){
-		if (editableText != null && editableText.includes("In this task, you will be asked to provide Needs Met and Page Quality ratings for queries that were issued on www.youtube.com. Please be aware of the user intent difference when the query is issued on YouTube rather than a general search engine.")){
+	if(CheckTextOnDocument(document, "In this task, you may be exposed to queries, webpages, and/or topics that contain potentially pornographic content.") ||
+		CheckTextOnDocument(document, "In this task, you will be asked to provide Needs Met and Page Quality ratings for queries that were issued on www.youtube.com. Please be aware of the user intent difference when the query is issued on YouTube rather than a general search engine.")){
 
-			console.log("yt sxs racy found");
+		console.log("yt sxs racy found");
 
-			/* click su "Does this query seek Porn or Racy content?" */
-			var pornButton = document.querySelectorAll('input[name=SexualSeeking]');
-			for(var i = 0; i< pornButton.length; i++){
-				if(pornButton[i].value === "0"){
-					pornButton[i].click();
-				}
+		OpenAllLinks(wait_time_sec);
+		get_and_set_sliders("70%");
 
-			}
-
-			/* prendo tutti i blocchi */
-			var allBlocks = document.getElementsByClassName("ewok-buds-card ewok-buds-result");
-
-			/*potrebbe non segnare i blocchi dupe in caso levare il commento e fare un altro for
-			var allBlocksWithDupes = document.getElementsByClassName("ewok-buds-card ewok-buds-result ewok-buds-result-has-dupes ewok-buds-result-highlight");
-			*/
-
-			/* setto mm */
-			value = "60%";
-
-			for(var i=0; i<allBlocks.length; i++){
-				setSliders(allBlocks[i],value);
-			}
-
-			set_all_radios(document, "0");
-			/* setto ats */
-			radios_value = "AboutTheSameAs";
-			set_all_radios(document, radios_value);
-			console.log("done.");
-		}
+		set_all_radios(document, "0");
+		set_all_radios(document, "3");
+		/* setto ats */
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value);
+		console.log("done.");
 
 	}
 
@@ -1512,6 +1509,7 @@ if (mode === "Mobile" && type === "Experimental") {
 
 	/* PSYCHO */
 	testo = "InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale."
+
 	if(ExactText(document, testo)){
 		console.log("psycho");
 
