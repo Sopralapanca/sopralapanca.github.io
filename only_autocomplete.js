@@ -1381,15 +1381,12 @@ if (mode === "Local" && type === "Side By Side"){
 
 	/* SXS LOCAL VIEWPORT*/
 	testo="Understand the user's intent by considering the query in the context of the area of interest, which may be determined by the following:\n" +
-		"Some location mentioned in the query text itself.\n" +
-		"The user's location, which may be shown on the Map as a blue dot or a blue rectangle.\n" +
-		"The \"viewport\", which is the map that the user was viewing prior to issuing the query (represented by a red rectangle on the Map).";
+		"Some location mentioned in the query text itself.";
 
 	if (CheckTextOnDocument(document, testo)){
 		console.log("SXS LOCAL VIEWPORT FOUND");
 		value = "80%";
 	}
-
 
 	if(value !== ""){
 		OpenAllLinks(wait_time_sec);
