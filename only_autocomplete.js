@@ -836,7 +836,7 @@ if (mode === "Web" && type === "Experimental") {
 		|| CheckTextOnDocument(document,"In this task, you will be shown one or more videos and a list of categories that may describe the nature of the video.")){
 
 		console.log("uo not at all found");
-
+		var j = 0;
 		var editable14 = document.getElementById("editable-14");
 		var editable14Text = null;
 
