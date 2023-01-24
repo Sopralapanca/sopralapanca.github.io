@@ -619,22 +619,35 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("MINI NEWS AND BLOGS FOUND");
 
-		var querybox = document.querySelector('h2[role="textbox"]');
-		var tmp = querybox.innerText.split(":")[1];
-		var strings = tmp.trim().split(" ");
-		strings.splice(strings.length - 2, 2);
-
-		var query = strings.join(" ");
+		radios_value = "AboutTheSameAs"
 
 		testo = "The right side did not generate any results."
 		if (CheckTextOnDocument(document, testo)) {
 			winnerSide = "left side";
 			otherSide = "right side";
 			radios_value = "MuchBetterThan";
-		}else{
+
+
+			var list_of_srtings =
+				[otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
+				];
+
+			var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
+			document.getElementById('ewok-buds-validation-comment').value = item;
+		}
+		testo = "The left side did not generate any results."
+		if (CheckTextOnDocument(document, testo)) {
 			winnerSide = "right side";
 			otherSide = "left side";
 			radios_value = "MuchWorseThan";
+
+
+			var list_of_srtings =
+				[otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
+				];
+
+			var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
+			document.getElementById('ewok-buds-validation-comment').value = item;
 		}
 
 		var allBlocks = document.getElementsByClassName("evl-slider2");
@@ -662,12 +675,6 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 
 		}
 
-		var list_of_srtings =
-			[otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
-		];
-
-		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
-		document.getElementById('ewok-buds-validation-comment').value = item;
 		set_all_radios(document, radios_value, false);
 		console.log("done");
 	}
