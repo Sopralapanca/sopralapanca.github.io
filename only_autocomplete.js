@@ -1401,9 +1401,9 @@ if (mode === "Local" && type === "Side By Side"){
 
 		radios_value = "AboutTheSameAs";
 		set_all_radios(document, radios_value, false);
+		console.log("done");
 	}
 
-	console.log("done.");
 }
 
 if (mode === "Mobile" && type === "Experimental") {
