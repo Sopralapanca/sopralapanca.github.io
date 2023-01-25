@@ -952,7 +952,7 @@ if (mode === "Local" && type === "Side By Side"){
 	testo = 'Tell us which side provides more useful additional information. Differences between the results are highlighted. Keep in mind that more information is not necessarily better.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("HIGHLIGHTED DIFFERENCES found");
-		value = "70%";
+		value = "80%";
 		get_and_set_sliders(value);
 
 		radios_value = "0";
