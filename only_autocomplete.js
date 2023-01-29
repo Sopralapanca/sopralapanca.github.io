@@ -1482,30 +1482,26 @@ if (mode === "Mobile" && type === "Experimental") {
 		console.log("done");
 	}
 
-	/* PSYCHO */
-	testo = "InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale."
-
-	if(ExactText(document, testo)){
-		console.log("psycho");
-
-		value = "90%";
-		get_and_set_sliders(value);
-
-		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
-		document.getElementsByName('comment')[0].value = item;
-
-		console.log("done");
-	}
 
 	/* NEEDS MET */
 	testo="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.";
 	testo2="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
 	testo3="InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
 	if(ExactText(document, testo) || ExactText(document, testo2) || ExactText(document, testo3)){
-		console.log("NEEDS MET FOUND");
+		console.log("ci sono");
+		try{
+			console.log("PSYCHO FOUND");
+			value = "90%";
+			var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
+			document.getElementsByName('comment')[0].value = item;
+		}catch(error){
+			value = "70%";
+			console.log("NEEDS MET FOUND");
+			console.log(error)
+		}
+
 		OpenAllLinks(wait_time_sec);
 
-		value = "70%";
 		get_and_set_sliders(value);
 
 		console.log("done");
