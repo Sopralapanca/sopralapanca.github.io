@@ -73,22 +73,23 @@ async function setSliders(block, value, task){
 
 	const min = 1500;
 	const max = 3000;
+	const base = 1000;
 
 
 	for (k = 0; k<sliderBar.length; k++){
-		await sleep(2000+(Math.round(Math.random()*(max - min) + min)));
+		await sleep(base+(Math.round(Math.random()*(max - min) + min)));
 		sliderBar[k].style.width = value;
 		sliderTriangle[k].style.left = value;
 
 	}
 
 	for (k = 0; k<hiddenField.length; k++){
-		await sleep(2000+(Math.round(Math.random()*(max - min) + min)));
+		await sleep(base+(Math.round(Math.random()*(max - min) + min)));
 		hiddenField[k].value = hiddenValue;
 	}
 
 	for (k = 0; k<SpeakerSimilarityField.length; k++){
-		await sleep(2000+(Math.round(Math.random()*(max - min) + min)));
+		await sleep(base+(Math.round(Math.random()*(max - min) + min)));
 		SpeakerSimilarityField[k].value = hiddenValue;
 	}
 }
