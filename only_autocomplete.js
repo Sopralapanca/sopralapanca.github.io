@@ -1168,99 +1168,90 @@ if (mode === "SafeSearch" && type === "Result Review"){
 if ((mode === "Headphones" && type === "Side By Side") ||
 	(mode === "Web" && type === "Experimental")){
 
-	if (additionalText != null && additionalText === "Headphones Required"){
+	if (additionalText != null) {
+		additionalText = additionalText.toLowerCase();
 
-		var leftSide = document.getElementById("play0");
-		var rightSide = document.getElementById("play1");
+		if(additionalText === "headphones required"){
 
+			var leftSide = document.getElementById("play0");
+			var rightSide = document.getElementById("play1");
 
-		if (leftSide != null && rightSide != null){
-			console.log("audio sxs found");
+			if (leftSide != null && rightSide != null){
+				console.log("audio sxs found");
 
-			/* sxs */
-			leftSide.scrollIntoView();
+				/* sxs */
+				leftSide.scrollIntoView();
+				leftSide.click();
 
-			leftSide.click();
+				setTimeout(function(){rightSide.click()},wait_time_sec);
+			}else{
+				console.log("audio found");
+				/* non sxs */
+				var row = document.getElementById("ListenCondition-id");
+				if (row != null){
+					var radios = document.querySelectorAll('input[name=ListenCondition]');
 
-			setTimeout(function(){rightSide.click()},wait_time_sec);
+					var task = "headphones";
+					radiosClick(radios,task);
 
+					var radios = document.querySelectorAll('input[name=SpeechQuality]');
+					radiosClick(radios,task);
 
-			var side = document.getElementById("AboutTheSameAs");
-			setTimeout(function(){side.click()},2000+(Math.round(Math.random()*2000)));
-		}else{
-			console.log("audio found");
-			/* non sxs */
-			var row = document.getElementById("ListenCondition-id");
-			if (row != null){
+					var audio = document.getElementById("speech_sample");
+					audio.play();
+					audio.volume = 0.2;
+
+					setTimeout(function(){audio.play()},30000+(Math.round(Math.random()*2000)));
+				}
+			}
+			set_all_radios(document, "AboutTheSameAs");
+			console.log("done");
+		}
+
+		if (additionalText === "headphones or speakers required"){
+			console.log("headphones similar");
+
+			var clips = document.querySelectorAll('audio[id*=task_clip_speech]');
+
+			if (clips != null){
+				for(var i = 0; i<clips.length; i++){
+					clips[i].scrollIntoView();
+
+					clip = clips[i];
+					clip.play();
+					clip.volume = 0.1;
+					setTimeout(function(){clip.play()},30000+(Math.round(Math.random()*2000)));
+				}
+
+				var radiobutton = document.querySelectorAll('input[type=radio]');
+
+				for(j = 0; j<radiobutton.length; j++){
+					if(radiobutton[j].value==="Good"){
+						radiobutton[j].click();
+					}
+				}
+
+			}else{
+				/* provare questo audio */
 				var radios = document.querySelectorAll('input[name=ListenCondition]');
-
 				var task = "headphones";
 				radiosClick(radios,task);
 
-				var radios = document.querySelectorAll('input[name=SpeechQuality]');
-				radiosClick(radios,task);
+				var audio_a = document.getElementById("speech_sample_a");
+				var audio_b = document.getElementById("speech_sample_b");
+				audio_a.play();
+				audio_a.volume = 0.1;
 
-				var audio = document.getElementById("speech_sample");
-				audio.play();
-				audio.volume = 0.2;
+				audio_b.play();
+				audio_b.volume = 0.1;
 
-				setTimeout(function(){audio.play()},30000+(Math.round(Math.random()*2000)));
-
-
+				setTimeout(function(){audio_a.play()},30000+(Math.round(Math.random()*2000)));
+				setTimeout(function(){audio_b.play()},30000+(Math.round(Math.random()*2000)));
 			}
+
+			value = "90%";
+			get_and_set_sliders(value);
 		}
-
-		console.log("done");
-	}
-	if (additionalText != null && additionalText === "Headphones or Speakers Required"){
-		console.log("headphones similar");
-
-
-		var clips = null;
-		clips = document.querySelectorAll('audio[id*=task_clip_speech]');
-
-
-		if (clips != null){
-			for(var i = 0; i<clips.length; i++){
-				clips[i].scrollIntoView();
-
-				clip = clips[i];
-				clip.play();
-				clip.volume = 0.1;
-				setTimeout(function(){clip.play()},30000+(Math.round(Math.random()*2000)));
-			}
-
-
-
-			var radiobutton = document.querySelectorAll('input[type=radio]');
-
-			for(j = 0; j<radiobutton.length; j++){
-				if(radiobutton[j].value==="Good"){
-					radiobutton[j].click();
-				}
-			}
-
-		}else{
-			/* provare questo audio */
-			var radios = document.querySelectorAll('input[name=ListenCondition]');
-			var task = "headphones";
-			radiosClick(radios,task);
-
-			var audio_a = document.getElementById("speech_sample_a");
-			var audio_b = document.getElementById("speech_sample_b");
-			audio_a.play();
-			audio_a.volume = 0.1;
-
-			audio_b.play();
-			audio_b.volume = 0.1;
-
-			setTimeout(function(){audio_a.play()},30000+(Math.round(Math.random()*2000)));
-			setTimeout(function(){audio_b.play()},30000+(Math.round(Math.random()*2000)));
-		}
-
-
-		value = "90%";
-		get_and_set_sliders(value);
 	}
 }
 
@@ -1488,7 +1479,7 @@ if (mode === "Mobile" && type === "Experimental") {
 	testo2="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
 	testo3="InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
 	if(ExactText(document, testo) || ExactText(document, testo2) || ExactText(document, testo3)){
-		console.log("ci sono");
+
 		try{
 			console.log("PSYCHO FOUND");
 			value = "90%";
