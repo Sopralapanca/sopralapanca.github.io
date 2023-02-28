@@ -1178,7 +1178,6 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 
 			if (leftSide != null && rightSide != null){
 				console.log("audio sxs found");
-
 				/* sxs */
 				leftSide.scrollIntoView();
 				leftSide.click();
@@ -1223,13 +1222,7 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 					setTimeout(function(){clip.play()},30000+(Math.round(Math.random()*2000)));
 				}
 
-				var radiobutton = document.querySelectorAll('input[type=radio]');
-
-				for(j = 0; j<radiobutton.length; j++){
-					if(radiobutton[j].value==="Good"){
-						radiobutton[j].click();
-					}
-				}
+				set_all_radios(document, "Good");
 
 			}else{
 				/* provare questo audio */
@@ -1248,7 +1241,6 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 				setTimeout(function(){audio_a.play()},30000+(Math.round(Math.random()*2000)));
 				setTimeout(function(){audio_b.play()},30000+(Math.round(Math.random()*2000)));
 			}
-
 			value = "90%";
 			get_and_set_sliders(value);
 		}
@@ -1260,11 +1252,8 @@ if (mode === "News and Blogs" && type === "Experimental"){
 	testo="Review each snapshot and make a note of the Top 3 Prominent News Topics that are common between them.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log("news and blogs found");
-
 		OpenAllLinks(wait_time_sec);
-
 		set_all_radios(document, "1", false);
-
 		console.log("done.");
 	}
 }
