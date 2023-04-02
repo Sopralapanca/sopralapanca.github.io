@@ -1411,7 +1411,7 @@ if (mode === "Local" && type === "Side By Side"){
 	}
 
 }
-
+/* prova commento */
 if (mode === "Mobile" && type === "Experimental") {
 	/* PAGE QUALITY NORMALI */
 	testo="In each task, you will be given a URL and some questions about the landing page. Please use the PQ grid to check Page Quality characteristics and assign an overall rating.";
