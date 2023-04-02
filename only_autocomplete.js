@@ -75,7 +75,6 @@ async function setSliders(block, value, task){
 	const max = 3000;
 	const base = 1000;
 
-
 	for (k = 0; k<sliderBar.length; k++){
 		await sleep(base+(Math.round(Math.random()*(max - min) + min)));
 		sliderBar[k].style.width = value;
@@ -138,16 +137,31 @@ function get_and_set_sliders(value,task){
 	}
 }
 
-function set_all_radios(block, value, setPagePosition=true){
-	const radios = block.querySelectorAll('input[type="radio"]');
-	if(setPagePosition) {
-		radios[0].scrollIntoView();
-	}
-	for(let j = 0; j<radios.length; j++){
-		if(radios[j].value===value){
-			radios[j].click();
+function set_all_radios(block, value, setPagePosition=true, checkbox=false){
+	let radios = null;
+	let cboxes = null;
+	if(checkbox){
+		cboxes = block.querySelectorAll('input[type="checkbox"]');
+		if(setPagePosition) {
+			cboxes[0].scrollIntoView();
+		}
+		for(let j = 0; j<cboxes.length; j++){
+			if(cboxes[j].name.includes(value)){
+				cboxes[j].checked = true;
+			}
+		}
+	}else{
+		radios = block.querySelectorAll('input[type="radio"]');
+		if(setPagePosition) {
+			radios[0].scrollIntoView();
+		}
+		for(let j = 0; j<radios.length; j++){
+			if(radios[j].value===value){
+				radios[j].click();
+			}
 		}
 	}
+
 }
 
 async function radiosClick(radios, task) {
@@ -508,16 +522,6 @@ let blocks;
 let winnerSide;
 let otherSide;
 
-/* QUERY-TOPIC RELEVANT */
-if (mode === "Web" && type === "Experimental"){
-	testo = 'In this task, you will be given a query and a topic. If the query intent is directly relevant to the topic, you will be asked three questions about the intent of the query with respect to the topic.';
-	if (CheckTextOnDocument(document, testo)){
-		console.log("query topic relevant");
-		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
-		console.log("done");
-	}
-}
-
 if (mode === "Web" && type === "Side By Side"){
 	/* SXS NO NEEDS MET */
 	testo = 'In this task, you will be asked to compare two Search result pages, arranged side by side.\n' +
@@ -681,9 +685,24 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 	}
 }
 
-
-
 if (mode === "Web" && type === "Experimental") {
+	/* QUERY-TOPIC RELEVANT */
+	testo = 'In this task, you will be given a query and a topic. If the query intent is directly relevant to the topic, you will be asked three questions about the intent of the query with respect to the topic.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("query topic relevant");
+		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
+		console.log("done");
+	}
+
+	/* youtube automatic test */
+	testo = 'In this task, you will be provided some Machine-Generated Text (e.g., constructed by an artificial intelligence algorithm), some Source Material which the Machine-Generated Text is primarily based on (along with a link with additional context in some cases), and a short explanation of the Purpose of the Machine-Generated Text to provide additional context on what the Machine-Generated Text is meant to represent.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("youtube automatic text found");
+		set_all_radios(document, "minor_inconsistencies", true);
+		set_all_radios(document, "language_issues_generated_text", false,checkbox=true);
+		console.log("done");
+	}
+
 	/* UO NOT AT ALL */
 	testo = "In this task, you will be given links to landing pages, and asked to what extent each landing page is";
 	if (CheckTextOnDocument(document, testo)) {
@@ -902,8 +921,8 @@ if (mode === "Web" && type === "Experimental") {
 	}
 }
 
-/* RELATED QUESTION */
 if (mode === "Mobile" && type === "Side By Side"){
+	/* RELATED QUESTION */
 	testo = 'In this task, you will be given a user-issued query and a list of computer-generated "related questions". Each related question is accompanied by a computer-selected answer passage taken from the web. Your job is to:';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("related question found");
@@ -942,6 +961,14 @@ if (mode === "Mobile" && type === "Side By Side"){
 		OpenAllLinks(wait_time_sec);
 		value = "70%";
 		get_and_set_sliders(value);
+		radios_value = "AboutTheSameAs";
+		set_all_radios(document, radios_value, false);
+		console.log("done");
+	}
+
+	testo = 'This task will ask you to evaluate two search result blocks, arranged side by side. You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result blocks.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("mobile sxs one block found");
 		radios_value = "AboutTheSameAs";
 		set_all_radios(document, radios_value, false);
 		console.log("done");
@@ -1161,8 +1188,6 @@ if (mode === "SafeSearch" && type === "Result Review"){
 
 	}
 }
-
-
 
 /* AUDIO SXS E NON SXS DA 1M */
 if ((mode === "Headphones" && type === "Side By Side") ||
@@ -1510,6 +1535,5 @@ if (mode === "Mobile" && type === "Experimental") {
 
 		console.log("done");
 	}
-	/* prova altro commit and push */
 }
 /***** FINE AUTOCOMPLETE *****/
