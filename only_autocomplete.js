@@ -806,6 +806,11 @@ if (mode === "Web" && type === "Experimental") {
 	if(CheckTextOnDocument(document, testo)){
 		console.log("completions found");
 		set_all_radios(document, "0");
+
+		value = "66.6667%";
+		get_and_set_sliders(value);
+
+		set_all_radios(document, "AboutTheSameAs", false);
 		console.log("done.");
 	}
 
