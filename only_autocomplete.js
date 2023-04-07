@@ -528,11 +528,6 @@ if (mode === "Web" && type === "Side By Side"){
 		'You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result pages.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("SXS NO NEEDS MET");
-
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value);
-
-		console.log("done");
 	}
 
 	/* WEB SXS */
@@ -548,12 +543,19 @@ if (mode === "Web" && type === "Side By Side"){
 
 		value = "80%";
 		get_and_set_sliders(value);
-
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value);
-
-		console.log("done");
 	}
+
+	testo = "In this task, you will be given a query and corresponding result blocks linking to videos. For each result block, you will be asked a series of questions about the engagingness of the video for the query. You may skim through the video if you would like. If a video is of a foreign language, ratings will not be required, but please consider answering any questions that are still applicable.";
+	if (CheckTextOnDocument(document, testo)){
+		console.log("ENGAGINGNESS VIDEO SXS");
+		set_all_radios(document, "-1");
+		OpenAllLinks(wait_time_sec);
+		value = "60%";
+		get_and_set_sliders(value);
+	}
+	radios_value = "AboutTheSameAs";
+	set_all_radios(document, radios_value);
+	console.log("done");
 }
 
 /* IMAGE-SXS  DA FINIRE*/
