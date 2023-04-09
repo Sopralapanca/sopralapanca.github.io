@@ -446,13 +446,15 @@ function ExactText(element, testo){
 
 function FillTextArea(element, field_name){
 	let elements;
+	if(field_name==="comment"){
+		elements = element.querySelectorAll('[name=' + field_name + ']');
+	}else{
+		elements = element.querySelectorAll('[name*=' + field_name + ']');
+	}
+	if(elements.length===0){
+		return false;
+	}
 	try{
-		if(field_name==="comment"){
-			elements = element.querySelectorAll('[name=' + field_name + ']');
-		}else{
-			elements = element.querySelectorAll('[name*=' + field_name + ']');
-		}
-
 		for (let i=0; i<elements.length;i++){
 			if (!elements[i].disabled){
 				elements[i].value = list_of_comments[Math.floor(Math.random() * list_of_comments.length)];
