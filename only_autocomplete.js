@@ -449,7 +449,7 @@ function FillTextArea(element, field_name){
 		let elements = element.querySelectorAll('[name*=' + field_name + ']');
 		for (let i=0; i<elements.length;i++){
 			if (!elements[i].disabled){
-				elements[i].value = list_of_srtings[Math.floor(Math.random() * list_of_srtings.length)];
+				elements[i].value = list_of_comments[Math.floor(Math.random() * list_of_comments.length)];
 			}
 		}
 		return true;
@@ -527,7 +527,7 @@ if (istructionsBody != null){
 	istructionsBodyText = istructionsBody.innerText;
 }
 
-var list_of_srtings =
+var list_of_comments =
 	["The result is very helpful because provides helpful information about the query", "the result provides correct information",
 		"the result is a scrb that shows helpful information", "this result is very helpful for the query", "this result is very helpful", "The result does not have any problem with the query", "the result is a scrb that shows helpful information", "the result is good", "the result is ok",
 		"this result does not have any problem", "the result is very good for the query", "the result is very good", "the scrb is good", "this scrb provides helpful information", "scrb is ok", "the special block looks very good and accurate", "this scrb is accurate", "the scrb looks good"];
@@ -651,11 +651,11 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 			radios_value = "MuchBetterThan";
 
 
-			var list_of_srtings =
+			var list_of_comments =
 				[otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
 				];
 
-			var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
+			var item = list_of_comments[Math.floor(Math.random()*list_of_comments.length)];
 			document.getElementById('ewok-buds-validation-comment').value = item;
 		}
 		testo = "The left side did not generate any results."
@@ -665,11 +665,11 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 			radios_value = "MuchWorseThan";
 
 
-			var list_of_srtings =
+			var list_of_comments =
 				[otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
 				];
 
-			var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
+			var item = list_of_comments[Math.floor(Math.random()*list_of_comments.length)];
 			document.getElementById('ewok-buds-validation-comment').value = item;
 		}
 
@@ -823,8 +823,7 @@ if (mode === "Web" && type === "Experimental") {
 		var lastCheckBox = document.querySelector('input[name=no_lp_issues]');
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
 
-		var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
-		document.getElementsByName('comment')[0].value = item;
+		FillTextArea(document, "comment");
 
 		console.log("done.");
 	}
@@ -1493,14 +1492,7 @@ if (mode === "Mobile" && type === "Experimental") {
 		/* setto hm+ */
 		value = "90%";
 		get_and_set_sliders(value);
-
-		try{
-			var item = list_of_srtings[Math.floor(Math.random()*list_of_srtings.length)];
-			document.getElementsByName('comment')[0].value = item;
-		}catch(error){
-			console.log(error)
-		}
-
+		FillTextArea(document, "comment");
 
 		console.log("done");
 	}
