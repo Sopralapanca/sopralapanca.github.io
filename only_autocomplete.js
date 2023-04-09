@@ -577,7 +577,6 @@ if (mode === "Web" && type === "Experimental" && additionalText === "Headphones 
 	}
 }
 
-
 if (mode === "Web" && type === "Side By Side"){
 	/* SXS NO NEEDS MET */
 	testo = 'In this task, you will be asked to compare two Search result pages, arranged side by side.\n' +
@@ -610,6 +609,17 @@ if (mode === "Web" && type === "Side By Side"){
 		value = "60%";
 		get_and_set_sliders(value);
 	}
+
+	/* INFORMATIVE YT SXS */
+	testo = "MC that feels like a good use of time is informative (example, example), inspirational (example, example), and/or entertaining (example, example). MC that doesn’t feel like a good use of time is meaningless (example, example) or off-putting (example).";
+	if (CheckTextOnDocument(document, testo)){
+		console.log("INFORMATIVE VIDEO SXS");
+		set_all_radios(document, "1");
+		OpenAllLinks(wait_time_sec);
+		get_and_set_sliders("60%");
+	}
+
+
 	radios_value = "AboutTheSameAs";
 	set_all_radios(document, radios_value);
 	console.log("done");
