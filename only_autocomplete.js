@@ -248,9 +248,7 @@ async function radiosClick(radios, task) {
 				await sleep(2000+(Math.round(Math.random()*3000)));
 				tmp.click();
 			}
-
 		}
-
 	}
 
 	if (task === "ytexpadult"){
@@ -284,28 +282,24 @@ async function radiosClick(radios, task) {
 				tmp = radios[j];
 				await sleep(2000+(Math.round(Math.random()*3000)));
 				tmp.click();
-
 			}
 
 			if(radios[j].name==="YMYL" &&  radios[j].value==="0"){
 				tmp = radios[j];
 				await sleep(2000+(Math.round(Math.random()*3000)));
 				tmp.click();
-
 			}
 
 			if(radios[j].name==="inflammatory" &&  radios[j].value==="0"){
 				tmp = radios[j];
 				await sleep(2000+(Math.round(Math.random()*3000)));
 				tmp.click();
-
 			}
 
 			if(radios[j].name==="disputed_topic" &&  radios[j].value==="0"){
 				tmp = radios[j];
 				await sleep(2000+(Math.round(Math.random()*3000)));
 				tmp.click();
-
 			}
 		}
 	}
@@ -422,14 +416,12 @@ function OpenAllLinks(wait_time) {
 			win.close();
 		}
 	}, wait_time-2000);
-
 }
 
 /* opens one link */
 function OpenLink(block) {
 	var search_link = block.getElementsByTagName('a')[0].href;
 	var openWindow = window.open(search_link, '_blank');
-
 }
 
 function ExactText(element, testo){
@@ -466,6 +458,26 @@ function FillTextArea(element, field_name){
 	}
 	return true;
 }
+
+function PlayAudio(element, field_name, play_twice=false){
+	let audio_clips = element.querySelectorAll('audio[id*=' + field_name + ']');
+	audio_clips[0].scrollIntoView();
+
+	for(var i = 0; i<audio_clips.length; i++){
+		audio_clips[i].play();
+		audio_clips[i].volume = 0.1;
+	}
+
+	if(play_twice){
+		setTimeout(function(){
+				for(var i = 0; i<audio_clips.length; i++){
+					audio_clips[i].play();
+					audio_clips[i].volume = 0.1;
+				}
+			},30000+(Math.round(Math.random()*2000)));
+	}
+}
+
 
 var header = document.getElementsByClassName("ewok-task-action-header")[0];
 header = header !== undefined ? header.innerText:null;
@@ -546,6 +558,26 @@ let blocks;
 let winnerSide;
 let otherSide;
 
+/* AUDIO */
+if (mode === "Web" && type === "Experimental" && additionalText === "Headphones or Speakers Required"){
+	testo = "In this task, you will be given one or more audio clips. For each clip, please listen to the speech very carefully and then select a rating for each audio clip. The rating should be based on how natural or unnatural the sentence sounded. Please do not judge the grammar or the content of the sentence. Instead, just focus on how natural the speech sounds.";
+	if(CheckTextOnDocument(document, testo)){
+		console.log('audio natural sentences found');
+		PlayAudio(document, "task_clip_speech");
+		set_all_radios(document, "Good");
+	}else{
+		console.log("headphones similar");
+		/* provare questo audio */
+		var radios = document.querySelectorAll('input[name=ListenCondition]');
+		var task = "headphones";
+		radiosClick(radios,task);
+		PlayAudio(document, "speech_sample", play_twice=true);
+		value = "90%";
+		get_and_set_sliders(value);
+	}
+}
+
+
 if (mode === "Web" && type === "Side By Side"){
 	/* SXS NO NEEDS MET */
 	testo = 'In this task, you will be asked to compare two Search result pages, arranged side by side.\n' +
@@ -569,6 +601,7 @@ if (mode === "Web" && type === "Side By Side"){
 		get_and_set_sliders(value);
 	}
 
+	/* ENGANGING YT SXS */
 	testo = "In this task, you will be given a query and corresponding result blocks linking to videos. For each result block, you will be asked a series of questions about the engagingness of the video for the query. You may skim through the video if you would like. If a video is of a foreign language, ratings will not be required, but please consider answering any questions that are still applicable.";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("ENGAGINGNESS VIDEO SXS");
@@ -1270,44 +1303,6 @@ if ((mode === "Headphones" && type === "Side By Side") ||
 			}
 			set_all_radios(document, "AboutTheSameAs");
 			console.log("done");
-		}
-
-		if (additionalText === "headphones or speakers required"){
-			console.log("headphones similar");
-
-			var clips = document.querySelectorAll('audio[id*=task_clip_speech]');
-
-			if (clips != null){
-				for(var i = 0; i<clips.length; i++){
-					clips[i].scrollIntoView();
-
-					clip = clips[i];
-					clip.play();
-					clip.volume = 0.1;
-					setTimeout(function(){clip.play()},30000+(Math.round(Math.random()*2000)));
-				}
-
-				set_all_radios(document, "Good");
-
-			}else{
-				/* provare questo audio */
-				var radios = document.querySelectorAll('input[name=ListenCondition]');
-				var task = "headphones";
-				radiosClick(radios,task);
-
-				var audio_a = document.getElementById("speech_sample_a");
-				var audio_b = document.getElementById("speech_sample_b");
-				audio_a.play();
-				audio_a.volume = 0.1;
-
-				audio_b.play();
-				audio_b.volume = 0.1;
-
-				setTimeout(function(){audio_a.play()},30000+(Math.round(Math.random()*2000)));
-				setTimeout(function(){audio_b.play()},30000+(Math.round(Math.random()*2000)));
-			}
-			value = "90%";
-			get_and_set_sliders(value);
 		}
 	}
 }
