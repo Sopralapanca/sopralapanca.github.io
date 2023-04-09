@@ -445,18 +445,24 @@ function ExactText(element, testo){
 
 
 function FillTextArea(element, field_name){
+	let elements;
 	try{
-		let elements = element.querySelectorAll('[name*=' + field_name + ']');
+		if(field_name==="comment"){
+			elements = element.querySelectorAll('[name=' + field_name + ']');
+		}else{
+			elements = element.querySelectorAll('[name*=' + field_name + ']');
+		}
+
 		for (let i=0; i<elements.length;i++){
 			if (!elements[i].disabled){
 				elements[i].value = list_of_comments[Math.floor(Math.random() * list_of_comments.length)];
 			}
 		}
-		return true;
 	}catch(error){
 		console.log(error)
 		return false;
 	}
+	return true;
 }
 
 var header = document.getElementsByClassName("ewok-task-action-header")[0];
@@ -1467,6 +1473,15 @@ if (mode === "Mobile" && type === "Experimental") {
 
 	}
 
+	/* GRAMMAR */
+	testo = 'For each query, your job is to evaluate the virtual assistant\'s Response Language Quality (i.e., the quality of language it uses to reply to the user) and its Speech Quality (i.e., the quality of the virtual assistant\'s verbalization of its response).';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("grammar found");
+		get_and_set_sliders('100%', 'grammar');
+		set_all_radios(document, "1");
+		console.log("done");
+	}
+
 	/* VA */
 	testo = 'A Virtual Assistant is a service or mobile app that can understand queries from a user, and give visual results, audio responses, or take actions on the user\'s behalf';
 	let testo1 = "The Direct Answer Block is intended to provide a direct answer to a user's need in a natural way. Here are some examples on how to use the Needs Met Rating Scale to provide ratings for these kinds of results.";
@@ -1496,22 +1511,6 @@ if (mode === "Mobile" && type === "Experimental") {
 
 		console.log("done");
 	}
-
-	/* GRAMMAR */
-	testo = 'For each query, your job is to evaluate the virtual assistant\'s Response Language Quality (i.e., the quality of language it uses to reply to the user) and its Speech Quality (i.e., the quality of the virtual assistant\'s verbalization of its response).';
-	if (CheckTextOnDocument(document, testo)){
-		console.log("grammar found");
-
-		var task = 'grammar';
-		value = '100%';
-
-		get_and_set_sliders(value, task);
-
-		radios_value = "1";
-		set_all_radios(document, radios_value);
-		console.log("done");
-	}
-
 
 	/* NEEDS MET */
 	testo="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.";
