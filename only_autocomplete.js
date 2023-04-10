@@ -364,8 +364,8 @@ function getUrlFromTag(a){
 }
 
 /* open all links */
-function OpenAllLinks(wait_time) {
-	var allBlocks = document.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
+function OpenAllLinks(wait_time, doc=document) {
+	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
 	const mySet1 = new Set();
 	var opened_pages = [];
@@ -755,6 +755,16 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 }
 
 if (mode === "Web" && type === "Experimental") {
+	/* STALE URL */
+	testo = "In this task, you will be given a list of URLs of articles. Your job is to rate the extent to which each article would be considered stale, if it were read after a specific amount of time had passed since it was first published. The specific amount of time (hours or days) will be provided in the task.";
+	if (CheckTextOnDocument(document, testo)){
+		console.log("STALE URL");
+		let block = document.getElementById("editable-289");
+		OpenAllLinks(wait_time_sec, doc=block);
+		set_all_radios(document, "OK", true);
+		set_all_radios(document, "evergreen", false);
+	}
+
 	/* SHORT ANSWER */
 	testo = 'In this task, you will be given a query and user location, followed by a Short Answer to evaluate. One (or more) Long Answers from the relevant webpages are provided for the background information to infer the accuracy of the Short Answer.';
 	if (CheckTextOnDocument(document, testo)){
@@ -762,7 +772,6 @@ if (mode === "Web" && type === "Experimental") {
 		value = '100%';
 		get_and_set_sliders(value);
 		FillTextArea(document, "result_question");
-		console.log("done");
 	}
 
 	/* QUERY-TOPIC RELEVANT */
@@ -770,7 +779,6 @@ if (mode === "Web" && type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("query topic relevant");
 		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
-		console.log("done");
 	}
 
 	/* youtube automatic test */
@@ -779,7 +787,6 @@ if (mode === "Web" && type === "Experimental") {
 		console.log("youtube automatic text found");
 		set_all_radios(document, "minor_inconsistencies", true);
 		set_all_radios(document, "language_issues_generated_text", false,checkbox=true);
-		console.log("done");
 	}
 
 	/* UO NOT AT ALL */
@@ -795,18 +802,14 @@ if (mode === "Web" && type === "Experimental") {
 		}
 		value = '75%';
 		get_and_set_sliders(value, "uo_not_at_all");
-		console.log("done");
 	}
 
 	/* SHORT DESCRIPTION */
 	testo = 'In this task, you will be given an entity (e.g., a person, company, place, book, etc.) and a short description of the entity.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("short description found");
-
 		radios_value = "best";
 		set_all_radios(document, radios_value, true);
-
-		console.log("done");
 	}
 
 	/* TOXIC COMMENTS */
@@ -822,7 +825,6 @@ if (mode === "Web" && type === "Experimental") {
 		console.log("TOXIC COMMENTS FOUND");
 		radios_value = "0";
 		set_all_radios(document, radios_value, true);
-		console.log("done");
 	}
 
 	/* YMYL */
@@ -830,13 +832,11 @@ if (mode === "Web" && type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("YMYL");
 		let checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
 		for(let j = 0; j<checkboxes.length; j++){
 			if(checkboxes[j].value==="1" && checkboxes[j].name==="not_url1" ){
 				checkboxes[j].checked = true;
 			}
 		}
-		console.log("done");
 	}
 
 	/* PERSON NAME */
@@ -857,7 +857,7 @@ if (mode === "Web" && type === "Experimental") {
 
 		value = '20%';
 		get_and_set_sliders(value);
-		console.log("done");
+
 	}
 
 	/*EXP SCRB ACCURACY*/
@@ -873,10 +873,8 @@ if (mode === "Web" && type === "Experimental") {
 		/* prendo la checkbox finale */
 		var lastCheckBox = document.querySelector('input[name=no_lp_issues]');
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
-
 		FillTextArea(document, "comment");
 
-		console.log("done.");
 	}
 
 	/* COMPLETIONS */
@@ -884,12 +882,9 @@ if (mode === "Web" && type === "Experimental") {
 	if(CheckTextOnDocument(document, testo)){
 		console.log("completions found");
 		set_all_radios(document, "0");
-
 		value = "66.6667%";
 		get_and_set_sliders(value);
-
 		set_all_radios(document, "AboutTheSameAs", false);
-		console.log("done.");
 	}
 
 	testo="In this task, you will be given a query and an entity-subtopic pair associated with the query.";
@@ -898,7 +893,6 @@ if (mode === "Web" && type === "Experimental") {
 		var radios = document.querySelectorAll('input[type=radio]');
 		var task = "entitysubtopic";
 		radiosClick(radios,task);
-		console.log("done");
 	}
 
 	/* COMBINED */
@@ -907,7 +901,6 @@ if (mode === "Web" && type === "Experimental") {
 		console.log("combined found");
 		set_all_radios(document, "1", false);
 		set_all_radios(document, "4", false);
-		console.log("done.");
 	}
 
 	/* PQ 4M UO */
@@ -938,7 +931,6 @@ if (mode === "Web" && type === "Experimental") {
 
 		value = "75%";
 		get_and_set_sliders(value);
-		console.log("done");
 	}
 
 	/* UO */
@@ -970,20 +962,15 @@ if (mode === "Web" && type === "Experimental") {
 
 			}
 		}
-
 		value = "25%";
 		get_and_set_sliders(value);
-
 		check = document.querySelectorAll('input[name^=isNoOtherDIsturbingOffensive]');
-
 		for(j = 0; j<check.length; j++){
 			if(check[j].value==="1"){
 				var tmp = check[j];
 				tmp.click();
-
 			}
 		}
-		console.log("done");
 	}
 
 	if (CheckTextOnDocument(document,"In this task, you will be given links to landing pages and asked if each landing page corresponds to any of following categories of Lowest Quality content, as defined in")){
@@ -999,9 +986,8 @@ if (mode === "Web" && type === "Experimental") {
 		}
 		radios_value = "likely_yes";
 		set_all_radios(document, radios_value, setPagePosition=false);
-
-		console.log("done");
 	}
+	console.log("done");
 }
 
 if (mode === "Mobile" && type === "Side By Side"){
