@@ -137,32 +137,38 @@ function get_and_set_sliders(value,task){
 	}
 }
 
-function set_all_radios(block, value, setPagePosition=true, checkbox=false){
-	let radios = null;
-	let cboxes = null;
-	if(checkbox){
-		cboxes = block.querySelectorAll('input[type="checkbox"]');
-		if(setPagePosition) {
-			cboxes[0].scrollIntoView();
-		}
-		for(let j = 0; j<cboxes.length; j++){
-			if(cboxes[j].name.includes(value)){
-				cboxes[j].checked = true;
-			}
-		}
-	}else{
-		radios = block.querySelectorAll('input[type="radio"]');
-		if(setPagePosition) {
-			radios[0].scrollIntoView();
-		}
-		for(let j = 0; j<radios.length; j++){
-			if(radios[j].value===value){
-				radios[j].click();
-			}
+function set_all_radios(block, value, setPagePosition=true){
+	let radios = block.querySelectorAll('input[type="radio"]');
+	if(setPagePosition) {
+		radios[0].scrollIntoView();
+	}
+	for(let j = 0; j<radios.length; j++){
+		if(radios[j].value===value){
+			radios[j].click();
 		}
 	}
-
 }
+
+function set_all_checkboxes(block, value, setPagePosition=true){
+	let cboxes = block.querySelectorAll('input[type="checkbox"]');
+	if(setPagePosition) {
+		cboxes[0].scrollIntoView();
+	}
+	for(let j = 0; j<cboxes.length; j++){
+		if(cboxes[j].name.includes(value)){
+			cboxes[j].checked = true;
+		}
+	}
+}
+
+/*
+function open_links_set_sliders_set_radios(block, sliders_value, radios_value){
+	OpenAllLinks(wait_time_sec);
+	get_and_set_sliders(sliders_value);
+	set_all_radios(block, radios_value);
+
+}*/
+
 
 async function radiosClick(radios, task) {
 	let j;
@@ -572,8 +578,7 @@ if (mode === "Web" && type === "Experimental" && additionalText === "Headphones 
 		var task = "headphones";
 		radiosClick(radios,task);
 		PlayAudio(document, "speech_sample", play_twice=true);
-		value = "90%";
-		get_and_set_sliders(value);
+		get_and_set_sliders("90%");
 	}
 }
 
@@ -593,11 +598,8 @@ if (mode === "Web" && type === "Side By Side"){
 		'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("WEB SXS");
-
 		OpenAllLinks(wait_time_sec);
-
-		value = "80%";
-		get_and_set_sliders(value);
+		get_and_set_sliders("80%");
 	}
 
 	/* ENGANGING YT SXS */
@@ -606,8 +608,7 @@ if (mode === "Web" && type === "Side By Side"){
 		console.log("ENGAGINGNESS VIDEO SXS");
 		set_all_radios(document, "-1");
 		OpenAllLinks(wait_time_sec);
-		value = "60%";
-		get_and_set_sliders(value);
+		get_and_set_sliders("60%");
 	}
 
 	/* INFORMATIVE YT SXS */
@@ -618,10 +619,7 @@ if (mode === "Web" && type === "Side By Side"){
 		OpenAllLinks(wait_time_sec);
 		get_and_set_sliders("60%");
 	}
-
-
-	radios_value = "AboutTheSameAs";
-	set_all_radios(document, radios_value);
+	set_all_radios(document, "AboutTheSameAs");
 	console.log("done");
 }
 
@@ -632,12 +630,8 @@ if (mode === "Image" && type === "Side By Side"){
 		console.log("IMAGE SXS FOUND");
 
 		set_all_radios(document, "0", true);
-
-		value = "80%";
-		get_and_set_sliders(value);
-
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value);
+		get_and_set_sliders("80%");
+		set_all_radios(document, "AboutTheSameAs");
 
 		console.log("done");
 	}
@@ -650,10 +644,10 @@ if (mode === "Search Product" && type === "Experimental") {
 		console.log("BACKGROUND AND REPUTATION");
 		OpenAllLinks(wait_time_sec);
 		set_all_radios(document, "clear", true);
+
 		var lastCheckBox = document.querySelector('input[type="checkbox"]');
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
-		value = "80%";
-		get_and_set_sliders(value);
+		get_and_set_sliders('80%');
 
 		console.log("done");
 	}
@@ -760,7 +754,7 @@ if (mode === "Web" && type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("MACHINE GENERATED RESPONSES");
 		set_all_radios(document, "fully", true);
-		set_all_radios(document, "none_sentence_html", false, true);
+		set_all_checkboxes(document, "none_sentence_html", false);
 	}
 
 	/* STALE URL */
@@ -794,7 +788,7 @@ if (mode === "Web" && type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("youtube automatic text found");
 		set_all_radios(document, "minor_inconsistencies", true);
-		set_all_radios(document, "language_issues_generated_text", false,checkbox=true);
+		set_all_checkboxes(document, "language_issues_generated_text", false);
 	}
 
 	/* UO NOT AT ALL */
@@ -816,8 +810,7 @@ if (mode === "Web" && type === "Experimental") {
 	testo = 'In this task, you will be given an entity (e.g., a person, company, place, book, etc.) and a short description of the entity.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("short description found");
-		radios_value = "best";
-		set_all_radios(document, radios_value, true);
+		set_all_radios(document, "best", true);
 	}
 
 	/* TOXIC COMMENTS */
@@ -831,8 +824,7 @@ if (mode === "Web" && type === "Experimental") {
 		'If you are in doubt, err on the side of Yes or I\'m not sure.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("TOXIC COMMENTS FOUND");
-		radios_value = "0";
-		set_all_radios(document, radios_value, true);
+		set_all_radios(document, "0", true);
 	}
 
 	/* YMYL */
@@ -851,8 +843,7 @@ if (mode === "Web" && type === "Experimental") {
 	testo = 'In this task, you will be given a person\'s name and a reference URL to a page that mentions this name. Your job is to:';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("PERSON NAME FOUND");
-		radios_value = "yes";
-		set_all_radios(document, radios_value, true);
+		set_all_radios(document, "yes", true);
 		var div = document.getElementById("editable-92");
 		OpenLink(div);
 		div = document.getElementById("editable-117");
@@ -862,9 +853,7 @@ if (mode === "Web" && type === "Experimental") {
 		for(let d of divs){
 			OpenLink(d);
 		}
-
-		value = '20%';
-		get_and_set_sliders(value);
+		get_and_set_sliders("20%");
 
 	}
 
@@ -890,8 +879,7 @@ if (mode === "Web" && type === "Experimental") {
 	if(CheckTextOnDocument(document, testo)){
 		console.log("completions found");
 		set_all_radios(document, "0");
-		value = "66.6667%";
-		get_and_set_sliders(value);
+		get_and_set_sliders("66.6667%");
 		set_all_radios(document, "AboutTheSameAs", false);
 	}
 
@@ -925,20 +913,11 @@ if (mode === "Web" && type === "Experimental") {
 			}
 		}
 
-		let checkbox = document.querySelectorAll('input[type=checkbox]');
-		for(j = 0; j<checkbox.length; j++){
-			if(checkbox[j].name==="politics" || checkbox[j].name==="medical" ){
-				let tmp = checkbox[j];
-				tmp.click();
-
-			}
-		}
-
+		set_all_checkboxes(document, "politics", false);
+		set_all_checkboxes(document, "medical", false);
 		set_all_radios(document, "likely_yes", false);
 		set_all_radios(document, "persuade", false);
-
-		value = "75%";
-		get_and_set_sliders(value);
+		get_and_set_sliders("75%");
 	}
 
 	/* UO */
@@ -983,17 +962,8 @@ if (mode === "Web" && type === "Experimental") {
 
 	if (CheckTextOnDocument(document,"In this task, you will be given links to landing pages and asked if each landing page corresponds to any of following categories of Lowest Quality content, as defined in")){
 		console.log("uo harmful found");
-		var links = document.querySelectorAll('[id$="editable-50"]');
-
-		for(var i = 0; i<links.length; i++){
-			var url = links[i].getElementsByTagName('a'), hrefs = [];
-			for(j = 0; j<url.length; j++){
-				var win = window.open(url[j].href, '_blank');
-
-			}
-		}
-		radios_value = "likely_yes";
-		set_all_radios(document, radios_value, setPagePosition=false);
+		OpenAllLinks(wait_time_sec);
+		set_all_radios(document, 'likely_yes', setPagePosition=false);
 	}
 	console.log("done");
 }
@@ -1003,31 +973,19 @@ if (mode === "Mobile" && type === "Side By Side"){
 	testo = 'In this task, you will be given a user-issued query and a list of computer-generated "related questions". Each related question is accompanied by a computer-selected answer passage taken from the web. Your job is to:';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("related question found");
-
-		value = '80%';
-		get_and_set_sliders(value);
-
-		radios_value = "no";
-		set_all_radios(document, radios_value, false);
+		get_and_set_sliders("80%");
+		set_all_radios(document, "no", false);
 
 		blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
-
 		for(let j = 0; j<blocks.length; j++) {
 			var hidden = blocks[j].querySelector('input[type="hidden"]');
 			if(hidden != null){
 				hidden.value = "looks_good";
-
-				var checks = blocks[j].querySelectorAll('input[type="checkbox"]');
-				for (let k = 0; k < checks.length; k++) {
-					if (String(checks[k].name).includes("looks_good")) {
-						checks[k].checked = true;
-						checks[k]
-					}
-				}
+				set_all_checkboxes(blocks[j], "looks_good", false);
 			}
 		}
-		radios_value = "1";
-		set_all_radios(document, radios_value, false);
+
+		set_all_radios(document, "1", false);
 		console.log("done");
 	}
 
@@ -1036,18 +994,15 @@ if (mode === "Mobile" && type === "Side By Side"){
 	if (CheckTextOnDocument(document, testo)){
 		console.log("mobile sxs found");
 		OpenAllLinks(wait_time_sec);
-		value = "70%";
-		get_and_set_sliders(value);
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value, false);
+		get_and_set_sliders("70%");
+		set_all_radios(document, "AboutTheSameAs", false);
 		console.log("done");
 	}
 
 	testo = 'This task will ask you to evaluate two search result blocks, arranged side by side. You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result blocks.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("mobile sxs one block found");
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value, false);
+		set_all_radios(document, "AboutTheSameAs", false);
 		console.log("done");
 	}
 }
@@ -1057,14 +1012,9 @@ if (mode === "Local" && type === "Side By Side"){
 	testo = 'Tell us which side provides more useful additional information. Differences between the results are highlighted. Keep in mind that more information is not necessarily better.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("HIGHLIGHTED DIFFERENCES found");
-		value = "80%";
-		get_and_set_sliders(value);
-
-		radios_value = "0";
-		set_all_radios(document, radios_value);
-
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value);
+		get_and_set_sliders("80%");
+		set_all_radios(document, "0");
+		set_all_radios(document, "AboutTheSameAs");
 		console.log("done");
 	}
 }
@@ -1074,28 +1024,22 @@ if (mode === "Local" && type === "Experimental"){
 	testo = 'In this task, you may see special blocks that are shown at the very top of the search results (e.g., above L1 and/or R1).  They do not contain the Needs Met or E-A-T sliders';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("little local found");
-		value = "80%";
-		get_and_set_sliders(value);
-
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value);
-
+		get_and_set_sliders("80%");
+		set_all_radios(document, "AboutTheSameAs");
 		console.log("done");
 	}
 
 	testo="In this task, you will be given a query and asked to decide what lodging intent the user has, if any";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("lodging intent found");
-		radios_value = "0";
-		set_all_radios(document, radios_value);
+		set_all_radios(document, "0");
 		console.log("done.");
 	}
 
 	testo = 'In this task, you may see special blocks that are shown at the very top of the search results (e.g., above L1 and/or R1).  They do not contain the Needs Met or Page Quality sliders.  Please see the screenshot example below.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("local exp found");
-		value = "80%";
-		get_and_set_sliders(value);
+		get_and_set_sliders("80%");
 		console.log("done");
 	}
 }
@@ -1115,19 +1059,16 @@ if (CheckTextOnDocument(document, testo)){
 
 		}
 	}
-	radios_value = "0";
-	set_all_radios(document, radios_value);
+	set_all_radios(document, "0");
 	console.log("done");
 }
-
 
 /* YOUTUBE EXP RACY */
 if (mode === "YouTube" && type === "Experimental"){
 	if (CheckTextOnDocument(document, "In this task, you will be given titles and thumbnails of many videos. For each video, your job is to evaluate: How many users in your locale would find this video racy? When rating, please assume users have not previously watched or searched for similar videos.")){
 		console.log("yt exp racy found");
-		value = "25%";
-		get_and_set_sliders(value);
-		console.log("done.");
+		get_and_set_sliders("25%");
+		console.log("done");
 	}
 }
 
@@ -1186,8 +1127,7 @@ if (type === "Side By Side"){
 			i=i+1;
 		}
 
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value);
+		set_all_radios(document, "AboutTheSameAs");
 
 		console.log("done");
 	}
@@ -1384,9 +1324,8 @@ if (mode === "YouTube" && type === "Side By Side"){
 
 		set_all_radios(document, "0");
 		set_all_radios(document, "3");
-		/* setto ats */
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value);
+
+		set_all_radios(document, "AboutTheSameAs");
 		console.log("done.");
 
 	}
@@ -1398,19 +1337,8 @@ if (mode === "YouTube" && type === "Experimental"){
 	testo = 'In this task, you will be given a list of videos. Your job is to identify porn or racy content';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("youtube exp adult found");
-
-		/* set sexually safe */
 		set_all_radios(document, "0");
-
-		/* confermo tutti i video aperti */
-		check = document.querySelectorAll('input[name=confirm-watched-all-videos]');
-		for(j = 0; j<check.length; j++){
-			if(check[j].value==="1"){
-				var tmp = check[j];
-				setTimeout(function(){tmp.click()},2000+(Math.round(Math.random()*3000)));
-
-			}
-		}
+		set_all_checkboxes(document, "confirm-watched-all-videos", false);
 		console.log("done.");
 	}
 }
@@ -1443,9 +1371,7 @@ if (mode === "Local" && type === "Side By Side"){
 	if(value !== ""){
 		OpenAllLinks(wait_time_sec);
 		get_and_set_sliders(value);
-
-		radios_value = "AboutTheSameAs";
-		set_all_radios(document, radios_value, false);
+		set_all_radios(document, "AboutTheSameAs", false);
 		console.log("done");
 	}
 
