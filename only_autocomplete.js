@@ -343,8 +343,8 @@ function CheckTextOnDocument(block, string){
 }
 
 function DecodeStringUrl(url){
-	var uri = String(decodeURIComponent(url))
-	let [first, ...s] = uri.split("q=")
+	var uri = String(decodeURIComponent(url));
+	let [first, ...s] = uri.split("q=");
 	s = s.join("q=");
 	return s;
 }
@@ -755,6 +755,14 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 }
 
 if (mode === "Web" && type === "Experimental") {
+	/* MACHINE GENERATED RESPONSES */
+	testo = "In this task, you will be provided with a long Machine-Generated Response to a user’s question(s) along with several Target Sentences and their cited Evidence. The Target Sentences should be based on information found within the cited Evidence, however it will often either misrepresent the information or will provide additional information not found in the Evidence.";
+	if (CheckTextOnDocument(document, testo)){
+		console.log("MACHINE GENERATED RESPONSES");
+		set_all_radios(document, "fully", true);
+		set_all_radios(document, "none_sentence_html", false, true);
+	}
+
 	/* STALE URL */
 	testo = "In this task, you will be given a list of URLs of articles. Your job is to rate the extent to which each article would be considered stale, if it were read after a specific amount of time had passed since it was first published. The specific amount of time (hours or days) will be provided in the task.";
 	if (CheckTextOnDocument(document, testo)){
