@@ -162,8 +162,6 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 }
 
 
-const wait_time_sec = ((parseInt(wait_time) * 60)/2)*1000;
-
 function open_links_set_sliders_set_radios(block, sliders_value, radios_value="AboutTheSameAs", set_page_position=true){
 	OpenAllLinks(wait_time_sec);
 	get_and_set_sliders(sliders_value);
@@ -171,21 +169,30 @@ function open_links_set_sliders_set_radios(block, sliders_value, radios_value="A
 }
 
 
-function radiosClick(doc, task) {
+async function radiosClick(doc, task) {
 	var radios = doc.querySelectorAll('input[type=radio]');
 	let j;
+	var tmp = null;
+
 	if (task === "entitysubtopic"){
 		for(j = 0; j<radios.length; j++){
+
 			if (radios[j].name === "match_meaning" && radios[j].value === "1"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if (radios[j].name === "entity_intent_valid" && radios[j].value === "1"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if (radios[j].name === "readable" && radios[j].value === "1"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 		}
@@ -193,40 +200,59 @@ function radiosClick(doc, task) {
 
 	if (task === "pquo"){
 		for(j = 0; j<radios.length; j++){
+
 			if (radios[j].name === "intolerant_insensitive" && radios[j].value === "no"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if (radios[j].name === "deceptive_misleading" && radios[j].value === "no"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if (radios[j].name === "harm" && radios[j].value === "no"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if (radios[j].name === "sad" && radios[j].value === "no"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if (radios[j].name === "inappropriate" && radios[j].value === "no"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if (radios[j].name === "sensational" && radios[j].value === "no"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if (radios[j].name === "inflammatory" && radios[j].value === "no"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if (radios[j].name === "commercial" && radios[j].value === "no"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if (radios[j].name === "gossip" && radios[j].value === "no"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 		}
 	}
@@ -235,36 +261,51 @@ function radiosClick(doc, task) {
 		/* forse si può semplificare con solo i value 0  */
 		for(j = 0; j<radios.length; j++){
 			if(radios[j].name.includes("IsTitleRacy") && radios[j].value === "0"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if(radios[j].name.includes("IsThumbnailRacy") && radios[j].value === "0"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if(radios[j].name.includes("IsVideoRacy") && radios[j].value === "0"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 		}
 
 	}
 
 	if (task === "expscrbaccuracy"){
+		/* forse si può semplificare con solo i value 0  */
 		for(j = 0; j<radios.length; j++){
 			if(radios[j].name==="accuracy" &&  radios[j].value==="1"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if(radios[j].name==="YMYL" &&  radios[j].value==="0"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if(radios[j].name==="inflammatory" &&  radios[j].value==="0"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 
 			if(radios[j].name==="disputed_topic" &&  radios[j].value==="0"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
 			}
 		}
 	}
@@ -272,7 +313,10 @@ function radiosClick(doc, task) {
 	if (task === "ytpquo" || task === "commonpq"){
 		for(j = 0; j<radios.length; j++){
 			if(radios[j].name==="badpage" &&  radios[j].value==="no"){
-				radios[j].click();
+				tmp = radios[j];
+				await sleep(2000+(Math.round(Math.random()*3000)));
+				tmp.click();
+
 			}
 		}
 	}
@@ -397,6 +441,7 @@ function ExactText(element, testo){
 	return false;
 }
 
+
 function FillTextArea(element, field_name){
 	let elements;
 	if(field_name==="comment"){
@@ -439,28 +484,88 @@ function PlayAudio(element, field_name, play_twice=false){
 	}
 }
 
+
+var header = document.getElementsByClassName("ewok-task-action-header")[0];
+header = header !== undefined ? header.innerText:null;
 /* mode restituisce youtube, mobile, local ecc */
-let mode = document.getElementsByClassName("ewok-task-action-header")[0].children[0];
+var mode = document.getElementsByClassName("ewok-task-action-header")[0].children[0];
 if(mode !== undefined) mode = mode.innerText;
+/* tipe restituisce sxs o experimental */
+var type = document.getElementsByClassName("ewok-task-action-header")[0].children[1].innerText;
+var additional = document.getElementsByClassName("ewok-task-action-header")[0].children[2];
+var additionalText = null;
+if(additional != null){
+	additionalText = additional.innerText;
+}
 
-/* type restituisce sxs o experimental */
-const type = document.getElementsByClassName("ewok-task-action-header")[0].children[1].innerText;
+var editable = document.getElementById("editable-2");
+var disclaimer = document.getElementsByClassName("ewok-task-disclaimer")[0];
+var instructionsDiv = document.getElementsByClassName("ewok-buds-card")[0];
+var editable3 = document.getElementById("editable-3");
+var editable67 = document.getElementById("editable-67");
+var pqInstruction = document.getElementById("pq-instructions");
 
-/* additional restituisce contenuto aggiuntivo nel titolo come headphone required*/
-let additional = document.getElementsByClassName("ewok-task-action-header")[0].children[2];
-if(additional !== undefined) additional = additional.innerText;
-
-let time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
+var time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
 time = time.textContent;
-const wait_time = time.split(" ")[2];
+var wait_time = time.split(" ")[2];
+var wait_time_sec = ((parseInt(wait_time) * 60)/2)*1000;
 
-let list_of_comments = ["The result is very helpful because provides helpful information about the query", "the result provides correct information",
-	"the result is a scrb that shows helpful information", "this result is very helpful for the query", "this result is very helpful", "The result does not have any problem with the query", "the result is a scrb that shows helpful information", "the result is good", "the result is ok",
-	"this result does not have any problem", "the result is very good for the query", "the result is very good", "the scrb is good", "this scrb provides helpful information", "scrb is ok", "the special block looks very good and accurate", "this scrb is accurate", "the scrb looks good"];
+var editableText = null;
+var disclaimerText = null;
+var editable3Text = null;
+var instructionsDivText = null;
+var editable67Text = null;
+var pqInstructionText = null;
+var isEditableNull = true;
 
+let radios_value;
+
+if (editable != null){
+	editableText = editable.innerText;
+	isEditableNull = false;
+}
+if (disclaimer != null){
+	disclaimerText = disclaimer.innerText;
+	isEditableNull = false;
+}
+
+if (editable3 != null){
+	editable3Text = editable3.innerText;
+	isEditableNull = false;
+}
+
+if (editable67 != null){
+	editable67Text = editable67.innerText;
+	isEditableNull = false;
+}
+
+if (instructionsDiv != null){
+	instructionsDivText = instructionsDiv.innerText;
+}
+
+if (pqInstruction != null){
+	pqInstructionText = pqInstruction.innerText;
+}
+
+var istructionsBodyText = null;
+var istructionsBody = document.getElementById("instructions-body");
+if (istructionsBody != null){
+	istructionsBodyText = istructionsBody.innerText;
+}
+
+var list_of_comments =
+	["The result is very helpful because provides helpful information about the query", "the result provides correct information",
+		"the result is a scrb that shows helpful information", "this result is very helpful for the query", "this result is very helpful", "The result does not have any problem with the query", "the result is a scrb that shows helpful information", "the result is good", "the result is ok",
+		"this result does not have any problem", "the result is very good for the query", "the result is very good", "the scrb is good", "this scrb provides helpful information", "scrb is ok", "the special block looks very good and accurate", "this scrb is accurate", "the scrb looks good"];
+
+let testo;
+let value;
+let blocks;
+let winnerSide;
+let otherSide;
 
 /* AUDIO */
-if (mode === "Web" && type === "Experimental" && additional === "Headphones or Speakers Required"){
+if (mode === "Web" && type === "Experimental" && additionalText === "Headphones or Speakers Required"){
 	testo = "In this task, you will be given one or more audio clips. For each clip, please listen to the speech very carefully and then select a rating for each audio clip. The rating should be based on how natural or unnatural the sentence sounded. Please do not judge the grammar or the content of the sentence. Instead, just focus on how natural the speech sounds.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log('audio natural sentences found');
@@ -468,7 +573,8 @@ if (mode === "Web" && type === "Experimental" && additional === "Headphones or S
 		set_all_radios(document, "Good");
 	}else{
 		console.log("headphones similar");
-		radiosClick(document, "headphones");
+		var task = "headphones";
+		radiosClick(document, task);
 		PlayAudio(document, "speech_sample", play_twice=true);
 		get_and_set_sliders("90%");
 	}
@@ -579,8 +685,9 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 			otherSide = "right side";
 			radios_value = "MuchBetterThan";
 
-			list_of_comments = [otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
-			];
+			var list_of_comments =
+				[otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
+				];
 
 			var item = list_of_comments[Math.floor(Math.random()*list_of_comments.length)];
 			document.getElementById('ewok-buds-validation-comment').value = item;
@@ -592,8 +699,9 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 			radios_value = "MuchWorseThan";
 
 
-			list_of_comments = [otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
-			];
+			var list_of_comments =
+				[otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
+				];
 
 			var item = list_of_comments[Math.floor(Math.random()*list_of_comments.length)];
 			document.getElementById('ewok-buds-validation-comment').value = item;
@@ -740,7 +848,8 @@ if (mode === "Web" && type === "Experimental") {
 	testo = "You will be given a query and a Special Content Result Block (SCRB)";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("exp scrb accuracy found");
-		radiosClick(document, "expscrbaccuracy");
+		var task = "expscrbaccuracy";
+		radiosClick(document, task);
 
 		/* prendo la checkbox finale */
 		var lastCheckBox = document.querySelector('input[name=no_lp_issues]');
@@ -761,7 +870,8 @@ if (mode === "Web" && type === "Experimental") {
 	testo="In this task, you will be given a query and an entity-subtopic pair associated with the query.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log("entity subtopic found");
-		radiosClick(document, "entitysubtopic");
+		var task = "entitysubtopic";
+		radiosClick(document, task);
 	}
 
 	/* COMBINED */
@@ -776,7 +886,15 @@ if (mode === "Web" && type === "Experimental") {
 	testo="In some questions you will be asked about the intended audience of the content";
 	if(CheckTextOnDocument(document, testo)){
 		console.log("pq 4m uofound");
-		OpenAllLinks(wait_time_sec);
+		var editable597 = document.getElementById("editable-597");
+
+		if (editable597 != null){
+			var url = editable597.getElementsByTagName('a'), hrefs = [];
+			for(j = 0; j<url.length; j++){
+				var win = window.open(url[j].href, '_blank');
+
+			}
+		}
 
 		set_all_checkboxes(document, "politics", false);
 		set_all_checkboxes(document, "medical", false);
@@ -790,9 +908,38 @@ if (mode === "Web" && type === "Experimental") {
 		|| CheckTextOnDocument(document,"In this task, you will be shown one or more videos and a list of categories that may describe the nature of the video.")){
 
 		console.log("uo not at all found");
-		OpenAllLinks(wait_time_sec);
+		var j = 0;
+		var editable14 = document.getElementById("editable-14");
+		var editable14Text = null;
+
+		if (editable14 != null){
+			editable14Text = editable14.innerText;
+
+			var url = editable14.getElementsByTagName('a'), hrefs = [];
+			for(j = 0; j<url.length; j++){
+				var win = window.open(url[j].href, '_blank');
+				/* non funziona il close
+				setTimeout(function() { win.close();}, 10); */
+
+			}
+		}
+
+		/* uo video da 6 minuti */
+		const elements = document.querySelectorAll(`[href^="https://www.google.com/evaluation/url"]`);
+		if (elements.length > 0){
+			for(j = 0; j<elements.length; j++){
+				var win = window.open(elements[j].href, '_blank');
+
+			}
+		}
 		get_and_set_sliders("25%");
-		set_all_checkboxes(document, "isNoOtherDIsturbingOffensive");
+		check = document.querySelectorAll('input[name^=isNoOtherDIsturbingOffensive]');
+		for(j = 0; j<check.length; j++){
+			if(check[j].value==="1"){
+				var tmp = check[j];
+				tmp.click();
+			}
+		}
 	}
 
 	if (CheckTextOnDocument(document,"In this task, you will be given links to landing pages and asked if each landing page corresponds to any of following categories of Lowest Quality content, as defined in")){
@@ -884,7 +1031,14 @@ var j;
 let check;
 if (CheckTextOnDocument(document, testo)){
 	console.log("other uo found");
-	set_all_checkboxes(document, "Category_None", true);
+	check = document.querySelectorAll('input[name*="Category_None"]');
+	check[0].scrollIntoView();
+	for(j = 0; j<check.length; j++){
+		if(check[j].value==="1"){
+			check[j].click();
+
+		}
+	}
 	set_all_radios(document, "0");
 	console.log("done");
 }
@@ -900,10 +1054,30 @@ if (mode === "YouTube" && type === "Experimental"){
 
 /* search product sxs */
 if (mode === "Search Product" && type === "Experimental"){
-	if(CheckTextOnDocument(document,"In this task, you will be provided with a particular User Intent as additional context to the query.")){
+	instructionsDiv2 = document.getElementsByClassName("ewok-buds-card");
+	var instructionsDivText2 = instructionsDiv2[3].innerText;
+	if (instructionsDivText2 != null && instructionsDivText2.includes("In this task, you will be provided with a particular User Intent as additional context to the query.")){
 		console.log("Search product found");
-		set_all_radios(document,"clear");
-		set_all_radios(document,"1");
+
+		const clarity = document.querySelectorAll('input[name="clear_need"]');
+
+		for(j = 0; j<clarity.length; j++){
+			if(clarity[j].value==="clear"){
+				var tmp = clarity[j];
+				tmp.click();
+			}
+		}
+
+		const confirm_button = document.querySelectorAll('input[name="acknowledgement"]');
+
+		for(j = 0; j<confirm_button.length; j++){
+			if(confirm_button[j].value==="1"){
+				var tmp = confirm_button[j];
+				tmp.click();
+
+			}
+		}
+
 		get_and_set_sliders("70%", "snippet");
 		console.log("done");
 	}
@@ -951,6 +1125,7 @@ if (CheckTextOnDocument(document, testo)){
 	get_and_set_sliders(value);
 
 	const check = document.querySelectorAll('input[name*="landing_page.N"]');
+
 	for(j = 0; j<check.length; j++){
 		if(check[j].value==="1"){
 			check[j].click();
@@ -959,6 +1134,7 @@ if (CheckTextOnDocument(document, testo)){
 			break;
 		}
 	}
+
 	console.log("done");
 }
 
@@ -970,6 +1146,51 @@ if (mode === "SafeSearch" && type === "Result Review"){
 		OpenAllLinks(wait_time_sec);
 		set_all_radios(document, "Not Porn");
 		console.log("done");
+	}
+}
+
+/* AUDIO SXS E NON SXS DA 1M */
+if ((mode === "Headphones" && type === "Side By Side") ||
+	(mode === "Web" && type === "Experimental")){
+
+	if (additionalText != null) {
+		additionalText = additionalText.toLowerCase();
+
+		if(additionalText === "headphones required"){
+
+			var leftSide = document.getElementById("play0");
+			var rightSide = document.getElementById("play1");
+
+			if (leftSide != null && rightSide != null){
+				console.log("audio sxs found");
+				/* sxs */
+				leftSide.scrollIntoView();
+				leftSide.click();
+
+				setTimeout(function(){rightSide.click()},wait_time_sec);
+			}else{
+				console.log("audio found");
+				/* non sxs */
+				var row = document.getElementById("ListenCondition-id");
+				if (row != null){
+					var radios = document.querySelectorAll('input[name=ListenCondition]');
+
+					var task = "headphones";
+					radiosClick(radios,task);
+
+					var radios = document.querySelectorAll('input[name=SpeechQuality]');
+					radiosClick(radios,task);
+
+					var audio = document.getElementById("speech_sample");
+					audio.play();
+					audio.volume = 0.2;
+
+					setTimeout(function(){audio.play()},30000+(Math.round(Math.random()*2000)));
+				}
+			}
+			set_all_radios(document, "AboutTheSameAs");
+			console.log("done");
+		}
 	}
 }
 
@@ -987,11 +1208,20 @@ if (mode === "News and Blogs" && type === "Experimental"){
 
 /* PAGE QUALITY UO */
 if (mode === "Web" && type === "Experimental"){
-	if (CheckTextOnDocument(document, "In this task, you may be exposed to queries, webpages, and/or topics that contain potentially upsetting-offensive (U-O) content")){
-		if(CheckTextOnDocument(document, "In this task, you will be given a link to a landing page and asked a few questions about it.")){
+	if (disclaimerText != null && disclaimerText.includes("In this task, you may be exposed to queries, webpages, and/or topics that contain potentially upsetting-offensive (U-O) content")){
+
+		if(editable67Text != null && editable67Text.includes("In this task, you will be given a link to a landing page and asked a few questions about it.")){
 			console.log("page quality uo found");
-			radiosClick(document, "pquo");
-			OpenAllLinks(wait_time_sec);
+			var radios = document.querySelectorAll('input[type=radio]');
+			var task = "pquo";
+			radiosClick(radios,task);
+
+			var editable387 = document.getElementById("editable-387");
+			var url = editable387.getElementsByTagName('a'), hrefs = [];
+			for(j = 0; j<url.length; j++){
+				var win = window.open(url[j].href, '_blank');
+
+			}
 			console.log("done.");
 		}
 	}
@@ -1000,12 +1230,18 @@ if (mode === "Web" && type === "Experimental"){
 
 /* PAGE QUALITY YOUTUBE UO */
 if (mode === "YouTube" && type === "Experimental"){
-	if (CheckTextOnDocument(document,"In this task, you may be exposed to queries, webpages, and/or topics that contain potentially upsetting-offensive (U-O) content")){
-		if(CheckTextOnDocument(document,"In this task, you will be asked to evaluate the Page Quality of landing pages for a given Video URL and Content Creator URL.")){
+	if (disclaimerText != null && disclaimerText.includes("In this task, you may be exposed to queries, webpages, and/or topics that contain potentially upsetting-offensive (U-O) content")){
+		if(pqInstructionText != null && pqInstructionText.includes("In this task, you will be asked to evaluate the Page Quality of landing pages for a given Video URL and Content Creator URL.")){
 			console.log("yt pq uo found");
 			OpenAllLinks(wait_time_sec);
-			radiosClick(document, "ytpquo");
-			console.log("done");
+
+			/* click sul radio button al punto 2 */
+			var editable33 = document.getElementById("editable-33");
+			var radios = editable33.querySelectorAll('input[type=radio]');
+			var task = "ytpquo";
+			radiosClick(radios,task);
+
+			console.log("done.");
 		}
 	}
 }
@@ -1017,6 +1253,7 @@ if (mode === "YouTube" && type === "Side By Side"){
 
 		console.log("yt sxs racy found");
 		open_links_set_sliders_set_radios(document, "70%", "AboutTheSameAs");
+
 		set_all_radios(document, "0");
 		set_all_radios(document, "3");
 
@@ -1083,7 +1320,9 @@ if (mode === "Mobile" && type === "Experimental") {
 
 		/* click sul radio button al punto 3 */
 		var pqShortcut = document.getElementsByClassName("pq-shortcut-question");
-		radiosClick(pqShortcut[0], "commonpq");
+		var radios = pqShortcut[0].querySelectorAll('input[type=radio]');
+		var task = "commonpq";
+		radiosClick(radios,task);
 
 		console.log("done.");
 
