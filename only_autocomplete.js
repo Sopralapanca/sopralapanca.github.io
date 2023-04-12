@@ -1,4 +1,3 @@
-/***** INIZIO AUTOCOMPLETE *******/
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -839,8 +838,8 @@ if (mode === "Mobile" && type === "Side By Side"){
 	testo = 'This is an Apps & Games Search evaluation task for a mobile app store. For the purposes of this task, assume the user is using an Android OS device.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("APP SXS FOUND");
-		let doc = document.getElementById("editable-56");
-		open_links_set_sliders_set_radios(doc, "60%", "AboutTheSameAs");
+		get_and_set_sliders("60%");
+		set_all_radios(document, "AboutTheSameAs");
 		set_all_radios(document, "navigational", false);
 	}
 
@@ -1078,15 +1077,10 @@ if (mode === "Mobile" && type === "Experimental") {
 		var pqMainText = pqMain[0].innerText;
 		var strings = pqMainText.split(/[\s,]+/);
 		var pageLink = strings[2];
-
 		var win = window.open(pageLink, '_blank');
 
-		/* click sul radio button al punto 3 */
 		var pqShortcut = document.getElementsByClassName("pq-shortcut-question");
 		radiosClick(pqShortcut[0], "commonpq");
-
-		console.log("done.");
-
 	}
 
 	/* GRAMMAR */
@@ -1095,7 +1089,6 @@ if (mode === "Mobile" && type === "Experimental") {
 		console.log("grammar found");
 		get_and_set_sliders('100%', 'grammar');
 		set_all_radios(document, "1");
-		console.log("done");
 	}
 
 	/* VA */
@@ -1120,12 +1113,8 @@ if (mode === "Mobile" && type === "Experimental") {
 	}
 
 	if (found === true){
-		/* setto hm+ */
-		value = "90%";
-		get_and_set_sliders(value);
+		get_and_set_sliders("90%");
 		FillTextArea(document, "comment");
-
-		console.log("done");
 	}
 
 	/* NEEDS MET */
@@ -1142,7 +1131,6 @@ if (mode === "Mobile" && type === "Experimental") {
 			console.log("NEEDS MET FOUND");
 		}
 		open_links_set_sliders_set_radios(document, value);
-		console.log("done");
 	}
+	console.log("done");
 }
-/***** FINE AUTOCOMPLETE *****/
