@@ -634,18 +634,15 @@ if (mode === "Web" && type === "Experimental") {
 	testo="Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("big def found");
-
+		get_and_set_sliders("90%");
+		/* per forza in questo modo, non funziona con checked=true */
 		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
-
 		var dupesText = dupes1.innerText;
 		var skip=false;
 		if(dupesText.includes("Same as")){
 			skip=true;
 		}
-		value = "90%";
-		get_and_set_sliders(value);
-		set_all_checkboxes(document,"landing_page.N", setPagePosition=true);
-		/*const check = document.querySelectorAll('input[name*="landing_page.N"]');
+		const check = document.querySelectorAll('input[name*="landing_page.N"]');
 		for(j = 0; j<check.length; j++){
             if(check[j].value==="1"){
                 check[j].click();
@@ -653,7 +650,7 @@ if (mode === "Web" && type === "Experimental") {
             if(skip){
                 break;
             }
-        }*/
+        }
 	}
 
 	/* MACHINE GENERATED RESPONSES */
