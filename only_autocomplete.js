@@ -523,8 +523,8 @@ if (mode === "Image" && type === "Side By Side"){
 	console.log("done");
 }
 
-/* BACKGROUND AND REPUTATION */
 if (mode === "Search Product" && type === "Experimental") {
+	/* BACKGROUND AND REPUTATION */
 	testo = "You will first answer a question about the clarity of user needs based on the information provided by the query, user location, and user intent. Next, you will be asked to rate each result using the Needs Met scale based on your understanding of the needs of the user who issued the query.";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("BACKGROUND AND REPUTATION");
@@ -534,9 +534,16 @@ if (mode === "Search Product" && type === "Experimental") {
 		var lastCheckBox = document.querySelector('input[type="checkbox"]');
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
 		get_and_set_sliders('80%');
-
-		console.log("done");
 	}
+
+	/* search product sxs */
+	if(CheckTextOnDocument(document,"In this task, you will be provided with a particular User Intent as additional context to the query.")){
+		console.log("Search product found");
+		set_all_radios(document,"clear");
+		set_all_radios(document,"1");
+		get_and_set_sliders("70%", "snippet");
+	}
+	console.log("done");
 }
 
 /* ROSETTA */
@@ -629,6 +636,7 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 	}
 }
 
+let j;
 if (mode === "Web" && type === "Experimental") {
 	/* BIG DEF */
 	testo="Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.";
@@ -827,14 +835,14 @@ if (mode === "Web" && type === "Experimental") {
 }
 
 if (mode === "Mobile" && type === "Side By Side"){
-	/* mobile sxs hm e ats tipo le news */
+	/* app sxs */
 	testo = 'This is an Apps & Games Search evaluation task for a mobile app store. For the purposes of this task, assume the user is using an Android OS device.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("APP SXS FOUND");
-		open_links_set_sliders_set_radios(document, "60%", "AboutTheSameAs");
+		let doc = document.getElementById("editable-56");
+		open_links_set_sliders_set_radios(doc, "60%", "AboutTheSameAs");
 		set_all_radios(document, "navigational", false);
 	}
-
 
 	/* RELATED QUESTION */
 	testo = 'In this task, you will be given a user-issued query and a list of computer-generated "related questions". Each related question is accompanied by a computer-selected answer passage taken from the web. Your job is to:';
@@ -866,7 +874,6 @@ if (mode === "Mobile" && type === "Side By Side"){
 	if (CheckTextOnDocument(document, testo)){
 		console.log("mobile sxs one block found");
 		set_all_radios(document, "AboutTheSameAs", false);
-
 	}
 	console.log("done");
 }
@@ -911,7 +918,6 @@ if (mode === "Local" && type === "Experimental"){
 
 /* OTHER UO */
 testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
-var j;
 let check;
 if (CheckTextOnDocument(document, testo)){
 	console.log("other uo found");
@@ -929,16 +935,6 @@ if (mode === "YouTube" && type === "Experimental"){
 	}
 }
 
-/* search product sxs */
-if (mode === "Search Product" && type === "Experimental"){
-	if(CheckTextOnDocument(document,"In this task, you will be provided with a particular User Intent as additional context to the query.")){
-		console.log("Search product found");
-		set_all_radios(document,"clear");
-		set_all_radios(document,"1");
-		get_and_set_sliders("70%", "snippet");
-		console.log("done");
-	}
-}
 
 /* SNIPPET */
 if (type === "Side By Side"){
