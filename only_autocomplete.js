@@ -638,6 +638,14 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 
 let j;
 if (mode === "Web" && type === "Experimental") {
+    /*  subtopic query */
+    testo="In this task, you will be given a series of query pairs indicated as Q1 and Q2. For each query pair, your job is to determine whether Q2 is a subintent of Q1. You can click on each query and view top search results to better understand Q1 and Q2";
+    if(CheckTextOnDocument(document, testo)){
+        console.log("subtopic query found");
+        set_all_radios(document, "1");
+    }
+
+
 	/* BIG DEF */
 	testo="Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.";
 	if (CheckTextOnDocument(document, testo)){
