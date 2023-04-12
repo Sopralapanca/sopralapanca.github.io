@@ -630,6 +630,32 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 }
 
 if (mode === "Web" && type === "Experimental") {
+	/* BIG DEF */
+	testo="Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.";
+	if (CheckTextOnDocument(document, testo)){
+		console.log("big def found");
+
+		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
+
+		var dupesText = dupes1.innerText;
+		var skip=false;
+		if(dupesText.includes("Same as")){
+			skip=true;
+		}
+		value = "90%";
+		get_and_set_sliders(value);
+		set_all_checkboxes(document,"landing_page.N", setPagePosition=true);
+		/*const check = document.querySelectorAll('input[name*="landing_page.N"]');
+		for(j = 0; j<check.length; j++){
+            if(check[j].value==="1"){
+                check[j].click();
+            }
+            if(skip){
+                break;
+            }
+        }*/
+	}
+
 	/* MACHINE GENERATED RESPONSES */
 	testo = "In this task, you will be provided with a long Machine-Generated Response to a user’s question(s) along with several Target Sentences and their cited Evidence. The Target Sentences should be based on information found within the cited Evidence, however it will often either misrepresent the information or will provide additional information not found in the Evidence.";
 	if (CheckTextOnDocument(document, testo)){
@@ -933,33 +959,6 @@ if (type === "Side By Side"){
 
 		console.log("done");
 	}
-}
-
-/* BIG DEF */
-testo="Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.";
-if (CheckTextOnDocument(document, testo)){
-	console.log("big def found");
-
-	var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
-
-	var dupesText = dupes1.innerText;
-	var skip=false;
-	if(dupesText.includes("Same as")){
-		skip=true;
-	}
-	value = "90%";
-	get_and_set_sliders(value);
-
-	const check = document.querySelectorAll('input[name*="landing_page.N"]');
-	for(j = 0; j<check.length; j++){
-		if(check[j].value==="1"){
-			check[j].click();
-		}
-		if(skip){
-			break;
-		}
-	}
-	console.log("done");
 }
 
 /*SAFESEARCH 1M PORN */
