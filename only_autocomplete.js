@@ -827,6 +827,15 @@ if (mode === "Web" && type === "Experimental") {
 }
 
 if (mode === "Mobile" && type === "Side By Side"){
+	/* mobile sxs hm e ats tipo le news */
+	testo = 'This is an Apps & Games Search evaluation task for a mobile app store. For the purposes of this task, assume the user is using an Android OS device.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("APP SXS FOUND");
+		open_links_set_sliders_set_radios(document, "60%", "AboutTheSameAs");
+		set_all_radios(document, "navigational", false);
+	}
+
+
 	/* RELATED QUESTION */
 	testo = 'In this task, you will be given a user-issued query and a list of computer-generated "related questions". Each related question is accompanied by a computer-selected answer passage taken from the web. Your job is to:';
 	if (CheckTextOnDocument(document, testo)){
@@ -842,9 +851,7 @@ if (mode === "Mobile" && type === "Side By Side"){
 				set_all_checkboxes(blocks[j], "looks_good", false);
 			}
 		}
-
 		set_all_radios(document, "1", false);
-		console.log("done");
 	}
 
 	/* mobile sxs hm e ats tipo le news */
@@ -852,15 +859,16 @@ if (mode === "Mobile" && type === "Side By Side"){
 	if (CheckTextOnDocument(document, testo)){
 		console.log("mobile sxs found");
 		open_links_set_sliders_set_radios(document, "70%", "AboutTheSameAs");
-		console.log("done");
 	}
 
+	/* sxs one big block */
 	testo = 'This task will ask you to evaluate two search result blocks, arranged side by side. You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result blocks.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("mobile sxs one block found");
 		set_all_radios(document, "AboutTheSameAs", false);
-		console.log("done");
+
 	}
+	console.log("done");
 }
 
 /* HIGHLIGHTED DIFFERENCES */
