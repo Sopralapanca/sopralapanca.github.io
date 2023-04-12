@@ -162,7 +162,6 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 }
 
 
-const wait_time_sec = ((parseInt(wait_time) * 60)/2)*1000;
 
 function open_links_set_sliders_set_radios(block, sliders_value, radios_value="AboutTheSameAs", set_page_position=true){
 	OpenAllLinks(wait_time_sec);
@@ -453,6 +452,7 @@ if(additional !== undefined) additional = additional.innerText;
 let time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
 time = time.textContent;
 const wait_time = time.split(" ")[2];
+const wait_time_sec = ((parseInt(wait_time) * 60)/2)*1000;
 
 let list_of_comments = ["The result is very helpful because provides helpful information about the query", "the result provides correct information",
 	"the result is a scrb that shows helpful information", "this result is very helpful for the query", "this result is very helpful", "The result does not have any problem with the query", "the result is a scrb that shows helpful information", "the result is good", "the result is ok",
@@ -792,7 +792,7 @@ if (mode === "Web" && type === "Experimental") {
 		console.log("uo not at all found");
 		OpenAllLinks(wait_time_sec);
 		get_and_set_sliders("25%");
-		set_all_checkboxes(document, "isNoOtherDIsturbingOffensive");
+		set_all_checkboxes(document, "isNoOtherDisturbingOffensive");
 	}
 
 	if (CheckTextOnDocument(document,"In this task, you will be given links to landing pages and asked if each landing page corresponds to any of following categories of Lowest Quality content, as defined in")){
