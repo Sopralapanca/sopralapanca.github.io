@@ -93,14 +93,15 @@ async function setSliders(block, value, task){
 }
 
 /*get all evl-slider2 and set values */
-function get_and_set_sliders(value,task){
+function get_and_set_sliders(value,task, setPagePosition=true){
 
 	task = typeof task !== 'undefined' ? task : 'normal';
 	var allBlocks = document.querySelectorAll(
 		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
 	if (typeof allBlocks[2] !== 'undefined') {
-		allBlocks[2].scrollIntoView();
+		if(setPagePosition)
+			allBlocks[2].scrollIntoView();
 	}
 
 	let v = value;
@@ -838,9 +839,9 @@ if (mode === "Mobile" && type === "Side By Side"){
 	testo = 'This is an Apps & Games Search evaluation task for a mobile app store. For the purposes of this task, assume the user is using an Android OS device.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("APP SXS FOUND");
-		get_and_set_sliders("60%");
-		set_all_radios(document, "AboutTheSameAs");
-		set_all_radios(document, "navigational", false);
+		get_and_set_sliders("60%", "normal",false);
+		set_all_radios(document, "AboutTheSameAs", false);
+		set_all_radios(document, "navigational", true);
 	}
 
 	/* RELATED QUESTION */
