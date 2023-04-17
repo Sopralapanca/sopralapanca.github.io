@@ -156,6 +156,7 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 	}
 	for(let j = 0; j<cboxes.length; j++){
 		if(cboxes[j].name.includes(value)){
+            cboxes[j].click();
 			cboxes[j].checked = true;
 		}
 	}
