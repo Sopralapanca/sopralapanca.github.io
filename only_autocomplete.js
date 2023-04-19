@@ -107,7 +107,7 @@ function get_and_set_sliders(value,task, setPagePosition=true){
 	let v = value;
 
 	for(var i=0; i<allBlocks.length; i++){
-		if(String(allBlocks[i].innerText).includes("No Rating Required")){
+		if(String(allBlocks[i].innerText).includes("No Rating Required") || String(allBlocks[i].innerText).includes("Same as")){
 			continue;
 		}
 
