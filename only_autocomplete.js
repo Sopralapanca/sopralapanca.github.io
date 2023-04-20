@@ -473,7 +473,8 @@ if (mode === "Web" && type === "Experimental" && (additional === "Headphones or 
 	testo2="In this task, your job is to listen to two different audio samples containing speech.The text spoken will be the same for both Speech Samples. Please listen to both samples before selecting a rating.";
 	if(CheckTextOnDocument(document, testo2)){
 		console.log('audio speech samples sxs found');
-		PlayAudio(document, "editable-", play_twice=false);
+		block = document.getElementById("editable-1072");
+		PlayAudio(block, "editable-", play_twice=false);
 		set_all_radios(document, "AboutTheSameAs");
 	}
 	else{
