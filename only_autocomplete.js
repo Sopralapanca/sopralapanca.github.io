@@ -462,18 +462,27 @@ let list_of_comments = ["The result is very helpful because provides helpful inf
 
 
 /* AUDIO */
-if (mode === "Web" && type === "Experimental" && additional === "Headphones or Speakers Required"){
+console.log(additional);
+if (mode === "Web" && type === "Experimental" && (additional === "Headphones or Speakers Required" || additional === "Headphones required")){
 	testo = "In this task, you will be given one or more audio clips. For each clip, please listen to the speech very carefully and then select a rating for each audio clip. The rating should be based on how natural or unnatural the sentence sounded. Please do not judge the grammar or the content of the sentence. Instead, just focus on how natural the speech sounds.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log('audio natural sentences found');
 		PlayAudio(document, "task_clip_speech");
 		set_all_radios(document, "Good");
-	}else{
+	}
+	testo2="In this task, your job is to listen to two different audio samples containing speech.The text spoken will be the same for both Speech Samples. Please listen to both samples before selecting a rating.";
+	if(CheckTextOnDocument(document, testo2)){
+		console.log('audio speech samples sxs found');
+		PlayAudio(document, "editable-", play_twice=false);
+		set_all_radios(document, "AboutTheSameAs");
+	}
+	else{
 		console.log("headphones similar");
 		radiosClick(document, "headphones");
 		PlayAudio(document, "speech_sample", play_twice=true);
 		get_and_set_sliders("90%");
 	}
+	console.log("done")
 }
 
 if (mode === "Web" && type === "Side By Side"){
@@ -1145,4 +1154,3 @@ if (mode === "Mobile" && type === "Experimental") {
 	}
 	console.log("done");
 }
-/* prova commento per push da cancellare */
