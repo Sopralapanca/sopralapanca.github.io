@@ -2,8 +2,7 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function setSliders(block, value, task){
-
+function setSliders(block, value, task){
 	let k;
 	task = typeof task !== 'undefined' ? task : 'normal';
 
@@ -71,24 +70,18 @@ async function setSliders(block, value, task){
 	const hiddenField = block.getElementsByTagName("input");
 	const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
 
-	const min = 1500;
-	const max = 3000;
-	const base = 1000;
 
 	for (k = 0; k<sliderBar.length; k++){
-		await sleep(base+(Math.round(Math.random()*(max - min) + min)));
 		sliderBar[k].style.width = value;
 		sliderTriangle[k].style.left = value;
 
 	}
 
 	for (k = 0; k<hiddenField.length; k++){
-		await sleep(base+(Math.round(Math.random()*(max - min) + min)));
 		hiddenField[k].value = hiddenValue;
 	}
 
 	for (k = 0; k<SpeakerSimilarityField.length; k++){
-		await sleep(base+(Math.round(Math.random()*(max - min) + min)));
 		SpeakerSimilarityField[k].value = hiddenValue;
 	}
 }
@@ -97,7 +90,7 @@ async function setSliders(block, value, task){
 function get_and_set_sliders(value,task, setPagePosition=true){
 
 	task = typeof task !== 'undefined' ? task : 'normal';
-	var allBlocks = document.querySelectorAll(
+	/* var allBlocks = document.querySelectorAll(
 		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
 	if (typeof allBlocks[2] !== 'undefined') {
@@ -116,7 +109,6 @@ function get_and_set_sliders(value,task, setPagePosition=true){
 		let elem;
 		for (elem of allBigTicks){
 			var tmp = elem.getAttribute("data-tick");
-
 			if(tmp === "Too informative"){
 				v = "66.6667%";
 			}
@@ -127,15 +119,26 @@ function get_and_set_sliders(value,task, setPagePosition=true){
 			setSliders(eval,v,task);
 		}
 
+	}*/
+
+	var evlBlock = document.getElementsByClassName("evl-slider2");
+	evlBlock[0].scrollIntoView();
+
+	for(let eval of evlBlock){
+		if(String(eval.innerText).includes("No Rating Required")){
+			continue;
+		}
+
+		var allBigTicks = eval.getElementsByClassName("evl-slider2-tick-big")
+		for (let elem of allBigTicks){
+			var tmp = elem.getAttribute("data-tick");
+			if(tmp === "Too informative"){
+				value = "66.6667%";
+			}
+		}
+		setSliders(eval,value,task);
 	}
 
-	if(allBlocks.length === 0){
-		var evlBlock = document.getElementsByClassName("evl-slider2");
-		evlBlock[0].scrollIntoView();
-		for(let eval of evlBlock){
-			setSliders(eval,v,task);
-		}
-	}
 }
 
 function set_all_radios(block, value, setPagePosition=true){
