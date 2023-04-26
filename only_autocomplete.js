@@ -1,9 +1,4 @@
-function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function setSliders(block, value, task){
-
 	let k;
 	task = typeof task !== 'undefined' ? task : 'normal';
 
@@ -172,7 +167,6 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 		}
 	}
 }
-
 
 
 function open_links_set_sliders_set_radios(block, sliders_value, radios_value="AboutTheSameAs", set_page_position=true){
@@ -431,7 +425,7 @@ function FillTextArea(element, field_name){
 			}
 		}
 	}catch(error){
-		console.log(error)
+		console.log(error);
 		return false;
 	}
 	return true;
@@ -439,7 +433,9 @@ function FillTextArea(element, field_name){
 
 function PlayAudio(element, field_name, play_twice=false){
 	let audio_clips = element.querySelectorAll('audio[id*=' + field_name + ']');
-	audio_clips[0].scrollIntoView();
+	if (typeof audio_clips[0] !== 'undefined') {
+			audio_clips[0].scrollIntoView();
+	}
 
 	for(var i = 0; i<audio_clips.length; i++){
 		audio_clips[i].play();
@@ -478,7 +474,6 @@ let list_of_comments = ["The result is very helpful because provides helpful inf
 
 
 /* AUDIO */
-console.log(additional);
 if (mode === "Web" && type === "Experimental" && (additional === "Headphones or Speakers Required" || additional === "Headphones required")){
 	testo = "In this task, you will be given one or more audio clips. For each clip, please listen to the speech very carefully and then select a rating for each audio clip. The rating should be based on how natural or unnatural the sentence sounded. Please do not judge the grammar or the content of the sentence. Instead, just focus on how natural the speech sounds.";
 	if(CheckTextOnDocument(document, testo)){
