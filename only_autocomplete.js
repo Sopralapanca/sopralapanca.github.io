@@ -2,7 +2,7 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function setSliders(block, value, task){
+function setSliders(block, value, task){
 
 	let k;
 	task = typeof task !== 'undefined' ? task : 'normal';
@@ -71,24 +71,18 @@ async function setSliders(block, value, task){
 	const hiddenField = block.getElementsByTagName("input");
 	const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
 
-	const min = 1500;
-	const max = 3000;
-	const base = 1000;
 
 	for (k = 0; k<sliderBar.length; k++){
-		await sleep(base+(Math.round(Math.random()*(max - min) + min)));
 		sliderBar[k].style.width = value;
 		sliderTriangle[k].style.left = value;
 
 	}
 
 	for (k = 0; k<hiddenField.length; k++){
-		await sleep(base+(Math.round(Math.random()*(max - min) + min)));
 		hiddenField[k].value = hiddenValue;
 	}
 
 	for (k = 0; k<SpeakerSimilarityField.length; k++){
-		await sleep(base+(Math.round(Math.random()*(max - min) + min)));
 		SpeakerSimilarityField[k].value = hiddenValue;
 	}
 }
@@ -107,12 +101,28 @@ function get_and_set_sliders(value,task, setPagePosition=true){
 
 	let v = value;
 
-	for(var i=0; i<allBlocks.length; i++){
-		if(String(allBlocks[i].innerText).includes("No Rating Required")){
+	for(let b of allBlocks){
+		/* delete dupes from the set of all block */
+		if(String(b.innerText).includes("Same as R")){
+			var str = String(b.innerText).split("Same as ")[1];
+			var block_name = str.split(" ")[0];
+
+			var dupe_block_name = block_name + " - Same as";
+
+			for(let skip_block of allBlocks){
+				if(String(skip_block.innerText).includes(dupe_block_name)){
+					var index  = allBlocks.indexOf(skip_block);
+					allBlocks.splice(index, 1);
+				}
+			}
+
+		}
+
+		if(String(b.innerText).includes("No Rating Required")){
 			continue;
 		}
 
-		var allBigTicks = allBlocks[i].getElementsByClassName("evl-slider2-tick-big")
+		var allBigTicks = b.getElementsByClassName("evl-slider2-tick-big")
 		let elem;
 		for (elem of allBigTicks){
 			var tmp = elem.getAttribute("data-tick");
@@ -122,7 +132,7 @@ function get_and_set_sliders(value,task, setPagePosition=true){
 			}
 		}
 
-		var evlBlock = allBlocks[i].getElementsByClassName("evl-slider2");
+		var evlBlock = b.getElementsByClassName("evl-slider2");
 		for(let eval of evlBlock){
 			setSliders(eval,v,task);
 		}
