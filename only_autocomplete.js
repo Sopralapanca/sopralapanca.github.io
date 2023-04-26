@@ -338,6 +338,7 @@ function getUrlFromTag(a){
 
 /* open all links */
 function OpenAllLinks(wait_time, doc=document) {
+	let s;
 	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
 	const mySet1 = new Set();
@@ -356,8 +357,11 @@ function OpenAllLinks(wait_time, doc=document) {
 				var url = getUrlFromTag(a);
 
 				if (typeof url !== "undefined") {
-					var s = DecodeStringUrl(url);
-					mySet1.add(s);
+					s = DecodeStringUrl(url);
+					if(!s.includes("www.google.")){
+						mySet1.add(s);
+					}
+
 				}
 
 			} catch (error) {
@@ -367,13 +371,15 @@ function OpenAllLinks(wait_time, doc=document) {
 		}
 
 		if(buds_html.length === 0){
-
 			var url_block = allBlocks[i].getElementsByTagName('a')[0];
-
 			if (typeof url_block !== "undefined") {
 				var search_link = getUrlFromTag(url_block);
-				var s = DecodeStringUrl(search_link);
-				if (s!== "") mySet1.add(s);
+				s = DecodeStringUrl(search_link);
+				if (s!== "") {
+					if (!s.includes("www.google.")) {
+						mySet1.add(s);
+					}
+				}
 			}
 		}
 	}
@@ -1127,19 +1133,16 @@ if (mode === "Mobile" && type === "Experimental") {
 	let testo1 = "The Direct Answer Block is intended to provide a direct answer to a user's need in a natural way. Here are some examples on how to use the Needs Met Rating Scale to provide ratings for these kinds of results.";
 	let testo2 = "An Assistant on TV is a virtual voice assistant built in or paired with a TV that can understand voice queries from a user, and give visual results, audio responses, or take actions on the user's behalf.";
 	let testo3 = "In this task, you will be given a query a driver might issue to the voice assistant in their car. In most cases, you will see a corresponding audio response from the car, indicating what action the car would take in response to the voice query. In some cases, you will also see a visual response, like a directions or navigation card.";
+	let testo4= "An eyes-free voice assistant is an electronic device that can understand voice queries from a user, and give audio responses or take actions on the user's behalf.";
+
 	let found = false;
 
-	if (CheckTextOnDocument(document, testo)) {
+	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo2) || CheckTextOnDocument(document, testo3) || CheckTextOnDocument(document, testo4)) {
 		console.log("va found");
 		found = true;
-	}else if(CheckTextOnDocument(document, testo1)) {
+	}
+	if(CheckTextOnDocument(document, testo1)) {
 		console.log("def found");
-		found = true;
-	}else if(CheckTextOnDocument(document, testo2)) {
-		console.log("tv found");
-		found = true;
-	}else if(CheckTextOnDocument(document, testo3)) {
-		console.log("va car found");
 		found = true;
 	}
 
