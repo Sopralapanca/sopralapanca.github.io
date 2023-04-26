@@ -1,7 +1,3 @@
-function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function setSliders(block, value, task){
 	let k;
 	task = typeof task !== 'undefined' ? task : 'normal';
@@ -90,7 +86,7 @@ function setSliders(block, value, task){
 function get_and_set_sliders(value,task, setPagePosition=true){
 
 	task = typeof task !== 'undefined' ? task : 'normal';
-	/* var allBlocks = document.querySelectorAll(
+	var allBlocks = document.querySelectorAll(
 		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
 	if (typeof allBlocks[2] !== 'undefined') {
@@ -100,45 +96,51 @@ function get_and_set_sliders(value,task, setPagePosition=true){
 
 	let v = value;
 
-	for(var i=0; i<allBlocks.length; i++){
-		if(String(allBlocks[i].innerText).includes("No Rating Required")){
+	for(let b of allBlocks){
+		/* delete dupes from the set of all block */
+		if(String(b.innerText).includes("Same as R")){
+			var str = String(b.innerText).split("Same as ")[1];
+			var block_name = str.split(" ")[0];
+
+			var dupe_block_name = block_name + " - Same as";
+
+			for(let skip_block of allBlocks){
+				if(String(skip_block.innerText).includes(dupe_block_name)){
+					var index  = allBlocks.indexOf(skip_block);
+					allBlocks.splice(index, 1);
+				}
+			}
+
+		}
+
+		if(String(b.innerText).includes("No Rating Required")){
 			continue;
 		}
 
-		var allBigTicks = allBlocks[i].getElementsByClassName("evl-slider2-tick-big")
+		var allBigTicks = b.getElementsByClassName("evl-slider2-tick-big")
 		let elem;
 		for (elem of allBigTicks){
 			var tmp = elem.getAttribute("data-tick");
+
 			if(tmp === "Too informative"){
 				v = "66.6667%";
 			}
 		}
 
-		var evlBlock = allBlocks[i].getElementsByClassName("evl-slider2");
+		var evlBlock = b.getElementsByClassName("evl-slider2");
 		for(let eval of evlBlock){
 			setSliders(eval,v,task);
 		}
 
-	}*/
-
-	var evlBlock = document.getElementsByClassName("evl-slider2");
-	evlBlock[0].scrollIntoView();
-
-	for(let eval of evlBlock){
-		if(String(eval.innerText).includes("No Rating Required")){
-			continue;
-		}
-
-		var allBigTicks = eval.getElementsByClassName("evl-slider2-tick-big")
-		for (let elem of allBigTicks){
-			var tmp = elem.getAttribute("data-tick");
-			if(tmp === "Too informative"){
-				value = "66.6667%";
-			}
-		}
-		setSliders(eval,value,task);
 	}
 
+	if(allBlocks.length === 0){
+		var evlBlock = document.getElementsByClassName("evl-slider2");
+		evlBlock[0].scrollIntoView();
+		for(let eval of evlBlock){
+			setSliders(eval,v,task);
+		}
+	}
 }
 
 function set_all_radios(block, value, setPagePosition=true){
@@ -165,7 +167,6 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 		}
 	}
 }
-
 
 
 function open_links_set_sliders_set_radios(block, sliders_value, radios_value="AboutTheSameAs", set_page_position=true){
@@ -331,6 +332,7 @@ function getUrlFromTag(a){
 
 /* open all links */
 function OpenAllLinks(wait_time, doc=document) {
+	let s;
 	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
 	const mySet1 = new Set();
@@ -349,8 +351,11 @@ function OpenAllLinks(wait_time, doc=document) {
 				var url = getUrlFromTag(a);
 
 				if (typeof url !== "undefined") {
-					var s = DecodeStringUrl(url);
-					mySet1.add(s);
+					s = DecodeStringUrl(url);
+					if(!s.includes("www.google.")){
+						mySet1.add(s);
+					}
+
 				}
 
 			} catch (error) {
@@ -360,13 +365,15 @@ function OpenAllLinks(wait_time, doc=document) {
 		}
 
 		if(buds_html.length === 0){
-
 			var url_block = allBlocks[i].getElementsByTagName('a')[0];
-
 			if (typeof url_block !== "undefined") {
 				var search_link = getUrlFromTag(url_block);
-				var s = DecodeStringUrl(search_link);
-				if (s!== "") mySet1.add(s);
+				s = DecodeStringUrl(search_link);
+				if (s!== "") {
+					if (!s.includes("www.google.")) {
+						mySet1.add(s);
+					}
+				}
 			}
 		}
 	}
@@ -418,7 +425,7 @@ function FillTextArea(element, field_name){
 			}
 		}
 	}catch(error){
-		console.log(error)
+		console.log(error);
 		return false;
 	}
 	return true;
@@ -426,7 +433,9 @@ function FillTextArea(element, field_name){
 
 function PlayAudio(element, field_name, play_twice=false){
 	let audio_clips = element.querySelectorAll('audio[id*=' + field_name + ']');
-	audio_clips[0].scrollIntoView();
+	if (typeof audio_clips[0] !== 'undefined') {
+			audio_clips[0].scrollIntoView();
+	}
 
 	for(var i = 0; i<audio_clips.length; i++){
 		audio_clips[i].play();
@@ -465,7 +474,6 @@ let list_of_comments = ["The result is very helpful because provides helpful inf
 
 
 /* AUDIO */
-console.log(additional);
 if (mode === "Web" && type === "Experimental" && (additional === "Headphones or Speakers Required" || additional === "Headphones required")){
 	testo = "In this task, you will be given one or more audio clips. For each clip, please listen to the speech very carefully and then select a rating for each audio clip. The rating should be based on how natural or unnatural the sentence sounded. Please do not judge the grammar or the content of the sentence. Instead, just focus on how natural the speech sounds.";
 	if(CheckTextOnDocument(document, testo)){
@@ -1120,19 +1128,16 @@ if (mode === "Mobile" && type === "Experimental") {
 	let testo1 = "The Direct Answer Block is intended to provide a direct answer to a user's need in a natural way. Here are some examples on how to use the Needs Met Rating Scale to provide ratings for these kinds of results.";
 	let testo2 = "An Assistant on TV is a virtual voice assistant built in or paired with a TV that can understand voice queries from a user, and give visual results, audio responses, or take actions on the user's behalf.";
 	let testo3 = "In this task, you will be given a query a driver might issue to the voice assistant in their car. In most cases, you will see a corresponding audio response from the car, indicating what action the car would take in response to the voice query. In some cases, you will also see a visual response, like a directions or navigation card.";
+	let testo4= "An eyes-free voice assistant is an electronic device that can understand voice queries from a user, and give audio responses or take actions on the user's behalf.";
+
 	let found = false;
 
-	if (CheckTextOnDocument(document, testo)) {
+	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo2) || CheckTextOnDocument(document, testo3) || CheckTextOnDocument(document, testo4)) {
 		console.log("va found");
 		found = true;
-	}else if(CheckTextOnDocument(document, testo1)) {
+	}
+	if(CheckTextOnDocument(document, testo1)) {
 		console.log("def found");
-		found = true;
-	}else if(CheckTextOnDocument(document, testo2)) {
-		console.log("tv found");
-		found = true;
-	}else if(CheckTextOnDocument(document, testo3)) {
-		console.log("va car found");
 		found = true;
 	}
 
