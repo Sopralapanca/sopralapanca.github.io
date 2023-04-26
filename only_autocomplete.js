@@ -153,7 +153,6 @@ function set_all_radios(block, value, setPagePosition=true){
 			radios[j].click();
 		}
 	}
-	/*prova*/
 }
 
 function set_all_checkboxes(block, value, setPagePosition=true){
