@@ -431,8 +431,14 @@ function FillTextArea(element, field_name){
 	return true;
 }
 
-function PlayAudio(element, field_name, play_twice=false){
-	let audio_clips = element.querySelectorAll('audio[id*=' + field_name + ']');
+function PlayAudio(element, field_name="", play_twice=false){
+	let audio_clips
+        if(field_name!==""){
+            audio_clips = element.querySelectorAll('audio[id*=' + field_name + ']');
+        }else{
+            audio_clips = element.getElementsByTagName('audio');
+        }
+
 	if (typeof audio_clips[0] !== 'undefined') {
 			audio_clips[0].scrollIntoView();
 	}
@@ -1128,11 +1134,11 @@ if (mode === "Mobile" && type === "Experimental") {
 	let testo1 = "The Direct Answer Block is intended to provide a direct answer to a user's need in a natural way. Here are some examples on how to use the Needs Met Rating Scale to provide ratings for these kinds of results.";
 	let testo2 = "An Assistant on TV is a virtual voice assistant built in or paired with a TV that can understand voice queries from a user, and give visual results, audio responses, or take actions on the user's behalf.";
 	let testo3 = "In this task, you will be given a query a driver might issue to the voice assistant in their car. In most cases, you will see a corresponding audio response from the car, indicating what action the car would take in response to the voice query. In some cases, you will also see a visual response, like a directions or navigation card.";
-	let testo4= "An eyes-free voice assistant is an electronic device that can understand voice queries from a user, and give audio responses or take actions on the user's behalf.";
-
+	let testo4 = "An eyes-free voice assistant is an electronic device that can understand voice queries from a user, and give audio responses or take actions on the user's behalf.";
+	let testo5 = "A Smart Display is an electronic device that can understand voice queries from a user and give both visual and audio responses or take actions on the user's behalf.";
 	let found = false;
 
-	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo2) || CheckTextOnDocument(document, testo3) || CheckTextOnDocument(document, testo4)) {
+	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo2) || CheckTextOnDocument(document, testo3) || CheckTextOnDocument(document, testo4) || CheckTextOnDocument(document, testo5)) {
 		console.log("va found");
 		found = true;
 	}
@@ -1143,6 +1149,7 @@ if (mode === "Mobile" && type === "Experimental") {
 
 	if (found === true){
 		get_and_set_sliders("90%");
+        PlayAudio(document);
 		FillTextArea(document, "comment");
 	}
 
