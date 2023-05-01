@@ -458,15 +458,12 @@ function PlayAudio(element, field_name="", play_twice=false){
 	}
 }
 
-/* mode restituisce youtube, mobile, local ecc */
-let mode = document.getElementsByClassName("ewok-task-action-header")[0].children[0];
-if(mode !== undefined) mode = mode.innerText;
 
 /* type restituisce sxs o experimental */
-const type = document.getElementsByClassName("ewok-task-action-header")[0].children[1].innerText;
+const type = document.getElementsByClassName("ewok-task-action-header")[0].children[0].innerText;
 
 /* additional restituisce contenuto aggiuntivo nel titolo come headphone required*/
-let additional = document.getElementsByClassName("ewok-task-action-header")[0].children[2];
+let additional = document.getElementsByClassName("ewok-task-action-header")[0].children[1];
 if(additional !== undefined) additional = additional.innerText;
 
 let time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
@@ -480,7 +477,7 @@ let list_of_comments = ["The result is very helpful because provides helpful inf
 
 
 /* AUDIO */
-if (mode === "Web" && type === "Experimental" && (additional === "Headphones or Speakers Required" || additional === "Headphones required")){
+if (type === "Experimental" && (additional === "Headphones or Speakers Required" || additional === "Headphones required")){
 	testo = "In this task, you will be given one or more audio clips. For each clip, please listen to the speech very carefully and then select a rating for each audio clip. The rating should be based on how natural or unnatural the sentence sounded. Please do not judge the grammar or the content of the sentence. Instead, just focus on how natural the speech sounds.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log('audio natural sentences found');
@@ -503,7 +500,7 @@ if (mode === "Web" && type === "Experimental" && (additional === "Headphones or 
 	console.log("done")
 }
 
-if (mode === "Web" && type === "Side By Side"){
+if (type === "Side By Side"){
 	/* SXS NO NEEDS MET */
 	testo = 'In this task, you will be asked to compare two Search result pages, arranged side by side.\n' +
 		'You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result pages.';
@@ -541,7 +538,7 @@ if (mode === "Web" && type === "Side By Side"){
 }
 
 /* IMAGE-SXS  DA FINIRE*/
-if (mode === "Image" && type === "Side By Side"){
+if (type === "Side By Side"){
 	testo = 'In this task you will be given a query issued to image search followed by two sets of image search results. Your job is to understand the query and the underlying user task or journey using the research links provided.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("IMAGE SXS FOUND");
@@ -552,7 +549,7 @@ if (mode === "Image" && type === "Side By Side"){
 	console.log("done");
 }
 
-if (mode === "Search Product" && type === "Experimental") {
+if (type === "Experimental") {
 	/* BACKGROUND AND REPUTATION */
 	testo = "You will first answer a question about the clarity of user needs based on the information provided by the query, user location, and user intent. Next, you will be asked to rate each result using the Needs Met scale based on your understanding of the needs of the user who issued the query.";
 	if (CheckTextOnDocument(document, testo)) {
@@ -576,7 +573,7 @@ if (mode === "Search Product" && type === "Experimental") {
 }
 
 /* ROSETTA */
-if (mode === "Rosetta" && type === "Experimental") {
+if (type === "Experimental") {
 	testo = "In this task, you will be asked to rate the quality of two different translations of the source text, using the rating scale below";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("ROSETTA FOUND");
@@ -602,7 +599,7 @@ if (mode === "Rosetta" && type === "Experimental") {
 }
 
 /* MINI NEWS AND BLOGS */
-if (mode === "News and Blogs" && type === "Side By Side") {
+if (type === "Side By Side") {
 	testo = "A story is important if it would typically feature prominently on the front page of national or local newspapers, or major publications on the topic.";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("MINI NEWS AND BLOGS FOUND");
@@ -666,7 +663,7 @@ if (mode === "News and Blogs" && type === "Side By Side") {
 }
 
 let j;
-if (mode === "Web" && type === "Experimental") {
+if (type === "Experimental") {
     /*  subtopic query */
     testo="In this task, you will be given a series of query pairs indicated as Q1 and Q2. For each query pair, your job is to determine whether Q2 is a subintent of Q1. You can click on each query and view top search results to better understand Q1 and Q2";
     if(CheckTextOnDocument(document, testo)){
@@ -871,7 +868,7 @@ if (mode === "Web" && type === "Experimental") {
 	console.log("done");
 }
 
-if (mode === "Mobile" && type === "Side By Side"){
+if (type === "Side By Side"){
 	/* app sxs */
 	testo = 'This is an Apps & Games Search evaluation task for a mobile app store. For the purposes of this task, assume the user is using an Android OS device.';
 	if (CheckTextOnDocument(document, testo)){
@@ -916,7 +913,7 @@ if (mode === "Mobile" && type === "Side By Side"){
 }
 
 /* HIGHLIGHTED DIFFERENCES */
-if (mode === "Local" && type === "Side By Side"){
+if (type === "Side By Side"){
 	testo = 'Tell us which side provides more useful additional information. Differences between the results are highlighted. Keep in mind that more information is not necessarily better.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("HIGHLIGHTED DIFFERENCES found");
@@ -928,7 +925,7 @@ if (mode === "Local" && type === "Side By Side"){
 }
 
 /* LITTLE LOCAL */
-if (mode === "Local" && type === "Experimental"){
+if (type === "Experimental"){
 	testo = 'In this task, you may see special blocks that are shown at the very top of the search results (e.g., above L1 and/or R1).  They do not contain the Needs Met or E-A-T sliders';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("little local found");
@@ -964,7 +961,7 @@ if (CheckTextOnDocument(document, testo)){
 }
 
 /* YOUTUBE EXP RACY */
-if (mode === "YouTube" && type === "Experimental"){
+if (type === "Experimental"){
 	if (CheckTextOnDocument(document, "In this task, you will be given titles and thumbnails of many videos. For each video, your job is to evaluate: How many users in your locale would find this video racy? When rating, please assume users have not previously watched or searched for similar videos.")){
 		console.log("yt exp racy found");
 		get_and_set_sliders("25%");
@@ -1000,7 +997,7 @@ if (type === "Side By Side"){
 }
 
 /*SAFESEARCH 1M PORN */
-if (mode === "SafeSearch" && type === "Result Review"){
+if (type === "Result Review"){
 	testo="For each task, you will be given a URL. Please click the URL and visit the landing page. Please rate the given URLs using the labels \"Porn\", \"Didn't Load\", \"Foreign Language\" or \"Not Porn\" as follows:";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("safesearch");
@@ -1011,7 +1008,7 @@ if (mode === "SafeSearch" && type === "Result Review"){
 }
 
 /* NEWS AND BLOGS */
-if (mode === "News and Blogs" && type === "Experimental"){
+if (type === "Experimental"){
 	testo="Review each snapshot and make a note of the Top 3 Prominent News Topics that are common between them.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log("news and blogs found");
@@ -1023,7 +1020,7 @@ if (mode === "News and Blogs" && type === "Experimental"){
 
 
 /* PAGE QUALITY UO */
-if (mode === "Web" && type === "Experimental"){
+if (type === "Experimental"){
 	if (CheckTextOnDocument(document, "In this task, you may be exposed to queries, webpages, and/or topics that contain potentially upsetting-offensive (U-O) content")){
 		if(CheckTextOnDocument(document, "In this task, you will be given a link to a landing page and asked a few questions about it.")){
 			console.log("page quality uo found");
@@ -1036,7 +1033,7 @@ if (mode === "Web" && type === "Experimental"){
 
 
 /* PAGE QUALITY YOUTUBE UO */
-if (mode === "YouTube" && type === "Experimental"){
+if (type === "Experimental"){
 	if (CheckTextOnDocument(document,"In this task, you may be exposed to queries, webpages, and/or topics that contain potentially upsetting-offensive (U-O) content")){
 		if(CheckTextOnDocument(document,"In this task, you will be asked to evaluate the Page Quality of landing pages for a given Video URL and Content Creator URL.")){
 			console.log("yt pq uo found");
@@ -1048,7 +1045,7 @@ if (mode === "YouTube" && type === "Experimental"){
 }
 
 /* YOUTUBE SXS RACY o ADULT*/
-if (mode === "YouTube" && type === "Side By Side"){
+if (type === "Side By Side"){
 	if(CheckTextOnDocument(document, "In this task, you may be exposed to queries, webpages, and/or topics that contain potentially pornographic content.") ||
 		CheckTextOnDocument(document, "In this task, you will be asked to provide Needs Met and Page Quality ratings for queries that were issued on www.youtube.com. Please be aware of the user intent difference when the query is issued on YouTube rather than a general search engine.")){
 
@@ -1063,7 +1060,7 @@ if (mode === "YouTube" && type === "Side By Side"){
 }
 
 /*YOUTUBE EXP ADULT*/
-if (mode === "YouTube" && type === "Experimental"){
+if (type === "Experimental"){
 	testo = 'In this task, you will be given a list of videos. Your job is to identify porn or racy content';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("youtube exp adult found");
@@ -1073,7 +1070,7 @@ if (mode === "YouTube" && type === "Experimental"){
 	}
 }
 
-if (mode === "Local" && type === "Side By Side"){
+if (type === "Side By Side"){
 	let value="";
 	/* SXS LOCAL HOTEL */
 	teso="This is a hotel search task. Please assume that the user issuing the query wants to travel and potentially book a hotel from a list of hotels.";
@@ -1105,7 +1102,7 @@ if (mode === "Local" && type === "Side By Side"){
 
 }
 
-if (mode === "Mobile" && type === "Experimental") {
+if (type === "Experimental") {
 	/* PAGE QUALITY NORMALI */
 	testo="In each task, you will be given a URL and some questions about the landing page. Please use the PQ grid to check Page Quality characteristics and assign an overall rating.";
 	if(CheckTextOnDocument(document, testo)){
