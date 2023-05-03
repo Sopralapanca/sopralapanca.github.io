@@ -650,7 +650,7 @@ if (type === "Side By Side"){
 		hiddenValue = "4";
 	}
 
-	if(value !== ""){
+	if(percentage !== ""){
 		open_links_set_sliders_set_radios(document, percentage, hiddenValue, "AboutTheSameAs", false);
 	}
 
