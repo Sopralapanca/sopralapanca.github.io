@@ -3,9 +3,8 @@ function setSliders(block, percentage, hiddenValue){
 
 	const sliderBar = block.getElementsByClassName("evl-slider2-bar-selected");
 	const sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
-	const hiddenField = block.getElementsByTagName("input");
+	const hiddenField = block.getElementsByClassName("evl-slider2-value-field");
 	const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
-
 
 	for (k = 0; k<sliderBar.length; k++){
 		sliderBar[k].style.width = percentage;
@@ -32,50 +31,25 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=true){
 	}
 
 	for(let b of allBlocks){
-		/* delete dupes from the set of all block */
-		if(String(b.innerText).includes("Same as R")){
-			var str = String(b.innerText).split("Same as ")[1];
-			var block_name = str.split(" ")[0];
-
-			var dupe_block_name = block_name + " - Same as";
-
-			for(let skip_block of allBlocks){
-				if(String(skip_block.innerText).includes(dupe_block_name)){
-					var index  = allBlocks.indexOf(skip_block);
-					allBlocks.splice(index, 1);
-				}
-			}
-
-		}
-
 		if(String(b.innerText).includes("No Rating Required")){
 			continue;
-		}
-
-		var allBigTicks = b.getElementsByClassName("evl-slider2-tick-big")
-		let elem;
-		for (elem of allBigTicks){
-			var tmp = elem.getAttribute("data-tick");
-
-			if(tmp === "Too informative"){
-				percentage = "66.6667%";
-			}
 		}
 
 		var evlBlock = b.getElementsByClassName("evl-slider2");
 		for(let eval of evlBlock){
 			setSliders(eval,percentage,hiddenValue);
 		}
-
 	}
 
 	if(allBlocks.length === 0){
-		var evlBlock = document.getElementsByClassName("evl-slider2");
-		evlBlock[0].scrollIntoView();
+		evlBlock = document.getElementsByClassName("evl-slider2");
+		if(setPagePosition)
+			evlBlock[2].scrollIntoView();
 		for(let eval of evlBlock){
 			setSliders(eval,percentage,hiddenValue);
 		}
 	}
+
 }
 
 function set_all_radios(block, value, setPagePosition=true){
@@ -563,7 +537,7 @@ if (type === "Side By Side"){
 	/* GENERAL SXS */
 	testo = 'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own';
 	if (CheckTextOnDocument(document, testo)){
-		console.log("mobile sxs found");
+		console.log("GENERAL SXS FOUND");
 		open_links_set_sliders_set_radios(document, "70%", "3.5", "AboutTheSameAs");
 	}
 
