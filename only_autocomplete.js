@@ -571,8 +571,8 @@ if (type === "Side By Side"){
 		set_all_radios(document, "1", false);
 	}
 
-	/* mobile sxs hm e ats tipo le news */
-	testo = 'for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own';
+	/* GENERAL SXS */
+	testo = 'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("mobile sxs found");
 		open_links_set_sliders_set_radios(document, "70%", "3.5", "AboutTheSameAs");
@@ -630,14 +630,6 @@ if (type === "Side By Side"){
 		console.log("local sxs hotel found");
 		percentage = "80%";
 		hiddenValue = "4";
-	}
-
-	/* SXS LOCAL */
-	testo="Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results from the perspective of a mobile user";
-	if (CheckTextOnDocument(document, testo)){
-		console.log("SXS LOCAL FOUND");
-		percentage = "70%";
-		hiddenValue = "3.5";
 	}
 
 	/* SXS LOCAL VIEWPORT*/
