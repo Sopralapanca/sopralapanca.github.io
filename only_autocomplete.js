@@ -81,7 +81,7 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 function open_links_set_sliders_set_radios(block, percentage, hiddenValue, radios_value="AboutTheSameAs", set_page_position=true){
 	OpenAllLinks(wait_time_sec);
 	get_and_set_sliders(percentage, hiddenValue);
-	set_all_radios(block, radios_value, set_page_position);
+	set_all_radios(block, radios_value, set_page_position, false);
 }
 
 
@@ -241,6 +241,7 @@ function getUrlFromTag(a){
 
 /* open all links */
 function OpenAllLinks(wait_time, doc=document) {
+
 	let s;
 	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
@@ -253,16 +254,17 @@ function OpenAllLinks(wait_time, doc=document) {
 		}
 
 		var buds_html = allBlocks[i].querySelectorAll('[class=ewok-buds-result-html][id^=ewok-buds-display-block]');
-
 		for (var j = 0; j < buds_html.length; j++) {
 			try {
 				var a = buds_html[j].querySelector("a");
+
 				var url = getUrlFromTag(a);
 
 				if (typeof url !== "undefined") {
 					s = DecodeStringUrl(url);
 					if(!s.includes("www.google.")){
 						mySet1.add(s);
+
 					}
 
 				}
@@ -367,6 +369,38 @@ function PlayAudio(element, field_name="", play_twice=false){
 	}
 }
 
+function LeftOrRightSideMB(){
+	let winnerSide;
+	let otherSide;
+	let radios_value;
+	let list_of_comments = [];
+	if (CheckTextOnDocument(document, "The right side did not generate any results.")) {
+		winnerSide = "left side";
+		otherSide = "right side";
+		radios_value = "MuchBetterThan";
+	}else if(CheckTextOnDocument(document, "The left side did not generate any results.")) {
+		winnerSide = "right side";
+		otherSide = "left side";
+		radios_value = "MuchWorseThan";
+	}else{
+		return false;
+	}
+
+	/* comments for left or right side */
+	list_of_comments = [
+		otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + winnerSide + " is much better.",
+		winnerSide + " provides a list of helpful results so " + winnerSide + " is much better while " + otherSide + " is empty.",
+		otherSide + " is empty while " + winnerSide + " provides a list of helpful results so " + winnerSide + " is much better.",
+		"The results on " + winnerSide + " are helpful and on topic while " + otherSide + " is empty so " + winnerSide + " is much better.",
+		"The results on " + winnerSide + " are helpful and on topic so " + winnerSide + " is much better while " + otherSide + " is empty.",
+		winnerSide + "is helpful because it provides a list of results that are on topic while " + otherSide + " is empty so " + winnerSide + " is much better.",
+		winnerSide + " is much better because it provides a list of results that are on topic while " + otherSide + " is empty.",
+	];
+
+	document.getElementById('ewok-buds-validation-comment').value = list_of_comments[Math.floor(Math.random() * list_of_comments.length)];
+	return radios_value;
+
+}
 
 /* type restituisce sxs o experimental */
 const type = document.getElementsByClassName("ewok-task-action-header")[0].children[0].innerText;
@@ -411,7 +445,9 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 
 let percentage;
 let hiddenValue;
+let item;
 if (type === "Side By Side") {
+
 	/* SXS NO NEEDS MET */
 	testo = 'In this task, you will be asked to compare two Search result pages, arranged side by side.\n' +
 		'You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result pages.';
@@ -448,34 +484,9 @@ if (type === "Side By Side") {
 	testo = "A story is important if it would typically feature prominently on the front page of national or local newspapers, or major publications on the topic.";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("MINI NEWS AND BLOGS FOUND");
-
-		radios_value = "AboutTheSameAs"
-
-		testo = "The right side did not generate any results."
-		if (CheckTextOnDocument(document, testo)) {
-			winnerSide = "left side";
-			otherSide = "right side";
-			radios_value = "MuchBetterThan";
-
-			list_of_comments = [otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
-			];
-
-			var item = list_of_comments[Math.floor(Math.random() * list_of_comments.length)];
-			document.getElementById('ewok-buds-validation-comment').value = item;
-		}
-
-		testo = "The left side did not generate any results."
-		if (CheckTextOnDocument(document, testo)) {
-			winnerSide = "right side";
-			otherSide = "left side";
-			radios_value = "MuchWorseThan";
-
-
-			list_of_comments = [otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
-			];
-
-			var item = list_of_comments[Math.floor(Math.random() * list_of_comments.length)];
-			document.getElementById('ewok-buds-validation-comment').value = item;
+		let radios_value = LeftOrRightSideMB();
+		if(!radios_value){
+			radios_value = "AboutTheSameAs";
 		}
 
 		let allBlocks = document.getElementsByClassName("evl-slider2");
@@ -513,7 +524,7 @@ if (type === "Side By Side") {
 	testo = 'This is an Apps & Games Search evaluation task for a mobile app store. For the purposes of this task, assume the user is using an Android OS device.';
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("APP SXS FOUND");
-		get_and_set_sliders("60%", "3", false);
+		get_and_set_sliders("70%", "3.5", false);
 		set_all_radios(document, "AboutTheSameAs", false);
 		set_all_radios(document, "navigational", true);
 	}
@@ -538,9 +549,14 @@ if (type === "Side By Side") {
 
 	/* GENERAL SXS */
 	testo = 'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own';
-	if (CheckTextOnDocument(document, testo)) {
+	testo2 = "In this task, you will be given a query and up to 10 search results which are products for this query. A product result will include an image, title, and optionally a review star rating. Some parts, like the title, might be truncated. Clicking on such a product result will lead to a new search results page for that specific product.";
+	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo2)) {
 		console.log("GENERAL SXS FOUND");
-		open_links_set_sliders_set_radios(document, "70%", "3.5", "AboutTheSameAs");
+		let radios_value = LeftOrRightSideMB();
+		if(!radios_value){
+			radios_value = "AboutTheSameAs";
+		}
+		open_links_set_sliders_set_radios(document, "70%", "3.5", radios_value, false);
 	}
 
 	/* sxs one big block */
@@ -705,13 +721,6 @@ if (type === "Experimental") {
 		console.log("short answer found");
 		get_and_set_sliders("100%", "5");
 		FillTextArea(document, "result_question");
-	}
-
-	/* QUERY-TOPIC RELEVANT */
-	testo = 'In this task, you will be given a query and a topic. If the query intent is directly relevant to the topic, you will be asked three questions about the intent of the query with respect to the topic.';
-	if (CheckTextOnDocument(document, testo)){
-		console.log("query topic relevant");
-		/* TODO CON IL QUERY SELECTOR ALL E FAI L'INCLUDE DI PARTE DEL NOME*/
 	}
 
 	/* youtube automatic test */
