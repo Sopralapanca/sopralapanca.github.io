@@ -409,25 +409,27 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 	console.log("done")
 }
 
-if (type === "Side By Side"){
+let percentage;
+let hiddenValue;
+if (type === "Side By Side") {
 	/* SXS NO NEEDS MET */
 	testo = 'In this task, you will be asked to compare two Search result pages, arranged side by side.\n' +
 		'You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result pages.';
-	if (CheckTextOnDocument(document, testo)){
+	if (CheckTextOnDocument(document, testo)) {
 		console.log("SXS NO NEEDS MET");
 		set_all_radios(document, "AboutTheSameAs");
 	}
 
 	/* ENGANGING YT SXS */
 	testo = "In this task, you will be given a query and corresponding result blocks linking to videos. For each result block, you will be asked a series of questions about the engagingness of the video for the query. You may skim through the video if you would like. If a video is of a foreign language, ratings will not be required, but please consider answering any questions that are still applicable.";
-	if (CheckTextOnDocument(document, testo)){
+	if (CheckTextOnDocument(document, testo)) {
 		console.log("ENGAGINGNESS VIDEO SXS");
 		open_links_set_sliders_set_radios(document, "60%", "3", "-1");
 	}
 
 	/* INFORMATIVE YT SXS */
 	testo = "MC that feels like a good use of time is informative (example, example), inspirational (example, example), and/or entertaining (example, example). MC that doesn’t feel like a good use of time is meaningless (example, example) or off-putting (example).";
-	if (CheckTextOnDocument(document, testo)){
+	if (CheckTextOnDocument(document, testo)) {
 		console.log("INFORMATIVE VIDEO SXS");
 		open_links_set_sliders_set_radios(document, "60%", "3", "1");
 	}
@@ -435,7 +437,7 @@ if (type === "Side By Side"){
 
 	/* IMAGE-SXS  DA FINIRE*/
 	testo = 'In this task you will be given a query issued to image search followed by two sets of image search results. Your job is to understand the query and the underlying user task or journey using the research links provided.';
-	if (CheckTextOnDocument(document, testo)){
+	if (CheckTextOnDocument(document, testo)) {
 		console.log("IMAGE SXS FOUND");
 		set_all_radios(document, "0", true);
 		get_and_set_sliders("80%", "4");
@@ -458,7 +460,7 @@ if (type === "Side By Side"){
 			list_of_comments = [otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
 			];
 
-			var item = list_of_comments[Math.floor(Math.random()*list_of_comments.length)];
+			var item = list_of_comments[Math.floor(Math.random() * list_of_comments.length)];
 			document.getElementById('ewok-buds-validation-comment').value = item;
 		}
 
@@ -472,36 +474,36 @@ if (type === "Side By Side"){
 			list_of_comments = [otherSide + " is empty while " + winnerSide + " provides a list of helpful results that are on topic so " + "is much better."
 			];
 
-			var item = list_of_comments[Math.floor(Math.random()*list_of_comments.length)];
+			var item = list_of_comments[Math.floor(Math.random() * list_of_comments.length)];
 			document.getElementById('ewok-buds-validation-comment').value = item;
 		}
 
-		var allBlocks = document.getElementsByClassName("evl-slider2");
+		let allBlocks = document.getElementsByClassName("evl-slider2");
 
 		for (let k = 0; k < allBlocks.length; k++) {
 			var s = allBlocks[k].textContent;
 
-			if(s.includes("How important is this story for the topic?")){
+			if (s.includes("How important is this story for the topic?")) {
 				percentage = '80%';
 				hiddenValue = '4';
 			}
 
-			if(s.includes("How up-to-date is this article as of the time of the query above?")) {
+			if (s.includes("How up-to-date is this article as of the time of the query above?")) {
 				percentage = '100%';
 				hiddenValue = '5';
 			}
 
-			if(s.includes("How informative is the title?")) {
+			if (s.includes("How informative is the title?")) {
 				percentage = '80%';
 				hiddenValue = '4';
 			}
 
-			if(s.includes("Page Quality Rating")) {
+			if (s.includes("Page Quality Rating")) {
 				percentage = '60%';
 				hiddenValue = '3';
 			}
 
-			setSliders(allBlocks[k],percentage,hiddenValue);
+			setSliders(allBlocks[k], percentage, hiddenValue);
 
 		}
 		set_all_radios(document, radios_value, false);
@@ -509,24 +511,24 @@ if (type === "Side By Side"){
 
 	/* app sxs */
 	testo = 'This is an Apps & Games Search evaluation task for a mobile app store. For the purposes of this task, assume the user is using an Android OS device.';
-	if (CheckTextOnDocument(document, testo)){
+	if (CheckTextOnDocument(document, testo)) {
 		console.log("APP SXS FOUND");
-		get_and_set_sliders("60%", "3",false);
+		get_and_set_sliders("60%", "3", false);
 		set_all_radios(document, "AboutTheSameAs", false);
 		set_all_radios(document, "navigational", true);
 	}
 
 	/* RELATED QUESTION */
 	testo = 'In this task, you will be given a user-issued query and a list of computer-generated "related questions". Each related question is accompanied by a computer-selected answer passage taken from the web. Your job is to:';
-	if (CheckTextOnDocument(document, testo)){
+	if (CheckTextOnDocument(document, testo)) {
 		console.log("related question found");
 		get_and_set_sliders("80%", "4");
 		set_all_radios(document, "no", false);
 
 		blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
-		for(let j = 0; j<blocks.length; j++) {
+		for (let j = 0; j < blocks.length; j++) {
 			var hidden = blocks[j].querySelector('input[type="hidden"]');
-			if(hidden != null){
+			if (hidden != null) {
 				hidden.value = "looks_good";
 				set_all_checkboxes(blocks[j], "looks_good", false);
 			}
@@ -536,21 +538,21 @@ if (type === "Side By Side"){
 
 	/* GENERAL SXS */
 	testo = 'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own';
-	if (CheckTextOnDocument(document, testo)){
+	if (CheckTextOnDocument(document, testo)) {
 		console.log("GENERAL SXS FOUND");
 		open_links_set_sliders_set_radios(document, "70%", "3.5", "AboutTheSameAs");
 	}
 
 	/* sxs one big block */
 	testo = 'This task will ask you to evaluate two search result blocks, arranged side by side. You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result blocks.';
-	if (CheckTextOnDocument(document, testo)){
+	if (CheckTextOnDocument(document, testo)) {
 		console.log("mobile sxs one block found");
 		set_all_radios(document, "AboutTheSameAs", false);
 	}
 
 	/* HIGHLIGHTED DIFFERENCES */
 	testo = 'Tell us which side provides more useful additional information. Differences between the results are highlighted. Keep in mind that more information is not necessarily better.';
-	if (CheckTextOnDocument(document, testo)){
+	if (CheckTextOnDocument(document, testo)) {
 		console.log("HIGHLIGHTED DIFFERENCES found");
 		get_and_set_sliders("80%", "4");
 		set_all_radios(document, "0");
@@ -558,25 +560,25 @@ if (type === "Side By Side"){
 
 	}
 	/* SNIPPET */
-	testo="The only difference between the content of the result blocks will be the snippet.";
-	if (CheckTextOnDocument(document, testo)){
+	testo = "The only difference between the content of the result blocks will be the snippet.";
+	if (CheckTextOnDocument(document, testo)) {
 		console.log("Snippet SXS found");
 		/* prendo tutti i blocchi e setta gli sldier */
 		var allBlocks = document.getElementsByClassName("evl-slider2");
-		for(var i=0; i<allBlocks.length; i++){
+		for (var i = 0; i < allBlocks.length; i++) {
 			allBlocks[i].scrollIntoView();
 			/* setto snippet added value */
-			setSliders(allBlocks[i],"60%", "2", "snippet");
+			setSliders(allBlocks[i], "60%", "2", "snippet");
 			/* setto snippet readability */
-			setSliders(allBlocks[i+1],"80% ","3", "snippet");
-			i=i+1;
+			setSliders(allBlocks[i + 1], "80% ", "3", "snippet");
+			i = i + 1;
 		}
 		set_all_radios(document, "AboutTheSameAs");
 	}
 
 	/* YOUTUBE SXS RACY o ADULT*/
-	if(CheckTextOnDocument(document, "In this task, you may be exposed to queries, webpages, and/or topics that contain potentially pornographic content.") ||
-		CheckTextOnDocument(document, "In this task, you will be asked to provide Needs Met and Page Quality ratings for queries that were issued on www.youtube.com. Please be aware of the user intent difference when the query is issued on YouTube rather than a general search engine.")){
+	if (CheckTextOnDocument(document, "In this task, you may be exposed to queries, webpages, and/or topics that contain potentially pornographic content.") ||
+		CheckTextOnDocument(document, "In this task, you will be asked to provide Needs Met and Page Quality ratings for queries that were issued on www.youtube.com. Please be aware of the user intent difference when the query is issued on YouTube rather than a general search engine.")) {
 
 		console.log("yt sxs racy found");
 		open_links_set_sliders_set_radios(document, "70%", "3.5", "AboutTheSameAs");
@@ -586,9 +588,9 @@ if (type === "Side By Side"){
 	}
 
 	/* SXS LOCAL HOTEL */
-	teso="This is a hotel search task. Please assume that the user issuing the query wants to travel and potentially book a hotel from a list of hotels.";
+	teso = "This is a hotel search task. Please assume that the user issuing the query wants to travel and potentially book a hotel from a list of hotels.";
 	/* SXS LOCAL VIEWPORT*/
-	testo1="Understand the user's intent by considering the query in the context of the area of interest, which may be determined by the following:\n" +
+	testo1 = "Understand the user's intent by considering the query in the context of the area of interest, which may be determined by the following:\n" +
 		"Some location mentioned in the query text itself.";
 
 	/* WEB SXS */
@@ -597,7 +599,7 @@ if (type === "Side By Side"){
 		'IMPORTANT (PLEASE READ): For the purposes of this task, please assume the query was issued on a desktop computer.\n' +
 		'\n' +
 		'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results.';
-	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo1) || CheckTextOnDocument(document, testo2)){
+	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo1) || CheckTextOnDocument(document, testo2)) {
 		console.log("local sxs hotel, web sxs or local viewport found");
 		open_links_set_sliders_set_radios(document, "80%", "4", "AboutTheSameAs", false);
 	}
