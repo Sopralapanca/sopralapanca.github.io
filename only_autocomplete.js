@@ -441,17 +441,7 @@ if (type === "Side By Side"){
 		'You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result pages.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("SXS NO NEEDS MET");
-	}
-
-	/* WEB SXS */
-	testo = 'Instructions\n' +
-		'\n' +
-		'IMPORTANT (PLEASE READ): For the purposes of this task, please assume the query was issued on a desktop computer.\n' +
-		'\n' +
-		'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results.';
-	if (CheckTextOnDocument(document, testo)){
-		console.log("WEB SXS");
-		open_links_set_sliders_set_radios(document, "80%", "4", "AboutTheSameAs");
+		set_all_radios(document, "AboutTheSameAs");
 	}
 
 	/* ENGANGING YT SXS */
@@ -468,7 +458,6 @@ if (type === "Side By Side"){
 		open_links_set_sliders_set_radios(document, "60%", "3", "1");
 	}
 
-	set_all_radios(document, "AboutTheSameAs");
 
 	/* IMAGE-SXS  DA FINIRE*/
 	testo = 'In this task you will be given a query issued to image search followed by two sets of image search results. Your job is to understand the query and the underlying user task or journey using the research links provided.';
@@ -622,28 +611,21 @@ if (type === "Side By Side"){
 
 	}
 
-	let hiddenValue="";
-	let percentage ="";
 	/* SXS LOCAL HOTEL */
 	teso="This is a hotel search task. Please assume that the user issuing the query wants to travel and potentially book a hotel from a list of hotels.";
-	if (CheckTextOnDocument(document, testo)){
-		console.log("local sxs hotel found");
-		percentage = "80%";
-		hiddenValue = "4";
-	}
-
 	/* SXS LOCAL VIEWPORT*/
-	testo="Understand the user's intent by considering the query in the context of the area of interest, which may be determined by the following:\n" +
+	testo1="Understand the user's intent by considering the query in the context of the area of interest, which may be determined by the following:\n" +
 		"Some location mentioned in the query text itself.";
 
-	if (CheckTextOnDocument(document, testo)){
-		console.log("SXS LOCAL VIEWPORT FOUND");
-		percentage = "80%";
-		hiddenValue = "4";
-	}
-
-	if(percentage !== ""){
-		open_links_set_sliders_set_radios(document, percentage, hiddenValue, "AboutTheSameAs", false);
+	/* WEB SXS */
+	testo2 = 'Instructions\n' +
+		'\n' +
+		'IMPORTANT (PLEASE READ): For the purposes of this task, please assume the query was issued on a desktop computer.\n' +
+		'\n' +
+		'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results.';
+	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo1) || CheckTextOnDocument(document, testo2)){
+		console.log("local sxs hotel, web sxs or local viewport found");
+		open_links_set_sliders_set_radios(document, "80%", "4", "AboutTheSameAs", false);
 	}
 
 	console.log("done");
