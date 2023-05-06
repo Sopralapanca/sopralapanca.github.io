@@ -282,7 +282,11 @@ function OpenAllLinks(wait_time, doc=document) {
 				var search_link = getUrlFromTag(url_block);
 				s = DecodeStringUrl(search_link);
 				if (s!== "") {
-					if (!s.includes("www.google.")) {
+					/* questo deve essere incluso
+					https://www.google.com/evaluation/result/static/a/5494654946/it_Repubblica_230503_0615.png
+					*/
+
+					if (!s.includes("www.google.it")) {
 						mySet1.add(s);
 					}
 				}
