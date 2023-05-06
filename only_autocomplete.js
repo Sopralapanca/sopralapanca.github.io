@@ -185,7 +185,7 @@ function radiosClick(doc, task) {
 		}
 	}
 
-	if (task === "ytpquo" || task === "commonpq"){
+	if (task === "ytpquo"){
 		for(j = 0; j<radios.length; j++){
 			if(radios[j].name==="badpage" &&  radios[j].value==="no"){
 				radios[j].click();
@@ -939,9 +939,12 @@ if (type === "Experimental") {
 	testo="In each task, you will be given a URL and some questions about the landing page. Please use the PQ grid to check Page Quality characteristics and assign an overall rating.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log("common pq found");
-		OpenAllLinks(wait_time_sec);
-		var pqShortcut = document.getElementsByClassName("pq-shortcut-question");
-		radiosClick(pqShortcut[0], "commonpq");
+		let url_div = document.getElementsByClassName("pq-task-main-info")[0];
+		OpenLink(url_div, wait_time_sec);
+		document.getElementsByName('purposeComment')[0].value = "The purpose of this landing page is to ";
+		set_all_radios(document, "no", false);
+		set_all_radios(document, "not-ymyl", false);
+		set_all_radios(document, "website-responsible", false);
 	}
 
 	/* GRAMMAR */
