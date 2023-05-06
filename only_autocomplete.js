@@ -81,7 +81,7 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 function open_links_set_sliders_set_radios(block, percentage, hiddenValue, radios_value="AboutTheSameAs", set_page_position=true){
 	OpenAllLinks(wait_time_sec);
 	get_and_set_sliders(percentage, hiddenValue);
-	set_all_radios(block, radios_value, set_page_position, false);
+	set_all_radios(block, radios_value, set_page_position);
 }
 
 
@@ -445,8 +445,15 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 
 let percentage;
 let hiddenValue;
-let item;
 if (type === "Side By Side") {
+	/* SEARCH PRODUCT SXS */
+	testo = "In this task, you will be given a query and up to 10 product search results for this query. A product search result will include an image, title, price, and the name of a specific merchant selling the product or the phrase \"from many merchants\". Some parts, like the title and merchant name, might be truncated.";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("SEARCH PRODUCT SXS");
+		let side = LeftOrRightSideMB();
+		get_and_set_sliders("70%", "3.5");
+		set_all_radios(document, side);
+	}
 
 	/* SXS NO NEEDS MET */
 	testo = 'In this task, you will be asked to compare two Search result pages, arranged side by side.\n' +
