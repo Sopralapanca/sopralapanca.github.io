@@ -6,6 +6,7 @@ function setSliders(block, percentage, hiddenValue){
 	const hiddenField = block.getElementsByClassName("evl-slider2-value-field");
 	const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
 
+
 	for (k = 0; k<sliderBar.length; k++){
 		sliderBar[k].style.width = percentage;
 		sliderTriangle[k].style.left = percentage
@@ -22,7 +23,8 @@ function setSliders(block, percentage, hiddenValue){
 
 /*get all evl-slider2 and set values */
 function get_and_set_sliders(percentage, hiddenValue, setPagePosition=true){
-	var allBlocks = document.querySelectorAll(
+	let el = document.getElementsByClassName("ewok-buds-sides-container")[0];
+	var allBlocks = el.querySelectorAll(
 		".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
 	if (typeof allBlocks[2] !== 'undefined') {
@@ -42,7 +44,7 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=true){
 	}
 
 	if(allBlocks.length === 0){
-		evlBlock = document.getElementsByClassName("evl-slider2");
+		evlBlock = el.getElementsByClassName("evl-slider2");
 		if(setPagePosition)
 			evlBlock[2].scrollIntoView();
 		for(let eval of evlBlock){
@@ -241,9 +243,8 @@ function getUrlFromTag(a){
 
 /* open all links */
 function OpenAllLinks(wait_time, doc=document) {
-
 	let s;
-	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
+	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question");
 
 	const mySet1 = new Set();
 	var opened_pages = [];
@@ -299,13 +300,19 @@ function OpenAllLinks(wait_time, doc=document) {
 		for (let win of opened_pages) {
 			win.close();
 		}
-	}, wait_time-2000);
+	}, wait_time);
 }
 
 /* opens one link */
-function OpenLink(block) {
-	var search_link = block.getElementsByTagName('a')[0].href;
-	var openWindow = window.open(search_link, '_blank');
+function OpenLink(block, wait_time=wait_time_sec){
+	try{
+		var search_link = block.getElementsByTagName('a')[0].href;
+		var openWindow = window.open(search_link, '_blank');
+		setTimeout(function(){openWindow.close();},wait_time);
+	}catch (error){
+		console.log(error);
+	}
+
 }
 
 function ExactText(element, testo){
@@ -702,6 +709,14 @@ if (type === "Experimental") {
                 break;
             }
         }
+		let sides = document.getElementsByClassName("ewok-buds-side")[0];
+		let hidden = sides.querySelectorAll('input[type="hidden"]');
+		for (let hf of hidden){
+			hf.value = true;
+		}
+
+		OpenAllLinks(wait_time_sec, sides);
+
 	}
 
 	/* MACHINE GENERATED RESPONSES */
