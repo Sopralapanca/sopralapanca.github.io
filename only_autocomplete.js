@@ -641,6 +641,7 @@ if (type === "Side By Side") {
 	console.log("done");
 }
 
+let lastCheckBox;
 if (type === "Experimental") {
 	/* BACKGROUND AND REPUTATION */
 	testo = "You will first answer a question about the clarity of user needs based on the information provided by the query, user location, and user intent. Next, you will be asked to rate each result using the Needs Met scale based on your understanding of the needs of the user who issued the query.";
@@ -649,7 +650,7 @@ if (type === "Experimental") {
 		OpenAllLinks(wait_time_sec);
 		set_all_radios(document, "clear", true);
 
-		var lastCheckBox = document.querySelector('input[type="checkbox"]');
+		lastCheckBox = document.querySelector('input[type="checkbox"]');
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
 		get_and_set_sliders('80%', "4");
 	}
@@ -820,10 +821,11 @@ if (type === "Experimental") {
 	testo = "You will be given a query and a Special Content Result Block (SCRB)";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("exp scrb accuracy found");
+		let queryBlock = document.getElementById("editable-173");
+		queryBlock.scrollIntoView();
 		radiosClick(document, "expscrbaccuracy");
 
-		/* prendo la checkbox finale */
-		var lastCheckBox = document.querySelector('input[name=no_lp_issues]');
+		lastCheckBox = document.querySelector('input[name=no_lp_issues]');
 		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
 		FillTextArea(document, "comment");
 
