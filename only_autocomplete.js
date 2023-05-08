@@ -1002,18 +1002,21 @@ if (type === "Experimental") {
 		}
 		open_links_set_sliders_set_radios(document, percentage, hiddenValue);
 	}
+
+	/* OTHER UO */
+	testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("other uo found");
+		set_all_checkboxes(document, "Category_None", true);
+		set_all_radios(document, "0");
+		console.log("done");
+	}
+
 	console.log("done");
 }
 
 
-/* OTHER UO */
-testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
-if (CheckTextOnDocument(document, testo)){
-	console.log("other uo found");
-	set_all_checkboxes(document, "Category_None", true);
-	set_all_radios(document, "0");
-	console.log("done");
-}
+
 
 /*SAFESEARCH 1M PORN */
 if (type === "Result Review"){

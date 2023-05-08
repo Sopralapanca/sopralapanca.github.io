@@ -483,5 +483,14 @@ if (type === "Experimental") {
 		get_and_set_sliders("25%", "1");
 	}
 
+	/* OTHER UO */
+	testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
+	if (CheckTextOnDocument(document, testo)){
+		console.log("other uo found");
+		set_all_checkboxes(document, "Category_None", true);
+		set_all_radios(document, "0");
+		console.log("done");
+	}
+
 	console.log("done");
 }
