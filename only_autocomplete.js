@@ -723,7 +723,7 @@ if (type === "Experimental") {
 			hf.value = true;
 		}
 
-		OpenAllLinks(wait_time_sec);
+
 
 	}
 
