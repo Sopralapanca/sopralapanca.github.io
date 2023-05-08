@@ -697,7 +697,10 @@ if (type === "Experimental") {
 	testo="Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("big def found");
-		get_and_set_sliders("90%", "4.5");
+		let query = document.getElementById("ewok-buds-query");
+		query.scrollIntoView();
+
+		get_and_set_sliders("90%", "4.5", false);
 		/* per forza in questo modo, non funziona con checked=true */
 		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
 		var dupesText = dupes1.innerText;
@@ -715,7 +718,7 @@ if (type === "Experimental") {
             }
         }
 		let sides = document.getElementsByClassName("ewok-buds-side")[0];
-		let hidden = sides.querySelectorAll('input[type="hidden"]');
+		let hidden = sides.querySelectorAll('input[name^="landing_page_clicked"]');
 		for (let hf of hidden){
 			hf.value = true;
 		}
