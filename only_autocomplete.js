@@ -466,6 +466,14 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 let percentage;
 let hiddenValue;
 if (type === "Side By Side") {
+	/* SXS VIEWPORT */
+	testo = "The viewport, that is the map that the user was viewing prior to issuing the query (represented by a red rectangle on the Map).";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("SXS VIEWPORT");
+		get_and_set_sliders("80%", "4");
+		set_all_radios(document, "categorical");
+	}
+
 	/* SEARCH PRODUCT SXS */
 	testo = "In this task, you will be given a query and up to 10 product search results for this query. A product search result will include an image, title, price, and the name of a specific merchant selling the product or the phrase \"from many merchants\". Some parts, like the title and merchant name, might be truncated.";
 	if (CheckTextOnDocument(document, testo)) {
@@ -652,25 +660,16 @@ if (type === "Side By Side") {
 
 let lastCheckBox;
 if (type === "Experimental") {
-	/* BACKGROUND AND REPUTATION */
-	testo = "You will first answer a question about the clarity of user needs based on the information provided by the query, user location, and user intent. Next, you will be asked to rate each result using the Needs Met scale based on your understanding of the needs of the user who issued the query.";
-	if (CheckTextOnDocument(document, testo)) {
-		console.log("BACKGROUND AND REPUTATION");
-		OpenAllLinks(wait_time_sec);
-		set_all_radios(document, "clear", true);
 
-		lastCheckBox = document.querySelector('input[type="checkbox"]');
-		setTimeout(function(){lastCheckBox.click()},2000+(Math.round(Math.random()*3000)));
-		get_and_set_sliders('80%', "4");
-	}
-
-	/* search product sxs */
+	/* search product or background and reputation*/
 	if(CheckTextOnDocument(document,"In this task, you will be provided with a particular User Intent as additional context to the query.")){
-		console.log("Search product found");
-		set_all_radios(document,"clear");
+		console.log("Search product experimental or background and reputation found");
+		set_all_radios(document, "clear", true);
 		set_all_radios(document,"1");
-		get_and_set_sliders("70%", "3.5");
+		get_and_set_sliders('80%', "4");
+		OpenAllLinks(wait_time_sec);
 	}
+
 
 	testo = "In this task, you will be asked to rate the quality of two different translations of the source text, using the rating scale below";
 	if (CheckTextOnDocument(document, testo)) {
