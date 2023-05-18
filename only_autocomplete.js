@@ -22,7 +22,7 @@ function setSliders(block, percentage, hiddenValue){
 }
 
 /*get all evl-slider2 and set values */
-function get_and_set_sliders(percentage, hiddenValue, setPagePosition=true){
+function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
 	let blocklist = [];
 	let el = document.getElementsByClassName("ewok-buds-sides-container")[0];
 	blocklist.push(el);
