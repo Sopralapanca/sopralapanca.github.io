@@ -63,7 +63,7 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=true){
 
 }
 
-function set_all_radios(block, value, setPagePosition=true){
+function set_all_radios(block, value, setPagePosition=false){
 	let radios = block.querySelectorAll('input[type="radio"]');
 	if(setPagePosition) {
 		radios[0].scrollIntoView();
