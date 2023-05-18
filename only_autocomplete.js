@@ -674,6 +674,7 @@ if (type === "Experimental") {
 		set_all_radios(document,"1");
 		get_and_set_sliders('80%', "4");
 		OpenAllLinks(wait_time_sec);
+		set_all_checkboxes(document, "acknowledgement", false);
 	}
 
 
