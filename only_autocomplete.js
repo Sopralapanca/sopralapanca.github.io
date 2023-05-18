@@ -472,6 +472,12 @@ if (type === "Side By Side") {
 		console.log("SXS VIEWPORT");
 		get_and_set_sliders("80%", "4");
 		set_all_radios(document, "categorical");
+		let side = LeftOrRightSideMB();
+		if (!side) {
+			set_all_radios(document, "AboutTheSameAs");
+		}else{
+			set_all_radios(document, side);
+		}
 	}
 
 	/* SEARCH PRODUCT SXS */
