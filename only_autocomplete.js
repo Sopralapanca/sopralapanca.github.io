@@ -34,9 +34,9 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=true){
 		var allBlocks = block.querySelectorAll(
 			".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
-		if (typeof allBlocks[2] !== 'undefined') {
+		if (typeof allBlocks[0] !== 'undefined') {
 			if(setPagePosition)
-				allBlocks[2].scrollIntoView();
+				allBlocks[0].scrollIntoView();
 		}
 
 		for(let b of allBlocks){
