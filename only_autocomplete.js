@@ -738,6 +738,8 @@ if (type === "Experimental") {
 			hf.value = true;
 		}
 
+		let container = document.getElementsByClassName("ewok-buds-sides")[0];
+		OpenAllLinks(wait_time_sec, container);
 
 
 	}
