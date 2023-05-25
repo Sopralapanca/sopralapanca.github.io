@@ -30,17 +30,16 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
 	for(let i = 0; i<summaryblocks.length; i++){
 		blocklist.push(summaryblocks[i]);
 	}
+
+	if (typeof blocklist[0] !== 'undefined') {
+		if(setPagePosition){
+			blocklist[0].scrollIntoView();
+		}
+
+	}
 	for(let block of blocklist){
 		var allBlocks = block.querySelectorAll(
 			".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
-
-		if (typeof allBlocks[0] !== 'undefined') {
-			if(setPagePosition){
-				console.log("scrolling to first block");
-				allBlocks[0].scrollIntoView();
-			}
-
-		}
 
 		for(let b of allBlocks){
 			if(String(b.innerText).includes("No Rating Required")){
