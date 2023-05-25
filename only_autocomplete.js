@@ -91,8 +91,8 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 
 function open_links_set_sliders_set_radios(block, percentage, hiddenValue, radios_value="AboutTheSameAs", set_page_position=true){
 	OpenAllLinks(wait_time_sec);
-	get_and_set_sliders(percentage, hiddenValue);
-	set_all_radios(block, radios_value, set_page_position);
+	get_and_set_sliders(percentage, hiddenValue, set_page_position);
+	set_all_radios(block, radios_value);
 }
 
 
@@ -597,7 +597,7 @@ if (type === "Side By Side") {
 		if(!radios_value){
 			radios_value = "AboutTheSameAs";
 		}
-		open_links_set_sliders_set_radios(document, "70%", "3.5", radios_value, false);
+		open_links_set_sliders_set_radios(document, "70%", "3.5", radios_value, true);
 	}
 
 	/* sxs one big block */
