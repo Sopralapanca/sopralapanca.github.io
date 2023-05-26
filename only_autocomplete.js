@@ -38,6 +38,9 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
 
 	}
 	for(let block of blocklist){
+		if(block == null){
+			continue;
+		}
 		var allBlocks = block.querySelectorAll(
 			".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
