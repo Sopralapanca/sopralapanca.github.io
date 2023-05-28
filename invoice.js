@@ -2,49 +2,57 @@ javascript:(function(){
 	var el=document.createElement("div"),b=document.getElementsByTagName("body")[0],otherlib=!1,msg="";el.style.position="fixed",el.style.height="32px",el.style.width="220px",el.style.marginLeft="500px",el.style.top="0",el.style.left="50%25",el.style.padding="5px 10px",el.style.zIndex=1001,el.style.fontSize="12px",el.style.color="#222",el.style.backgroundColor="#f99";function showMsg(){var txt=document.createTextNode(msg);el.appendChild(txt),b.appendChild(el),window.setTimeout(function(){txt=null,typeof jQuery=="undefined"?b.removeChild(el):(jQuery(el).fadeOut("slow",function(){jQuery(this).remove()}),otherlib&&(window.$jq=jQuery.noConflict()))},2500)}if(typeof jQuery!="undefined")return msg="This page already using jQuery v"+jQuery.fn.jquery,showMsg();typeof $=="function"&&(otherlib=!0);function getScript(url,success){var script=document.createElement("script");script.src=url;var head=document.getElementsByTagName("head")[0],done=!1;script.onload=script.onreadystatechange=function(){!done&&(!this.readyState||this.readyState=="loaded"||this.readyState=="complete")&&(done=!0,success(),script.onload=script.onreadystatechange=null,head.removeChild(script))},head.appendChild(script)}getScript("//code.jquery.com/jquery.min.js",function(){return typeof jQuery=="undefined"?msg="Sorry, but jQuery was not able to load":(msg="This page is now jQuerified with v"+jQuery.fn.jquery,otherlib&&(msg+=" and noConflict(). Use $jq(), not $().")),showMsg()})})();
 	
 javascript: (function() {
+	var addScript=function(filename){
+		var e=document.createElement('script');
+		e.type='text/javascript';
+		e.src=filename;
+		if(typeof(e)!=='undefined'){
+			document.getElementsByTagName('head')[0].appendChild(e);
+		}
+	};
+
 	/* link to incluce in the bookmarklet creation for the sound */
 	/* https://cdn.jsdelivr.net/npm/easytimer@1.1.1/src/easytimer.min.js  */
+
 	/* URL DEL FOGLIO GOOGLE */
-	var url = 'https://script.google.com/macros/s/AKfycbyzcTlvOXwikNx5f2P31MrXsuuNOTkGbQ5kAcmGsmkGpLVoIsqCWtM65GWdZEqB6niHAw/exec?';
-    var delaySubmit = parseInt("2000");
-    var delayTimer = parseInt("2");
-    var q = "ul.ewok-task-action-header > li";
-    var e = document.querySelectorAll(q);
-    var o = [];
-    for (var i in e) {
-        var t = e[i].textContent;
+	let url = 'https://script.google.com/macros/s/AKfycbyzcTlvOXwikNx5f2P31MrXsuuNOTkGbQ5kAcmGsmkGpLVoIsqCWtM65GWdZEqB6niHAw/exec?';
+	const delaySubmit = parseInt("2000");
+	const delayTimer = parseInt("2");
+
+	const e = document.querySelectorAll("ul.ewok-task-action-header > li");
+	const o = [];
+	for (let i in e) {
+        let t = e[i].textContent;
         if (t) {
             o.push(t);
         }
     }
-	
-    console.log(o[0] + " " + o[1]);
-    var desc1 = o[0];
-    var desc2 = o[1];
-    var time = null;
+	let time = null;
 
-	if (o[1].includes('Average') == true) {
+	if (o[1].includes('Average') === true) {
 		console.log('STAGE ONE: This is a 2 descriptor task. Proceed to Scrape test');
 		time = o[1].replace(/[^0-9\.]+/g,"*");
 	}else {
 		console.log('STAGE ONE: This is a 3 Descriptor task. Likely a VA or Audio. Proceed to Scrape test');
-		time = o[1].replace(/[^0-9\.]+/g,"*");
+		time = o[2].replace(/[^0-9\.]+/g,"*");
 	}
+
 	time = time.split("*");
-	
-	time = time[time.length -2];
-	
-	var matches = /taskIds=([^&#=]*)/.exec(document.URL);
-    var taskID = matches[1];
-    var AETsec = time * 60;
-    var AETcount = parseInt(localStorage.AETsec);
-    if (localStorage.getItem('taskID') !== taskID) {
+	time = time[time.length-2];
+
+	/* SAVE THE TIME TO LOCAL STORAGE AND SEND IT TO GOOGLE SHEET */
+	const matches = /taskIds=([^&#=]*)/.exec(document.URL);
+	const taskID = matches[1];
+	const AETsec = time * 60;
+
+	let xhr;
+	if (localStorage.getItem('taskID') !== taskID) {
 
 		localStorage.setItem('taskID', taskID);
 		localStorage.setItem('AET', time);
-		localStorage.setItem('AETsec', AETsec);
+		localStorage.setItem('AETsec', String(AETsec));
 
-		var xhr = new XMLHttpRequest();
+		xhr = new XMLHttpRequest();
 		url += "&AET=" + AETsec;
 		xhr.open('GET', url);
 		xhr.send(null);
@@ -57,29 +65,17 @@ javascript: (function() {
 		console.log('STAGE TWO: Task Information sent to spreadsheet.');
 	
 	} else {
-	
-		if (confirm('It looks like you may have already sent this task information to the spreadsheet. Would you like to resend? Click OK, otherwise CANCEL')) {
-
-			var AETsec = time * 60;
-			var xhr = new XMLHttpRequest();
-			url += "&AET=" + AETsec;
-			console.log(url);
-			xhr.open('GET', url);
-			xhr.send(null);
-			
-			console.log('STAGE TWO: Task Information has been resent');
-
+		if (confirm('It looks like you may have already sent this task information to the spreadsheet and executed the autocomplete script. Would you like to execute again the autocomplete? Click OK, otherwise CANCEL')) {
+			addScript('https://sopralapanca.github.io/only_autocomplete.js');
 		} else {
 		   console.log('STAGE TWO: Task information has been resent if you selected OK. Otherwise, FIN!'); 
 		}
-	
 	}
 
 	if ($("#countdown").length) { 
 		console.log('Timer in Place, ABORT');
 	} else {
 
-		var AETcount = parseInt(localStorage.AETsec);
 
 		$('#task_action-show').append('<style type="text/css">#countdown{-webkit-box-sizing:border-box;line-height:normal;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;border:1px solid#ccc;border-bottom-color:#aaa;margin:12px;margin-bottom:0;max-width:1476px;padding:8px;background-color:#fff;clear:both}</style><div class="button-group" id="countdown" style="font-weight:bold; font-size:13px; color:#333">Time Until Autosubmit: <div class="values"></div>    <div><button class="startButton">Start</button><button class="stopButton">Stop</button><button class="ToIndex">Option: Autosubmit & Return to Index</button><button class="NextTask">Option: Autosubmit & Continue</button></div><div class="statusofautosubmit"</div>');
 
@@ -87,7 +83,7 @@ javascript: (function() {
 		localStorage.setItem('AutosubmitNextTask',1);
 		localStorage.setItem('SubmitToIndex',0);
 
-		timer.start({countdown: true, startValues: {seconds: AETcount - delayTimer}});
+		timer.start({countdown: true, startValues: {seconds: AETsec - delayTimer}});
 		
 		$('#countdown .values').html(timer.getTimeValues().toString());
 		timer.addEventListener('secondsUpdated', function (e) {
@@ -105,7 +101,7 @@ javascript: (function() {
 		});
 		
 		$('#countdown .startButton').click(function () {
-			timer.start({countdown:true, startValues: {seconds: AETcount - delayTimer}});
+			timer.start({countdown:true, startValues: {seconds: AETsec - delayTimer}});
 		});
 		
 		$('#countdown .stopButton').click(function () {
@@ -141,18 +137,8 @@ javascript: (function() {
 			});
 		});
 	}
-	
-	var addScript=function(filename){
-        var e=document.createElement('script');
-        e.type='text/javascript';
-        e.src=filename;
-        if(typeof(e)!=='undefined'){
-            document.getElementsByTagName('head')[0].appendChild(e);
-        }
-    };
+
     addScript('https://sopralapanca.github.io/only_autocomplete.js');
-	
-	
 	console.log('FINAL STAGE: Task Scraping is now Complete! Now to wait... thanks for playing, kids!');
 	
 })();

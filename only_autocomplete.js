@@ -57,8 +57,7 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
 
 		if(allBlocks.length === 0){
 			evlBlock = block.getElementsByClassName("evl-slider2");
-			if(setPagePosition)
-				evlBlock[2].scrollIntoView();
+
 			for(let eval of evlBlock){
 				setSliders(eval,percentage,hiddenValue);
 			}
