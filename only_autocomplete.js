@@ -255,7 +255,7 @@ function getUrlFromTag(a){
 }
 
 /* open all links */
-function OpenAllLinks(wait_time, doc=document) {
+function OpenAllLinks(wait_time=10000, doc=document) {
 	let s;
 	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question");
 
@@ -315,7 +315,7 @@ function OpenAllLinks(wait_time, doc=document) {
 
 	setTimeout(() => {
 		for (let win of opened_pages) {
-			win.close();
+			if(win !== null)  win.close();
 		}
 	}, wait_time);
 }
@@ -437,6 +437,20 @@ let time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
 time = time.textContent;
 const wait_time = time.split(" ")[2];
 const wait_time_sec = ((parseInt(wait_time) * 60)/2)*1000;
+
+
+var ewokBudsQuery = document.getElementById("ewok-buds-query");
+var newDiv = document.createElement("div");
+
+var clickableText = document.createElement("span");
+clickableText.textContent = "Open All Links in web browser";
+clickableText.style.cursor = "pointer";
+clickableText.onclick = function() {
+	OpenAllLinks(wait_time_sec);
+};
+newDiv.appendChild(clickableText);
+ewokBudsQuery.appendChild(newDiv);
+
 
 let list_of_comments = ["The result is very helpful because provides helpful information about the query", "the result provides correct information",
 	"the result is a scrb that shows helpful information", "this result is very helpful for the query", "this result is very helpful", "The result does not have any problem with the query", "the result is a scrb that shows helpful information", "the result is good", "the result is ok",
