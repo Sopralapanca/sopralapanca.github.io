@@ -440,17 +440,17 @@ const wait_time_sec = ((parseInt(wait_time) * 60)/2)*1000;
 
 
 var ewokBudsQuery = document.getElementById("ewok-buds-query");
-var newDiv = document.createElement("div");
-
-var clickableText = document.createElement("span");
-clickableText.textContent = "Open All Links in web browser";
-clickableText.style.cursor = "pointer";
-clickableText.onclick = function() {
-	OpenAllLinks(wait_time_sec);
-};
-newDiv.appendChild(clickableText);
-ewokBudsQuery.appendChild(newDiv);
-
+if(ewokBudsQuery != null) {
+	var newDiv = document.createElement("div");
+	var clickableText = document.createElement("span");
+	clickableText.textContent = "Open All Links in web browser";
+	clickableText.style.cursor = "pointer";
+	clickableText.onclick = function () {
+		OpenAllLinks(wait_time_sec);
+	};
+	newDiv.appendChild(clickableText);
+	ewokBudsQuery.appendChild(newDiv);
+}
 
 let list_of_comments = ["The result is very helpful because provides helpful information about the query", "the result provides correct information",
 	"the result is a scrb that shows helpful information", "this result is very helpful for the query", "this result is very helpful", "The result does not have any problem with the query", "the result is a scrb that shows helpful information", "the result is good", "the result is ok",
