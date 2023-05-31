@@ -269,58 +269,25 @@ function OpenAllLinks(wait_time=10000, doc) {
 
 	let s;
 	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question");
-
 	const mySet1 = new Set();
-	var opened_pages = [];
 
-	for(var i=0; i<allBlocks.length; i++) {
-		if (String(allBlocks[i].innerText).includes("No Rating Required")) {
+	for(let block of allBlocks) {
+		if (String(block.innerText).includes("No Rating Required")) {
 			continue;
 		}
-
-		var buds_html = allBlocks[i].querySelectorAll('[class=ewok-buds-result-html][id^=ewok-buds-display-block]');
-		for (var j = 0; j < buds_html.length; j++) {
-			try {
-				var a = buds_html[j].querySelector("a");
-
-				var url = getUrlFromTag(a);
-
-				if (typeof url !== "undefined") {
-					s = DecodeStringUrl(url);
-					if(!s.includes("www.google.") && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT")){
-						console.log(s);
-						mySet1.add(s);
-
-					}
-
-				}
-
-			} catch (error) {
-				console.log("open all links");
-				console.log(error);
-			}
-		}
-
-		if(buds_html.length === 0){
-			var url_block = allBlocks[i].getElementsByTagName('a')[0];
-			if (typeof url_block !== "undefined") {
-				var search_link = getUrlFromTag(url_block);
-				s = DecodeStringUrl(search_link);
-				if (s!== "") {
-					/* questo deve essere incluso
-					https://www.google.com/evaluation/result/static/a/5494654946/it_Repubblica_230503_0615.png
-					*/
-
-					if(!s.includes("www.google.") && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT")){
-						mySet1.add(s);
-						console.log(s);
-					}
+		var as = block.getElementsByTagName('a');
+		for(let a of as) {
+			var url = getUrlFromTag(a);
+			if ((typeof url !== "undefined") && (url !== "")){
+				s = DecodeStringUrl(url);
+				if(!s.includes("www.google.") && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && (s !== "")){
+					mySet1.add(s);
 				}
 			}
 		}
 	}
 	const array = Array.from(mySet1);
-
+	var opened_pages = [];
 	for (j = 0; j < array.length; j++) {
 		let openWindow = window.open(array[j], '_blank');
 		opened_pages.push(openWindow);
