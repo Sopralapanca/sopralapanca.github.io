@@ -1,4 +1,6 @@
 function setSliders(block, percentage, hiddenValue){
+	/* block is the card block with two sliders: needs met and page quality */
+	/* future upgrade, here can distinguish between needs met and page quality*/
 	let k;
 
 	const sliderBar = block.getElementsByClassName("evl-slider2-bar-selected");
@@ -21,7 +23,6 @@ function setSliders(block, percentage, hiddenValue){
 	}
 }
 
-/*get all evl-slider2 and set values */
 function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
 	let blocklist = [];
 	let el = document.getElementsByClassName("ewok-buds-sides-container")[0];
@@ -37,31 +38,38 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
 		}
 
 	}
+
+
 	for(let block of blocklist){
-		if(block == null){
-			continue;
-		}
-		var allBlocks = block.querySelectorAll(
+
+		let allBlocks = block.querySelectorAll(
 			".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
+
+		/*if(allBlocks.length === 0) {
+			evlBlock = block.getElementsByClassName("evl-slider2");
+		}
 
 		for(let b of allBlocks){
 			if(String(b.innerText).includes("No Rating Required")){
 				continue;
 			}
+			setSliders(b,percentage,hiddenValue);
+		}
+		*/
 
-			var evlBlock = b.getElementsByClassName("evl-slider2");
-			for(let eval of evlBlock){
-				setSliders(eval,percentage,hiddenValue);
+		let index = 0;
+		function iterateElements() {
+			if (index < allBlocks.length) {
+				if(!String(allBlocks[index].innerText).includes("No Rating Required")){
+					console.log(allBlocks[index]);
+					setSliders(allBlocks[index], percentage, hiddenValue);
+					index++;
+					setTimeout(iterateElements, 1000);
+				}
 			}
 		}
+		iterateElements();
 
-		if(allBlocks.length === 0){
-			evlBlock = block.getElementsByClassName("evl-slider2");
-
-			for(let eval of evlBlock){
-				setSliders(eval,percentage,hiddenValue);
-			}
-		}
 	}
 
 
