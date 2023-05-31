@@ -61,7 +61,6 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
 		function iterateElements() {
 			if (index < allBlocks.length) {
 				if(!String(allBlocks[index].innerText).includes("No Rating Required")){
-					console.log(allBlocks[index]);
 					setSliders(allBlocks[index], percentage, hiddenValue);
 					index++;
 					setTimeout(iterateElements, 1000);
@@ -263,7 +262,11 @@ function getUrlFromTag(a){
 }
 
 /* open all links */
-function OpenAllLinks(wait_time=10000, doc=document) {
+function OpenAllLinks(wait_time=10000, doc) {
+	if(doc === undefined){
+		doc = document.getElementsByClassName("ewok-buds-sides-container")[0];
+	}
+
 	let s;
 	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question");
 
@@ -284,7 +287,8 @@ function OpenAllLinks(wait_time=10000, doc=document) {
 
 				if (typeof url !== "undefined") {
 					s = DecodeStringUrl(url);
-					if(!s.includes("www.google.")){
+					if(!s.includes("www.google.") && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT")){
+						console.log(s);
 						mySet1.add(s);
 
 					}
@@ -307,8 +311,9 @@ function OpenAllLinks(wait_time=10000, doc=document) {
 					https://www.google.com/evaluation/result/static/a/5494654946/it_Repubblica_230503_0615.png
 					*/
 
-					if (!s.includes("www.google.it")) {
+					if(!s.includes("www.google.") && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT")){
 						mySet1.add(s);
+						console.log(s);
 					}
 				}
 			}
@@ -738,10 +743,8 @@ if (type === "Experimental") {
 	testo="Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("big def found");
-		let query = document.getElementById("ewok-buds-query");
-		query.scrollIntoView();
 
-		get_and_set_sliders("90%", "4.5", false);
+		get_and_set_sliders("90%", "4.5", true);
 		/* per forza in questo modo, non funziona con checked=true */
 		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
 		var dupesText = dupes1.innerText;
@@ -758,14 +761,12 @@ if (type === "Experimental") {
                 break;
             }
         }
-		let sides = document.getElementsByClassName("ewok-buds-side")[0];
-		let hidden = sides.querySelectorAll('input[name^="landing_page_clicked"]');
-		for (let hf of hidden){
+		let  hiddenElements = document.querySelectorAll('input[type="hidden"][name*="landing_page_clicked"]');
+		for (let hf of hiddenElements){
 			hf.value = true;
 		}
-
-		let container = document.getElementsByClassName("ewok-buds-sides")[0];
-		OpenAllLinks(wait_time_sec, container);
+		let d = document.getElementsByClassName("ewok-buds-sides")[0];
+		OpenAllLinks(wait_time_sec, d);
 
 
 	}
