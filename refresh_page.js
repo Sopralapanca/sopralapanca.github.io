@@ -32,6 +32,7 @@ setInterval( () => {
     5000);
 
 */
+
 // Define the function to check if the specific button is present
 function isNRTPresent() {
     var container = document.getElementsByClassName('container')[0];
@@ -47,7 +48,7 @@ function isNRTPresent() {
 function refreshAndCheckButton() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
+        if (this.readyState === 4 && this.status === 200) {
             var parser = new DOMParser();
             var responseDoc = parser.parseFromString(this.responseText, 'text/html');
             if(isNRTPresent()) {
