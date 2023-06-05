@@ -264,11 +264,11 @@ function getUrlFromTag(a){
 /* open all links */
 function OpenAllLinks(wait_time=10000, doc) {
 	if(doc === undefined){
-		doc = document.getElementsByClassName("ewok-buds-sides-container")[0];
+		doc = document.querySelectorAll(".ewok-buds-sides-container")[0];
 	}
 
 	let s;
-	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question");
+	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question, .wrap-long-url");
 	const mySet1 = new Set();
 
 	for(let block of allBlocks) {
@@ -893,7 +893,8 @@ if (type === "Experimental") {
 
 	if (CheckTextOnDocument(document,"In this task, you will be given links to landing pages and asked if each landing page corresponds to any of following categories of Lowest Quality content, as defined in")){
 		console.log("uo harmful found");
-		OpenAllLinks(wait_time_sec);
+		let d = document.getElementById("editable-6");
+		OpenAllLinks(wait_time_sec, doc=d);
 		set_all_radios(document, 'likely_yes', setPagePosition=false);
 	}
 
