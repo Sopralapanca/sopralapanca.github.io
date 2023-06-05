@@ -101,7 +101,7 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 
 
 function open_links_set_sliders_set_radios(block, percentage, hiddenValue, radios_value="AboutTheSameAs", set_page_position=true){
-	OpenAllLinks(wait_time_sec);
+	OpenAllLinks(wait_time_sec, block);
 	get_and_set_sliders(percentage, hiddenValue, set_page_position);
 	set_all_radios(block, radios_value);
 }
@@ -275,16 +275,31 @@ function OpenAllLinks(wait_time=10000, doc) {
 		if (String(block.innerText).includes("No Rating Required")) {
 			continue;
 		}
-		var as = block.getElementsByTagName('a');
-		for(let a of as) {
+		let html_block = block.getElementsByClassName("ewok-buds-result-html")[0];
+		if (html_block === undefined) {
+			continue;
+		}
+		var a = html_block.getElementsByTagName('a')[0];
+		if (a === undefined) {
+			continue;
+		}
+		var url = getUrlFromTag(a);
+		if ((typeof url !== "undefined") && (url !== "")){
+			s = DecodeStringUrl(url);
+			if(!s.includes("www.google.") && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && (s !== "")){
+				mySet1.add(s);
+			}
+		}
+		/*for(let a of as) {
 			var url = getUrlFromTag(a);
 			if ((typeof url !== "undefined") && (url !== "")){
 				s = DecodeStringUrl(url);
 				if(!s.includes("www.google.") && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && (s !== "")){
+					console.log(s);
 					mySet1.add(s);
 				}
 			}
-		}
+		}*/
 	}
 	const array = Array.from(mySet1);
 	var opened_pages = [];
@@ -1015,7 +1030,8 @@ if (type === "Experimental") {
 			hiddenValue = "3.5";
 			console.log("NEEDS MET FOUND");
 		}
-		open_links_set_sliders_set_radios(document, percentage, hiddenValue);
+		let d = document.getElementsByClassName("ewok-buds-sides")[0];
+		open_links_set_sliders_set_radios(d, percentage, hiddenValue);
 	}
 
 	/* OTHER UO */
