@@ -1,4 +1,9 @@
 function setSliders(block, percentage, hiddenValue){
+	block = block.getElementsByClassName("ewok-buds-sliders")[0];
+	if (typeof block === 'undefined') {
+		return;
+	}
+
 	/* block is the card block with two sliders: needs met and page quality */
 	/* future upgrade, here can distinguish between needs met and page quality*/
 	let k;
@@ -8,14 +13,19 @@ function setSliders(block, percentage, hiddenValue){
 	const hiddenField = block.getElementsByClassName("evl-slider2-value-field");
 	const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
 
-
 	for (k = 0; k<sliderBar.length; k++){
-		sliderBar[k].style.width = percentage;
-		sliderTriangle[k].style.left = percentage
-	}
+		if(hiddenValue === null){
+			let p = percentage[k][0];
+			let hv = percentage[k][1];
+			sliderBar[k].style.width = p;
+			sliderTriangle[k].style.left = p;
+			hiddenField[k].value = hv;
+		}else{
+			sliderBar[k].style.width = percentage;
+			sliderTriangle[k].style.left = percentage
+			hiddenField[k].value = hiddenValue;
+		}
 
-	for (k = 0; k<hiddenField.length; k++){
-		hiddenField[k].value = hiddenValue;
 	}
 
 	for (k = 0; k<SpeakerSimilarityField.length; k++){
@@ -45,23 +55,15 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
 		let allBlocks = block.querySelectorAll(
 			".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
 
-		/*if(allBlocks.length === 0) {
-			evlBlock = block.getElementsByClassName("evl-slider2");
-		}
-
-		for(let b of allBlocks){
-			if(String(b.innerText).includes("No Rating Required")){
-				continue;
-			}
-			setSliders(b,percentage,hiddenValue);
-		}
-		*/
-
 		let index = 0;
 		function iterateElements() {
 			if (index < allBlocks.length) {
 				if(!String(allBlocks[index].innerText).includes("No Rating Required")){
-					setSliders(allBlocks[index], percentage, hiddenValue);
+					if(typeof(percentage) !== "string") {
+						setSliders(allBlocks[index], percentage, null);
+					}else{
+						setSliders(allBlocks[index], percentage, hiddenValue);
+					}
 					index++;
 					setTimeout(iterateElements, 1000);
 				}
@@ -512,13 +514,17 @@ if (type === "Side By Side") {
 	}
 
 
-	/* IMAGE-SXS  DA FINIRE*/
-	testo = 'In this task you will be given a query issued to image search followed by two sets of image search results. Your job is to understand the query and the underlying user task or journey using the research links provided.';
+	/* IMAGE-SXS*/
+	testo = 'In this task, you will be given a query issued to image search, followed by two sets of image search results';
 	if (CheckTextOnDocument(document, testo)) {
-		console.log("IMAGE SXS FOUND");
-		set_all_radios(document, "0", true);
-		get_and_set_sliders("80%", "4");
+		console.log("IMAGE SXS FOUND")
+		OpenAllLinks(document);
 		set_all_radios(document, "AboutTheSameAs");
+		/* list of list in order to pass the pairs percentage-hiddenValue */
+		/* in order: image satisfaction, image prominance, landing page helpfulness landing page PQ */
+		let list = [["80%", "4"], ["75%", "3"], ["62.5%", "2.5"], ["70%", "3.5"]];
+		console.log(list);
+		get_and_set_sliders(list, null, true);
 	}
 
 	/* MINI NEWS AND BLOGS */
