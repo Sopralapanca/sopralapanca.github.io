@@ -22,54 +22,19 @@ function setSliders(block, percentage, hiddenValue){
 	}
 }
 
-function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
-	/*
-		nuova get and set sliders da implementare
-		let ewoq_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row");
-		let list = [["80%", "4"], ["75%", "3"], ["62.5%", "2.5"], ["70%", "3.5"]];
-		for(let j=0; j<ewoq_buds_cards.length; j++){
-			let sliders = ewoq_buds_cards[j].getElementsByClassName("evl-slider2");
-			for(let s = 0; s<sliders.length; s++){
-				console.log(list[s]);
+function get_and_set_sliders(list, setPagePosition=false){
+	let ewoq_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row");
+	if(setPagePosition){
+		ewoq_buds_cards[0].scrollIntoView();
+	}
+	for(let j=0; j<ewoq_buds_cards.length; j++){
+		let sliders = ewoq_buds_cards[j].getElementsByClassName("evl-slider2");
+		for(let s = 0; s<sliders.length; s++){
+			setTimeout(() => {
 				setSliders(sliders[s], list[s][0], list[s][1]);
-			}
+			}, (s + 1) * 1000);
 		}
-	 */
-
-	let blocklist = [];
-	let el = document.getElementsByClassName("ewok-buds-sides-container")[0];
-	blocklist.push(el);
-	let summaryblocks = document.getElementsByClassName("ewok-buds-summary-section");
-	for(let i = 0; i<summaryblocks.length; i++){
-		blocklist.push(summaryblocks[i]);
 	}
-
-	if (typeof blocklist[0] !== 'undefined') {
-		if(setPagePosition){
-			blocklist[0].scrollIntoView();
-		}
-
-	}
-
-
-	for(let block of blocklist){
-		let allBlocks = block.querySelectorAll(".evl-slider2");
-
-		let index = 0;
-		function iterateElements() {
-			if (index < allBlocks.length) {
-				if(!String(allBlocks[index].innerText).includes("No Rating Required")){
-					setSliders(allBlocks[index], percentage, hiddenValue);
-					index++;
-					setTimeout(iterateElements, 1000);
-				}
-			}
-		}
-		iterateElements();
-
-	}
-
-
 }
 
 function set_all_radios(block, value, setPagePosition=false){
@@ -98,9 +63,9 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 }
 
 
-function open_links_set_sliders_set_radios(block, percentage, hiddenValue, radios_value="AboutTheSameAs", set_page_position=true){
+function open_links_set_sliders_set_radios(block, list, radios_value="AboutTheSameAs", set_page_position=true){
 	OpenAllLinks(wait_time_sec, block);
-	get_and_set_sliders(percentage, hiddenValue, set_page_position);
+	get_and_set_sliders(list, set_page_position);
 	set_all_radios(block, radios_value);
 }
 
@@ -456,7 +421,8 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 		console.log("headphones similar");
 		radiosClick(document, "headphones");
 		PlayAudio(document, "speech_sample", play_twice=true);
-		get_and_set_sliders("90%", "4.5");
+		let list = [["90%", "4.5"]];
+		get_and_set_sliders(list);
 	}
 	console.log("done")
 }
@@ -468,7 +434,9 @@ if (type === "Side By Side") {
 	testo = "The viewport, that is the map that the user was viewing prior to issuing the query (represented by a red rectangle on the Map).";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("SXS VIEWPORT");
-		get_and_set_sliders("80%", "4");
+		let list = [["80%", "4"], ["80%", "4"]];
+		get_and_set_sliders(list);
+
 		set_all_radios(document, "categorical");
 		let side = LeftOrRightSideMB();
 		if (!side) {
@@ -483,7 +451,8 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("SEARCH PRODUCT SXS");
 		let side = LeftOrRightSideMB();
-		get_and_set_sliders("70%", "3.5");
+		let list = [["70%", "3.5"], ["70%", "3.5"]];
+		get_and_set_sliders(list);
 		set_all_radios(document, side);
 	}
 
@@ -499,14 +468,16 @@ if (type === "Side By Side") {
 	testo = "In this task, you will be given a query and corresponding result blocks linking to videos. For each result block, you will be asked a series of questions about the engagingness of the video for the query. You may skim through the video if you would like. If a video is of a foreign language, ratings will not be required, but please consider answering any questions that are still applicable.";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("ENGAGINGNESS VIDEO SXS");
-		open_links_set_sliders_set_radios(document, "60%", "3", "-1");
+		let list = [["60%", "3"]];
+		open_links_set_sliders_set_radios(document, list, "-1");
 	}
 
 	/* INFORMATIVE YT SXS */
 	testo = "MC that feels like a good use of time is informative (example, example), inspirational (example, example), and/or entertaining (example, example). MC that doesn’t feel like a good use of time is meaningless (example, example) or off-putting (example).";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("INFORMATIVE VIDEO SXS");
-		open_links_set_sliders_set_radios(document, "60%", "3", "1");
+		let list = [["60%", "3"]];
+		open_links_set_sliders_set_radios(document, list, "1");
 	}
 
 
@@ -516,15 +487,8 @@ if (type === "Side By Side") {
 		console.log("IMAGE SXS FOUND")
 		OpenAllLinks(document);
 		set_all_radios(document, "AboutTheSameAs");
-
-		let ewoq_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row");
 		let list = [["80%", "4"], ["75%", "3"], ["62.5%", "2.5"], ["70%", "3.5"]];
-		for(let j=0; j<ewoq_buds_cards.length; j++){
-			let sliders = ewoq_buds_cards[j].getElementsByClassName("evl-slider2");
-			for(let s = 0; s<sliders.length; s++){
-				setSliders(sliders[s], list[s][0], list[s][1]);
-			}
-		}
+		get_and_set_sliders(list, true);
 
 	}
 
@@ -572,7 +536,9 @@ if (type === "Side By Side") {
 	testo = 'This is an Apps & Games Search evaluation task for a mobile app store. For the purposes of this task, assume the user is using an Android OS device.';
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("APP SXS FOUND");
-		get_and_set_sliders("70%", "3.5", false);
+		let list = [["70%", "3.5"],["70%", "3.5"]];
+		get_and_set_sliders(list, false);
+
 		set_all_radios(document, "AboutTheSameAs", false);
 		set_all_radios(document, "navigational", true);
 	}
@@ -581,7 +547,8 @@ if (type === "Side By Side") {
 	testo = 'In this task, you will be given a user-issued query and a list of computer-generated "related questions". Each related question is accompanied by a computer-selected answer passage taken from the web. Your job is to:';
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("related question found");
-		get_and_set_sliders("80%", "4");
+		let list = [["80%", "4"],["80%", "4"]];
+		get_and_set_sliders(list);
 		set_all_radios(document, "no", false);
 
 		blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
@@ -604,7 +571,8 @@ if (type === "Side By Side") {
 		if(!radios_value){
 			radios_value = "AboutTheSameAs";
 		}
-		open_links_set_sliders_set_radios(document, "70%", "3.5", radios_value, true);
+		let list = [["70%", "3.5"],["70%", "3.5"]];
+		open_links_set_sliders_set_radios(document, list, radios_value, true);
 	}
 
 	/* sxs one big block */
@@ -618,7 +586,8 @@ if (type === "Side By Side") {
 	testo = 'Tell us which side provides more useful additional information. Differences between the results are highlighted. Keep in mind that more information is not necessarily better.';
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("HIGHLIGHTED DIFFERENCES found");
-		get_and_set_sliders("80%", "4");
+		let list = [["80%", "4"],["80%", "4"]];
+		get_and_set_sliders(list);
 		set_all_radios(document, "0");
 		set_all_radios(document, "AboutTheSameAs");
 
@@ -645,7 +614,8 @@ if (type === "Side By Side") {
 		CheckTextOnDocument(document, "In this task, you will be asked to provide Needs Met and Page Quality ratings for queries that were issued on www.youtube.com. Please be aware of the user intent difference when the query is issued on YouTube rather than a general search engine.")) {
 
 		console.log("yt sxs racy found");
-		open_links_set_sliders_set_radios(document, "70%", "3.5", "AboutTheSameAs");
+		let list = [["70%", "3.5"],["70%", "3.5"]];
+		open_links_set_sliders_set_radios(document, list, "AboutTheSameAs");
 		set_all_radios(document, "0");
 		set_all_radios(document, "3");
 
@@ -665,7 +635,8 @@ if (type === "Side By Side") {
 		'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results.';
 	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo1) || CheckTextOnDocument(document, testo2)) {
 		console.log("local sxs hotel, web sxs or local viewport found");
-		open_links_set_sliders_set_radios(document, "80%", "4", "AboutTheSameAs", false);
+		let list = [["80%", "4"],["80%", "4"]];
+		open_links_set_sliders_set_radios(document, list, "AboutTheSameAs", false);
 	}
 
 	console.log("done");
@@ -679,7 +650,8 @@ if (type === "Experimental") {
 		console.log("Search product experimental or background and reputation found");
 		set_all_radios(document, "clear", true);
 		set_all_radios(document,"1");
-		get_and_set_sliders('80%', "4");
+		let list = [["80%", "4"],["80%", "4"]];
+		get_and_set_sliders(list);
 		OpenAllLinks(wait_time_sec);
 		set_all_checkboxes(document, "acknowledgement", false);
 	}
@@ -719,8 +691,8 @@ if (type === "Experimental") {
 	testo="Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("big def found");
-
-		get_and_set_sliders("90%", "4.5", true);
+		let list = [["90%", "4.5"],["90%", "4.5"]];
+		get_and_set_sliders(list, true);
 		/* per forza in questo modo, non funziona con checked=true */
 		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
 		var dupesText = dupes1.innerText;
@@ -769,7 +741,8 @@ if (type === "Experimental") {
 	testo = 'In this task, you will be given a query and user location, followed by a Short Answer to evaluate. One (or more) Long Answers from the relevant webpages are provided for the background information to infer the accuracy of the Short Answer.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("short answer found");
-		get_and_set_sliders("100%", "5");
+		let list = [["100%", "5"],["80%", "4"]];
+		get_and_set_sliders(list);
 		FillTextArea(document, "result_question");
 	}
 
@@ -786,7 +759,8 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("UO NOT AT ALL FOUND");
 		OpenAllLinks(wait_time_sec);
-		get_and_set_sliders("75%", "2");
+		let list = [["75%", "2"],["80%", "4"]];
+		get_and_set_sliders(list);
 	}
 
 	/* SHORT DESCRIPTION */
@@ -836,7 +810,8 @@ if (type === "Experimental") {
 		for(let d of divs){
 			OpenLink(d);
 		}
-		get_and_set_sliders("20%", "1");
+		let list = [["20%", "1"]];
+		get_and_set_sliders(list);
 
 	}
 
@@ -859,7 +834,8 @@ if (type === "Experimental") {
 	if(CheckTextOnDocument(document, testo)){
 		console.log("completions found");
 		set_all_radios(document, "0");
-		get_and_set_sliders("66.6667%", "2");
+		let list = [["66.6667%", "2"]];
+		get_and_set_sliders(list);
 		set_all_radios(document, "AboutTheSameAs", false);
 	}
 
@@ -887,7 +863,10 @@ if (type === "Experimental") {
 		set_all_checkboxes(document, "medical", false);
 		set_all_radios(document, "likely_yes", false);
 		set_all_radios(document, "persuade", false);
-		get_and_set_sliders("75%", "3");
+
+		let list = [["75%", "3"]];
+		get_and_set_sliders(list);
+
 	}
 
 	/* UO */
@@ -896,7 +875,10 @@ if (type === "Experimental") {
 
 		console.log("uo not at all found");
 		OpenAllLinks(wait_time_sec);
-		get_and_set_sliders("25%", "1");
+
+		let list = [["25%", "1"]];
+		get_and_set_sliders(list);
+
 		set_all_checkboxes(document, "isNoOtherDisturbingOffensive");
 	}
 
@@ -911,7 +893,10 @@ if (type === "Experimental") {
 	testo = 'In this task, you may see special blocks that are shown at the very top of the search results (e.g., above L1 and/or R1).  They do not contain the Needs Met or E-A-T sliders';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("little local found");
-		get_and_set_sliders("80%", "4");
+
+		let list = [["80%", "4"], ["80%", "4"]];
+		get_and_set_sliders(list);
+
 		set_all_radios(document, "AboutTheSameAs");
 	}
 
@@ -924,12 +909,14 @@ if (type === "Experimental") {
 	testo = 'In this task, you may see special blocks that are shown at the very top of the search results (e.g., above L1 and/or R1).  They do not contain the Needs Met or Page Quality sliders.  Please see the screenshot example below.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("local exp found");
-		get_and_set_sliders("80%", "4");
+		let list = [["80%", "4"], ["80%", "4"]];
+		get_and_set_sliders(list);
 	}
 	/* YOUTUBE EXP RACY */
 	if (CheckTextOnDocument(document, "In this task, you will be given titles and thumbnails of many videos. For each video, your job is to evaluate: How many users in your locale would find this video racy? When rating, please assume users have not previously watched or searched for similar videos.")) {
 		console.log("yt exp racy found");
-		get_and_set_sliders("25%", "1");
+		let list = [["25%", "1"]];
+		get_and_set_sliders(list);
 	}
 
 	/* NEWS AND BLOGS */
@@ -981,7 +968,8 @@ if (type === "Experimental") {
 	testo = 'For each query, your job is to evaluate the virtual assistant\'s Response Language Quality (i.e., the quality of language it uses to reply to the user) and its Speech Quality (i.e., the quality of the virtual assistant\'s verbalization of its response).';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("grammar found");
-		get_and_set_sliders('100%', '3');
+		let list = [["100%", "3"]];
+		get_and_set_sliders(list);
 		set_all_radios(document, "1");
 	}
 
@@ -1004,7 +992,9 @@ if (type === "Experimental") {
 	}
 
 	if (found === true){
-		get_and_set_sliders("90%", "4.5");
+		let list = [["90%", "4.5"]];
+		get_and_set_sliders(list);
+
 		PlayAudio(document);
 		FillTextArea(document, "comment");
 	}
@@ -1014,18 +1004,17 @@ if (type === "Experimental") {
 	testo2="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
 	testo3="InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
 	testo4="InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale.";
+	let list = [[],[]];
 	if(ExactText(document, testo) || ExactText(document, testo2) || ExactText(document, testo3) || ExactText(document, testo4)){
 		if(FillTextArea(document, "comment")) {
 			console.log("PSYCHO FOUND");
-			percentage = "90%";
-			hiddenValue = "4.5";
+			list = [["90%", "4.5"],["80%", "4"]];
 		}else{
-			percentage = "70%";
-			hiddenValue = "3.5";
+			list = [["70%", "3.5"], ["70%", "3.5"]];
 			console.log("NEEDS MET FOUND");
 		}
 		let d = document.getElementsByClassName("ewok-buds-sides")[0];
-		open_links_set_sliders_set_radios(d, percentage, hiddenValue);
+		open_links_set_sliders_set_radios(d, list);
 	}
 
 	/* OTHER UO */
