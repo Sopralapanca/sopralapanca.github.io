@@ -1,9 +1,4 @@
 function setSliders(block, percentage, hiddenValue){
-	block = block.getElementsByClassName("ewok-buds-sliders")[0];
-	if (typeof block === 'undefined') {
-		return;
-	}
-
 	/* block is the card block with two sliders: needs met and page quality */
 	/* future upgrade, here can distinguish between needs met and page quality*/
 	let k;
@@ -13,19 +8,13 @@ function setSliders(block, percentage, hiddenValue){
 	const hiddenField = block.getElementsByClassName("evl-slider2-value-field");
 	const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
 
-	for (k = 0; k<sliderBar.length; k++){
-		if(hiddenValue === null){
-			let p = percentage[k][0];
-			let hv = percentage[k][1];
-			sliderBar[k].style.width = p;
-			sliderTriangle[k].style.left = p;
-			hiddenField[k].value = hv;
-		}else{
-			sliderBar[k].style.width = percentage;
-			sliderTriangle[k].style.left = percentage
-			hiddenField[k].value = hiddenValue;
-		}
 
+	for (k = 0; k<sliderBar.length; k++){
+		sliderBar[k].style.width = percentage;
+		sliderTriangle[k].style.left = percentage
+	}
+	for (k = 0; k<hiddenField.length; k++){
+		hiddenField[k].value = hiddenValue;
 	}
 
 	for (k = 0; k<SpeakerSimilarityField.length; k++){
@@ -34,6 +23,19 @@ function setSliders(block, percentage, hiddenValue){
 }
 
 function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
+	/*
+		nuova get and set sliders da implementare
+		let ewoq_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row");
+		let list = [["80%", "4"], ["75%", "3"], ["62.5%", "2.5"], ["70%", "3.5"]];
+		for(let j=0; j<ewoq_buds_cards.length; j++){
+			let sliders = ewoq_buds_cards[j].getElementsByClassName("evl-slider2");
+			for(let s = 0; s<sliders.length; s++){
+				console.log(list[s]);
+				setSliders(sliders[s], list[s][0], list[s][1]);
+			}
+		}
+	 */
+
 	let blocklist = [];
 	let el = document.getElementsByClassName("ewok-buds-sides-container")[0];
 	blocklist.push(el);
@@ -51,19 +53,13 @@ function get_and_set_sliders(percentage, hiddenValue, setPagePosition=false){
 
 
 	for(let block of blocklist){
-
-		let allBlocks = block.querySelectorAll(
-			".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column");
+		let allBlocks = block.querySelectorAll(".evl-slider2");
 
 		let index = 0;
 		function iterateElements() {
 			if (index < allBlocks.length) {
 				if(!String(allBlocks[index].innerText).includes("No Rating Required")){
-					if(typeof(percentage) !== "string") {
-						setSliders(allBlocks[index], percentage, null);
-					}else{
-						setSliders(allBlocks[index], percentage, hiddenValue);
-					}
+					setSliders(allBlocks[index], percentage, hiddenValue);
 					index++;
 					setTimeout(iterateElements, 1000);
 				}
@@ -520,11 +516,16 @@ if (type === "Side By Side") {
 		console.log("IMAGE SXS FOUND")
 		OpenAllLinks(document);
 		set_all_radios(document, "AboutTheSameAs");
-		/* list of list in order to pass the pairs percentage-hiddenValue */
-		/* in order: image satisfaction, image prominance, landing page helpfulness landing page PQ */
+
+		let ewoq_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row");
 		let list = [["80%", "4"], ["75%", "3"], ["62.5%", "2.5"], ["70%", "3.5"]];
-		console.log(list);
-		get_and_set_sliders(list, null, true);
+		for(let j=0; j<ewoq_buds_cards.length; j++){
+			let sliders = ewoq_buds_cards[j].getElementsByClassName("evl-slider2");
+			for(let s = 0; s<sliders.length; s++){
+				setSliders(sliders[s], list[s][0], list[s][1]);
+			}
+		}
+
 	}
 
 	/* MINI NEWS AND BLOGS */
