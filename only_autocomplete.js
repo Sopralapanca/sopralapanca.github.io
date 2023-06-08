@@ -501,34 +501,8 @@ if (type === "Side By Side") {
 			radios_value = "AboutTheSameAs";
 		}
 
-		let allBlocks = document.getElementsByClassName("evl-slider2");
-
-		for (let k = 0; k < allBlocks.length; k++) {
-			var s = allBlocks[k].textContent;
-
-			if (s.includes("How important is this story for the topic?")) {
-				percentage = '80%';
-				hiddenValue = '4';
-			}
-
-			if (s.includes("How up-to-date is this article as of the time of the query above?")) {
-				percentage = '100%';
-				hiddenValue = '5';
-			}
-
-			if (s.includes("How informative is the title?")) {
-				percentage = '80%';
-				hiddenValue = '4';
-			}
-
-			if (s.includes("Page Quality Rating")) {
-				percentage = '60%';
-				hiddenValue = '3';
-			}
-
-			setSliders(allBlocks[k], percentage, hiddenValue);
-
-		}
+		let list = [["80%", "4"], ["100%", "5"], ["80%", "4"], ["60%", "3"]];
+		get_and_set_sliders(list);
 		set_all_radios(document, radios_value, false);
 	}
 
@@ -596,16 +570,8 @@ if (type === "Side By Side") {
 	testo = "The only difference between the content of the result blocks will be the snippet.";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("Snippet SXS found");
-		/* prendo tutti i blocchi e setta gli sldier */
-		var allBlocks = document.getElementsByClassName("evl-slider2");
-		for (var i = 0; i < allBlocks.length; i++) {
-			allBlocks[i].scrollIntoView();
-			/* setto snippet added value */
-			setSliders(allBlocks[i], "60%", "2", "snippet");
-			/* setto snippet readability */
-			setSliders(allBlocks[i + 1], "80% ", "3", "snippet");
-			i = i + 1;
-		}
+		let list = [["60%", "2"],["80%", "3"]];
+		get_and_set_sliders(list, true);
 		set_all_radios(document, "AboutTheSameAs");
 	}
 
