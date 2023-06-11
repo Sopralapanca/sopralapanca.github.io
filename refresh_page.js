@@ -1,3 +1,4 @@
+console.log('loading script');
 document.write(`<frameset><frame src="${location.href}"></frameset>`);
 intervalID  = setInterval( () => {
         const doc = window.frames[0].document;
