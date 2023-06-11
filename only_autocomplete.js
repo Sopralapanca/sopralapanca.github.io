@@ -28,6 +28,10 @@ function get_and_set_sliders(list, setPagePosition=false){
 		ewoq_buds_cards[0].scrollIntoView();
 	}
 	for(let j=0; j<ewoq_buds_cards.length; j++){
+		if(ewoq_buds_cards[j].innerText.includes("No Rating Required")){
+			continue;
+		}
+
 		let sliders = ewoq_buds_cards[j].getElementsByClassName("evl-slider2");
 		for(let s = 0; s<sliders.length; s++){
 			setTimeout(() => {
