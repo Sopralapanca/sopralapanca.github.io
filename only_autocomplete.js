@@ -918,7 +918,7 @@ if (type === "Experimental") {
 	testo = 'In this task, you will be given a list of videos. Your job is to identify porn or racy content';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("youtube exp adult found");
-		set_all_radios(document, "0");
+		set_all_radios(document, "0", true);
 		set_all_checkboxes(document, "confirm-watched-all-videos", false);
 	}
 
