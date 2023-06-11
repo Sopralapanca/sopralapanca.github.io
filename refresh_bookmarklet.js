@@ -9,4 +9,3 @@ javascript: (function() {
     };
     addScript('https://sopralapanca.github.io/refresh_page.js');
 })();
-
