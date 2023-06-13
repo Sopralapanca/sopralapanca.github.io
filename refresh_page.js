@@ -27,4 +27,4 @@ intervalID  = setInterval( () => {
         clearInterval(intervalID);
     }
     document.documentElement.innerHTML += '';
-},62000);
+},61000);
