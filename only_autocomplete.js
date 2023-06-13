@@ -1,33 +1,35 @@
 function setSliders(block, percentage, hiddenValue){
-	/* block is the card block with two sliders: needs met and page quality */
-	/* future upgrade, here can distinguish between needs met and page quality*/
-	let k;
+	return new Promise( resolve => {
+		let k;
 
-	const sliderBar = block.getElementsByClassName("evl-slider2-bar-selected");
-	const sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
-	const hiddenField = block.getElementsByClassName("evl-slider2-value-field");
-	const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
+		const sliderBar = block.getElementsByClassName("evl-slider2-bar-selected");
+		const sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
+		const hiddenField = block.getElementsByClassName("evl-slider2-value-field");
+		const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
 
 
-	for (k = 0; k<sliderBar.length; k++){
-		sliderBar[k].style.width = percentage;
-		sliderTriangle[k].style.left = percentage
-	}
-	for (k = 0; k<hiddenField.length; k++){
-		hiddenField[k].value = hiddenValue;
-	}
+		for (k = 0; k < sliderBar.length; k++) {
+			sliderBar[k].style.width = percentage;
+			sliderTriangle[k].style.left = percentage
+		}
+		for (k = 0; k < hiddenField.length; k++) {
+			hiddenField[k].value = hiddenValue;
+		}
 
-	for (k = 0; k<SpeakerSimilarityField.length; k++){
-		SpeakerSimilarityField[k].value = hiddenValue;
-	}
+		for (k = 0; k < SpeakerSimilarityField.length; k++) {
+			SpeakerSimilarityField[k].value = hiddenValue;
+		}
+
+		resolve();
+	});
 }
 
-function get_and_set_sliders(list, setPagePosition=false){
+async function get_and_set_sliders(list, setPagePosition=false){
 	let ewoq_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
 	if(setPagePosition){
 		ewoq_buds_cards[0].scrollIntoView();
 	}
-	let timer = 0;
+
 	for(let j=0; j<ewoq_buds_cards.length; j++){
 		if(ewoq_buds_cards[j].innerText.includes("No Rating Required")){
 			continue;
@@ -35,10 +37,8 @@ function get_and_set_sliders(list, setPagePosition=false){
 
 		let sliders = ewoq_buds_cards[j].getElementsByClassName("evl-slider2");
 		for(let s = 0; s<sliders.length; s++){
-			timer += 1000;
-			setTimeout(() => {
-				setSliders(sliders[s], list[s][0], list[s][1]);
-			}, timer);
+			await setSliders(sliders[s], list[s][0], list[s][1]);
+			await new Promise(resolve => setTimeout(resolve, 1000));
 		}
 	}
 }
@@ -69,9 +69,9 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 }
 
 
-function open_links_set_sliders_set_radios(block, list, radios_value="AboutTheSameAs", set_page_position=true){
+async function open_links_set_sliders_set_radios(block, list, radios_value="AboutTheSameAs", set_page_position=true){
 	OpenAllLinks(wait_time_sec, block);
-	get_and_set_sliders(list, set_page_position);
+	await get_and_set_sliders(list, set_page_position);
 	set_all_radios(block, radios_value);
 }
 
@@ -428,7 +428,7 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 		radiosClick(document, "headphones");
 		PlayAudio(document, "speech_sample", play_twice=true);
 		let list = [["90%", "4.5"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 	}
 	console.log("done")
 }
@@ -441,7 +441,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("SXS VIEWPORT");
 		let list = [["80%", "4"], ["80%", "4"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 
 		set_all_radios(document, "categorical");
 		let side = LeftOrRightSideMB();
@@ -458,7 +458,7 @@ if (type === "Side By Side") {
 		console.log("SEARCH PRODUCT SXS");
 		let side = LeftOrRightSideMB();
 		let list = [["70%", "3.5"], ["70%", "3.5"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 		set_all_radios(document, side);
 	}
 
@@ -491,10 +491,9 @@ if (type === "Side By Side") {
 	testo = 'In this task, you will be given a query issued to image search, followed by two sets of image search results';
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("IMAGE SXS FOUND")
-		OpenAllLinks(document);
-		set_all_radios(document, "AboutTheSameAs");
 		let list = [["80%", "4"], ["75%", "3"], ["62.5%", "2.5"], ["70%", "3.5"]];
-		get_and_set_sliders(list, true);
+		open_links_set_sliders_set_radios(document, list, "AboutTheSameAs");
+
 
 	}
 
@@ -508,7 +507,7 @@ if (type === "Side By Side") {
 		}
 
 		let list = [["80%", "4"], ["100%", "5"], ["80%", "4"], ["60%", "3"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 		set_all_radios(document, radios_value, false);
 	}
 
@@ -517,7 +516,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("APP SXS FOUND");
 		let list = [["70%", "3.5"],["70%", "3.5"]];
-		get_and_set_sliders(list, false);
+		await get_and_set_sliders(list, false);
 
 		set_all_radios(document, "AboutTheSameAs", false);
 		set_all_radios(document, "navigational", true);
@@ -528,7 +527,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("related question found");
 		let list = [["80%", "4"],["80%", "4"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 		set_all_radios(document, "no", false);
 
 		blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
@@ -567,7 +566,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("HIGHLIGHTED DIFFERENCES found");
 		let list = [["80%", "4"],["80%", "4"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 		set_all_radios(document, "0");
 		set_all_radios(document, "AboutTheSameAs");
 
@@ -577,7 +576,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("Snippet SXS found");
 		let list = [["60%", "2"],["80%", "3"]];
-		get_and_set_sliders(list, true);
+		await get_and_set_sliders(list, true);
 		set_all_radios(document, "AboutTheSameAs");
 	}
 
@@ -623,7 +622,7 @@ if (type === "Experimental") {
 		set_all_radios(document, "clear", true);
 		set_all_radios(document,"1");
 		let list = [["80%", "4"],["80%", "4"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 		OpenAllLinks(wait_time_sec);
 		set_all_checkboxes(document, "acknowledgement", false);
 	}
@@ -664,7 +663,7 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("big def found");
 		let list = [["90%", "4.5"],["90%", "4.5"]];
-		get_and_set_sliders(list, true);
+		await get_and_set_sliders(list, true);
 		/* per forza in questo modo, non funziona con checked=true */
 		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
 		var dupesText = dupes1.innerText;
@@ -714,7 +713,7 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("short answer found");
 		let list = [["100%", "5"],["80%", "4"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 		FillTextArea(document, "result_question");
 	}
 
@@ -733,7 +732,7 @@ if (type === "Experimental") {
 		let el = document.getElementsByClassName("with-first-row-headers ewok-editor-editable-columngroup")[0];
 		OpenAllLinks(wait_time_sec, el);
 		let list = [["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"],];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 	}
 
 	/* SHORT DESCRIPTION */
@@ -784,7 +783,7 @@ if (type === "Experimental") {
 			OpenLink(d);
 		}
 		let list = [["20%", "1"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 
 	}
 
@@ -808,7 +807,7 @@ if (type === "Experimental") {
 		console.log("completions found");
 		set_all_radios(document, "0");
 		let list = [["66.6667%", "2"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 		set_all_radios(document, "AboutTheSameAs", false);
 	}
 
@@ -838,7 +837,7 @@ if (type === "Experimental") {
 		set_all_radios(document, "persuade", false);
 
 		let list = [["75%", "3"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 
 	}
 
@@ -850,7 +849,7 @@ if (type === "Experimental") {
 		OpenAllLinks(wait_time_sec);
 
 		let list = [["25%", "1"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 
 		set_all_checkboxes(document, "isNoOtherDisturbingOffensive");
 	}
@@ -868,7 +867,7 @@ if (type === "Experimental") {
 		console.log("little local found");
 
 		let list = [["80%", "4"], ["80%", "4"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 
 		set_all_radios(document, "AboutTheSameAs");
 	}
@@ -883,13 +882,13 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("local exp found");
 		let list = [["80%", "4"], ["80%", "4"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 	}
 	/* YOUTUBE EXP RACY */
 	if (CheckTextOnDocument(document, "In this task, you will be given titles and thumbnails of many videos. For each video, your job is to evaluate: How many users in your locale would find this video racy? When rating, please assume users have not previously watched or searched for similar videos.")) {
 		console.log("yt exp racy found");
 		let list = [["25%", "1"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 	}
 
 	/* NEWS AND BLOGS */
@@ -942,7 +941,7 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("grammar found");
 		let list = [["100%", "3"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 		set_all_radios(document, "1");
 	}
 
@@ -966,7 +965,7 @@ if (type === "Experimental") {
 
 	if (found === true){
 		let list = [["90%", "4.5"]];
-		get_and_set_sliders(list);
+		await get_and_set_sliders(list);
 
 		PlayAudio(document);
 		FillTextArea(document, "comment");
