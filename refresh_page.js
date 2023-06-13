@@ -7,7 +7,7 @@ iframeElement.style.border = 'none';
 document.documentElement.innerHTML = '';
 document.documentElement.appendChild(iframeElement);
 
-console.log('version 1.0.0');
+console.log('version 1.0.1');
 
 intervalID  = setInterval( () => {
     console.log('checking for button');
@@ -29,4 +29,4 @@ intervalID  = setInterval( () => {
         }, 6400);
         clearInterval(intervalID);
     }
-},61000);
+},61500);
