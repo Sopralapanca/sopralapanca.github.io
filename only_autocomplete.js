@@ -606,7 +606,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo1) || CheckTextOnDocument(document, testo2)) {
 		console.log("local sxs hotel, web sxs or local viewport found");
 		let list = [["80%", "4"],["80%", "4"]];
-		open_links_set_sliders_set_radios(document, list, "AboutTheSameAs", false);
+		open_links_set_sliders_set_radios(document, list, "AboutTheSameAs", true);
 	}
 
 	console.log("done");
