@@ -39,4 +39,4 @@ intervalID  = setInterval( () => {
 
     document.documentElement.innerHTML += '';
 
-},61500);
+},62000);
