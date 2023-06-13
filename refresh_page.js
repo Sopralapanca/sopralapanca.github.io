@@ -11,9 +11,15 @@ console.log('starting setInterval');
 
 intervalID  = setInterval( () => {
     console.log('checking for button');
+    document.documentElement.innerHTML += '';
 
-    const doc = window.frames[0].document;
-    const button = doc.querySelectorAll('.button')[0];
+    console.log('new version');
+
+    let button = null;
+    setTimeout(() => {
+        const doc = window.frames[0].document;
+        button = doc.querySelectorAll('.button')[0];
+    }, 2000);
 
     if (button !== undefined) {
         console.log('button found');
@@ -22,9 +28,7 @@ intervalID  = setInterval( () => {
         setTimeout(() => {
             const href = button.getAttribute('href');
             window.open(href, '_blank');
-            button.click();
-        }, 6500);
+        }, 6400);
         clearInterval(intervalID);
     }
-    document.documentElement.innerHTML += '';
 },61000);
