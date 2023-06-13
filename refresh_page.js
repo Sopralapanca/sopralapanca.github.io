@@ -10,12 +10,11 @@ document.documentElement.appendChild(iframeElement);
 console.log('starting setInterval');
 
 intervalID  = setInterval( () => {
-    document.documentElement.innerHTML += '';
-
     console.log('checking for button');
-    const doc = window.frames[0].document;
 
+    const doc = window.frames[0].document;
     const button = doc.querySelectorAll('.button')[0];
+
     if (button !== undefined) {
         console.log('button found');
         const audio = new Audio("https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/changes-cut.mp3?raw=true");
@@ -24,9 +23,8 @@ intervalID  = setInterval( () => {
             const href = button.getAttribute('href');
             window.open(href, '_blank');
             button.click();
-
         }, 6500);
         clearInterval(intervalID);
     }
-
+    document.documentElement.innerHTML += '';
 },62000);
