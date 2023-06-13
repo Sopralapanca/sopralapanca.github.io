@@ -428,20 +428,18 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 		radiosClick(document, "headphones");
 		PlayAudio(document, "speech_sample", play_twice=true);
 		let list = [["90%", "4.5"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 	}
 	console.log("done")
 }
 
-let percentage;
-let hiddenValue;
 if (type === "Side By Side") {
 	/* SXS VIEWPORT */
 	testo = "The viewport, that is the map that the user was viewing prior to issuing the query (represented by a red rectangle on the Map).";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("SXS VIEWPORT");
 		let list = [["80%", "4"], ["80%", "4"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 
 		set_all_radios(document, "categorical");
 		let side = LeftOrRightSideMB();
@@ -458,7 +456,7 @@ if (type === "Side By Side") {
 		console.log("SEARCH PRODUCT SXS");
 		let side = LeftOrRightSideMB();
 		let list = [["70%", "3.5"], ["70%", "3.5"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 		set_all_radios(document, side);
 	}
 
@@ -507,7 +505,7 @@ if (type === "Side By Side") {
 		}
 
 		let list = [["80%", "4"], ["100%", "5"], ["80%", "4"], ["60%", "3"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 		set_all_radios(document, radios_value, false);
 	}
 
@@ -516,7 +514,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("APP SXS FOUND");
 		let list = [["70%", "3.5"],["70%", "3.5"]];
-		await get_and_set_sliders(list, false);
+		get_and_set_sliders(list, false);
 
 		set_all_radios(document, "AboutTheSameAs", false);
 		set_all_radios(document, "navigational", true);
@@ -527,7 +525,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("related question found");
 		let list = [["80%", "4"],["80%", "4"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 		set_all_radios(document, "no", false);
 
 		blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
@@ -566,7 +564,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("HIGHLIGHTED DIFFERENCES found");
 		let list = [["80%", "4"],["80%", "4"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 		set_all_radios(document, "0");
 		set_all_radios(document, "AboutTheSameAs");
 
@@ -576,7 +574,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("Snippet SXS found");
 		let list = [["60%", "2"],["80%", "3"]];
-		await get_and_set_sliders(list, true);
+		get_and_set_sliders(list, true);
 		set_all_radios(document, "AboutTheSameAs");
 	}
 
@@ -622,7 +620,7 @@ if (type === "Experimental") {
 		set_all_radios(document, "clear", true);
 		set_all_radios(document,"1");
 		let list = [["80%", "4"],["80%", "4"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 		OpenAllLinks(wait_time_sec);
 		set_all_checkboxes(document, "acknowledgement", false);
 	}
@@ -663,7 +661,7 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("big def found");
 		let list = [["90%", "4.5"],["90%", "4.5"]];
-		await get_and_set_sliders(list, true);
+		get_and_set_sliders(list, true);
 		/* per forza in questo modo, non funziona con checked=true */
 		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
 		var dupesText = dupes1.innerText;
@@ -713,7 +711,7 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("short answer found");
 		let list = [["100%", "5"],["80%", "4"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 		FillTextArea(document, "result_question");
 	}
 
@@ -732,7 +730,7 @@ if (type === "Experimental") {
 		let el = document.getElementsByClassName("with-first-row-headers ewok-editor-editable-columngroup")[0];
 		OpenAllLinks(wait_time_sec, el);
 		let list = [["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"],];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 	}
 
 	/* SHORT DESCRIPTION */
@@ -783,7 +781,7 @@ if (type === "Experimental") {
 			OpenLink(d);
 		}
 		let list = [["20%", "1"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 
 	}
 
@@ -807,7 +805,7 @@ if (type === "Experimental") {
 		console.log("completions found");
 		set_all_radios(document, "0");
 		let list = [["66.6667%", "2"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 		set_all_radios(document, "AboutTheSameAs", false);
 	}
 
@@ -837,7 +835,7 @@ if (type === "Experimental") {
 		set_all_radios(document, "persuade", false);
 
 		let list = [["75%", "3"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 
 	}
 
@@ -849,7 +847,7 @@ if (type === "Experimental") {
 		OpenAllLinks(wait_time_sec);
 
 		let list = [["25%", "1"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 
 		set_all_checkboxes(document, "isNoOtherDisturbingOffensive");
 	}
@@ -867,7 +865,7 @@ if (type === "Experimental") {
 		console.log("little local found");
 
 		let list = [["80%", "4"], ["80%", "4"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 
 		set_all_radios(document, "AboutTheSameAs");
 	}
@@ -882,13 +880,13 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("local exp found");
 		let list = [["80%", "4"], ["80%", "4"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 	}
 	/* YOUTUBE EXP RACY */
 	if (CheckTextOnDocument(document, "In this task, you will be given titles and thumbnails of many videos. For each video, your job is to evaluate: How many users in your locale would find this video racy? When rating, please assume users have not previously watched or searched for similar videos.")) {
 		console.log("yt exp racy found");
 		let list = [["25%", "1"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 	}
 
 	/* NEWS AND BLOGS */
@@ -941,7 +939,7 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("grammar found");
 		let list = [["100%", "3"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 		set_all_radios(document, "1");
 	}
 
@@ -965,7 +963,7 @@ if (type === "Experimental") {
 
 	if (found === true){
 		let list = [["90%", "4.5"]];
-		await get_and_set_sliders(list);
+		get_and_set_sliders(list);
 
 		PlayAudio(document);
 		FillTextArea(document, "comment");

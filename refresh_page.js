@@ -30,7 +30,6 @@ intervalID  = setInterval( () => {
 
         audio.addEventListener('ended', function() {
             window.open(href, '_blank');
-            // change content of current page and insert "CLOSE THIS PAGE" message
             document.documentElement.innerHTML = '<h1 style="text-align: center; margin-top: 50px;">CLOSE THIS PAGE</h1>';
         });
 
