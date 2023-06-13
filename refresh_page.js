@@ -7,7 +7,7 @@ iframeElement.style.border = 'none';
 document.documentElement.innerHTML = '';
 document.documentElement.appendChild(iframeElement);
 
-console.log('version 1.0.1');
+console.log('version 1.0.2');
 
 intervalID  = setInterval( () => {
     console.log('checking for button');
@@ -22,11 +22,20 @@ intervalID  = setInterval( () => {
     if (button !== undefined) {
         console.log('button found');
         const audio = new Audio("https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/changes-cut.mp3?raw=true");
-        audio.play();
-        setTimeout(() => {
-            const href = button.getAttribute('href');
+        let href = button.getAttribute('href');
+
+        audio.play()
+            .then(() => {
+                console.log('button found');
+            })
+            .catch((error) => {
+                console.error('Error playing audio:', error);
+            });
+
+        audio.addEventListener('ended', function() {
             window.open(href, '_blank');
-        }, 6400);
+        });
+
         clearInterval(intervalID);
     }
 },61500);
