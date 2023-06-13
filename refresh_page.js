@@ -7,15 +7,13 @@ iframeElement.style.border = 'none';
 document.documentElement.innerHTML = '';
 document.documentElement.appendChild(iframeElement);
 
-console.log('starting setInterval');
+console.log('version 1.0.0');
 
 intervalID  = setInterval( () => {
     console.log('checking for button');
     document.documentElement.innerHTML += '';
 
-    console.log('new version');
-
-    let button = null;
+    let button = undefined;
     setTimeout(() => {
         const doc = window.frames[0].document;
         button = doc.querySelectorAll('.button')[0];
