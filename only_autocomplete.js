@@ -23,10 +23,11 @@ function setSliders(block, percentage, hiddenValue){
 }
 
 function get_and_set_sliders(list, setPagePosition=false){
-	let ewoq_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row");
+	let ewoq_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
 	if(setPagePosition){
 		ewoq_buds_cards[0].scrollIntoView();
 	}
+	let timer = 0;
 	for(let j=0; j<ewoq_buds_cards.length; j++){
 		if(ewoq_buds_cards[j].innerText.includes("No Rating Required")){
 			continue;
@@ -34,9 +35,10 @@ function get_and_set_sliders(list, setPagePosition=false){
 
 		let sliders = ewoq_buds_cards[j].getElementsByClassName("evl-slider2");
 		for(let s = 0; s<sliders.length; s++){
+			timer += 1000;
 			setTimeout(() => {
 				setSliders(sliders[s], list[s][0], list[s][1]);
-			}, (s + 1) * 1000);
+			}, timer);
 		}
 	}
 }
@@ -728,8 +730,9 @@ if (type === "Experimental") {
 	testo = "In this task, you will be given links to landing pages, and asked to what extent each landing page is";
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("UO NOT AT ALL FOUND");
-		OpenAllLinks(wait_time_sec);
-		let list = [["75%", "2"],["80%", "4"]];
+		let el = document.getElementsByClassName("with-first-row-headers ewok-editor-editable-columngroup")[0];
+		OpenAllLinks(wait_time_sec, el);
+		let list = [["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"],];
 		get_and_set_sliders(list);
 	}
 
