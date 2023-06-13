@@ -4,7 +4,7 @@ function setSliders(block, percentage, hiddenValue){
 
 		const sliderBar = block.getElementsByClassName("evl-slider2-bar-selected");
 		const sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
-		const hiddenField = block.getElementsByClassName("evl-slider2-value-field");
+		const hiddenField = block.querySelectorAll('input[type="hidden"].evl-slider2-value-field');
 		const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
 
 
