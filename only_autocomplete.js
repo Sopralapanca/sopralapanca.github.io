@@ -938,7 +938,7 @@ if (type === "Experimental") {
 	testo = 'For each query, your job is to evaluate the virtual assistant\'s Response Language Quality (i.e., the quality of language it uses to reply to the user) and its Speech Quality (i.e., the quality of the virtual assistant\'s verbalization of its response).';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("grammar found");
-		let list = [["100%", "3"]];
+		let list = [["100%", "3"], ["100%", "3"], ["66.6667%", "2"], ["100%", "3"]];
 		get_and_set_sliders(list);
 		set_all_radios(document, "1");
 	}
