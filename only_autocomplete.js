@@ -622,8 +622,8 @@ if (type === "Experimental") {
 		let list = [["100%", "2"],["80%", "4"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["90%", "4.5"]];
 		let sliders = document.getElementsByClassName("evl-slider2");
 		for(let s = 0; s<sliders.length; s++){
-			await setSliders(sliders[s], list[s][0], list[s][1]);
-			await new Promise(resolve => setTimeout(resolve, 1000));
+			setSliders(sliders[s], list[s][0], list[s][1]);
+			new Promise(resolve => setTimeout(resolve, 1000));
 		}
 
 		let text_areas = document.getElementsByTagName("textarea");
