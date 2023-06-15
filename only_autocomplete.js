@@ -28,6 +28,7 @@ async function get_and_set_sliders(list, setPagePosition=false){
 	let ewoq_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
 	if(setPagePosition){
 		ewoq_buds_cards[0].scrollIntoView();
+		window.scrollBy(0, -250);
 	}
 
 	for(let j=0; j<ewoq_buds_cards.length; j++){
@@ -682,10 +683,8 @@ if (type === "Experimental") {
 		for (let hf of hiddenElements){
 			hf.value = true;
 		}
-		let d = document.getElementsByClassName("ewok-buds-sides")[0];
-		OpenAllLinks(wait_time_sec, d);
-
-
+		/*let d = document.getElementsByClassName("ewok-buds-sides")[0];
+		OpenAllLinks(wait_time_sec, d);*/
 	}
 
 	/* MACHINE GENERATED RESPONSES */
