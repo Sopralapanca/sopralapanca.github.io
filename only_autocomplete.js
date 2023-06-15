@@ -25,18 +25,19 @@ function setSliders(block, percentage, hiddenValue){
 }
 
 async function get_and_set_sliders(list, setPagePosition=false){
-	let ewoq_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
+	let ewok_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
+
 	if(setPagePosition){
-		ewoq_buds_cards[0].scrollIntoView();
+		ewok_buds_cards[0].scrollIntoView();
 		window.scrollBy(0, -350);
 	}
 
-	for(let j=0; j<ewoq_buds_cards.length; j++){
-		if(ewoq_buds_cards[j].innerText.includes("No Rating Required")){
+	for(let j=0; j<ewok_buds_cards.length; j++){
+		if(ewok_buds_cards[j].innerText.includes("No Rating Required")){
 			continue;
 		}
 
-		let sliders = ewoq_buds_cards[j].getElementsByClassName("evl-slider2");
+		let sliders = ewok_buds_cards[j].getElementsByClassName("evl-slider2");
 		for(let s = 0; s<sliders.length; s++){
 			await setSliders(sliders[s], list[s][0], list[s][1]);
 			await new Promise(resolve => setTimeout(resolve, 1000));
@@ -614,6 +615,22 @@ if (type === "Side By Side") {
 
 let lastCheckBox;
 if (type === "Experimental") {
+	/* labeled virtual assistant response */
+	if(CheckTextOnDocument(document,"In this task, you will see part or all of a conversation between a user and a Virtual Assistant. Your job is to evaluate the last response shown from the assistant, labeled Virtual Assistant's Response")){
+		console.log("labeled virtual assistant response found");
+		PlayAudio(document);
+		let list = [["100%", "2"],["80%", "4"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["33.3333%", "0"], ["90%", "4.5"]];
+		let sliders = document.getElementsByClassName("evl-slider2");
+		for(let s = 0; s<sliders.length; s++){
+			await setSliders(sliders[s], list[s][0], list[s][1]);
+			await new Promise(resolve => setTimeout(resolve, 1000));
+		}
+
+		let text_areas = document.getElementsByTagName("textarea");
+		for(let text_area of text_areas){
+			text_area.value = "Comment is mandatory even if not an issue has been selected";
+		}
+	}
 
 	/* search product or background and reputation*/
 	if(CheckTextOnDocument(document,"In this task, you will be provided with a particular User Intent as additional context to the query.")){
