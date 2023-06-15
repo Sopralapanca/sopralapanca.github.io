@@ -296,7 +296,12 @@ function ExactText(element, testo){
 	return false;
 }
 
-function FillTextArea(element, field_name){
+let list_of_comments = ["The result is very helpful because provides helpful information about the query", "the result provides correct information",
+	"the result is a scrb that shows helpful information", "this result is very helpful for the query", "this result is very helpful", "The result does not have any problem with the query", "the result is a scrb that shows helpful information", "the result is good", "the result is ok",
+	"this result does not have any problem", "the result is very good for the query", "the result is very good", "the scrb is good", "this scrb provides helpful information", "scrb is ok", "the special block looks very good and accurate", "this scrb is accurate", "the scrb looks good"];
+
+
+function FillTextArea(element, field_name, comments=list_of_comments){
 	let elements;
 	if(field_name==="comment"){
 		elements = element.querySelectorAll('[name=' + field_name + ']');
@@ -309,7 +314,7 @@ function FillTextArea(element, field_name){
 	try{
 		for (let i=0; i<elements.length;i++){
 			if (!elements[i].disabled){
-				elements[i].value = list_of_comments[Math.floor(Math.random() * list_of_comments.length)];
+				elements[i].value = comments[Math.floor(Math.random() * list_of_comments.length)];
 			}
 		}
 	}catch(error){
@@ -404,10 +409,6 @@ if(ewokBudsQuery != null) {
 	newDiv.appendChild(clickableText);
 	ewokBudsQuery.appendChild(newDiv);
 }
-
-let list_of_comments = ["The result is very helpful because provides helpful information about the query", "the result provides correct information",
-	"the result is a scrb that shows helpful information", "this result is very helpful for the query", "this result is very helpful", "The result does not have any problem with the query", "the result is a scrb that shows helpful information", "the result is good", "the result is ok",
-	"this result does not have any problem", "the result is very good for the query", "the result is very good", "the scrb is good", "this scrb provides helpful information", "scrb is ok", "the special block looks very good and accurate", "this scrb is accurate", "the scrb looks good"];
 
 
 /* AUDIO */
@@ -625,11 +626,11 @@ if (type === "Experimental") {
 			setSliders(sliders[s], list[s][0], list[s][1]);
 			new Promise(resolve => setTimeout(resolve, 1000));
 		}
-
-		let text_areas = document.getElementsByTagName("textarea");
-		for(let text_area of text_areas){
-			text_area.value = "Comment is mandatory even if not an issue has been selected";
-		}
+		let list_of_comments = ["No issues has been found", "Response is ok", "Response is good",
+										"The response is ok", "No problems found", "No issues found",
+										"Everything looks fine","No errors detected","Response is satisfactory",
+										"No irregularities found","Response is within acceptable parameters"]
+		FillTextArea(document, comments=list_of_comments);
 	}
 
 	/* search product or background and reputation*/
