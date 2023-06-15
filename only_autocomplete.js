@@ -303,7 +303,9 @@ let list_of_comments = ["The result is very helpful because provides helpful inf
 
 function FillTextArea(element, field_name, comments=list_of_comments){
 	let elements;
-	if(field_name==="comment"){
+	if(field_name === null){
+		elements = element.getElementsByTagName('textarea');
+	}else if(field_name==="comment"){
 		elements = element.querySelectorAll('[name=' + field_name + ']');
 	}else{
 		elements = element.querySelectorAll('[name*=' + field_name + ']');
@@ -314,7 +316,7 @@ function FillTextArea(element, field_name, comments=list_of_comments){
 	try{
 		for (let i=0; i<elements.length;i++){
 			if (!elements[i].disabled){
-				elements[i].value = comments[Math.floor(Math.random() * list_of_comments.length)];
+				elements[i].value = comments[Math.floor(Math.random() * comments.length)];
 			}
 		}
 	}catch(error){
@@ -626,11 +628,12 @@ if (type === "Experimental") {
 			setSliders(sliders[s], list[s][0], list[s][1]);
 			new Promise(resolve => setTimeout(resolve, 1000));
 		}
-		let list_of_comments = ["No issues has been found", "Response is ok", "Response is good",
+		let comments_list = ["No issues has been found", "Response is ok", "Response is good",
 										"The response is ok", "No problems found", "No issues found",
 										"Everything looks fine","No errors detected","Response is satisfactory",
 										"No irregularities found","Response is within acceptable parameters"]
-		FillTextArea(document, comments=list_of_comments);
+
+		FillTextArea(document,null, comments_list);
 	}
 
 	/* search product or background and reputation*/
