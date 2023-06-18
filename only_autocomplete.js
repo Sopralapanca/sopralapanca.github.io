@@ -13,11 +13,11 @@ function setSliders(block, percentage, hiddenValue){
 			sliderTriangle[k].style.left = percentage
 		}
 		for (k = 0; k < hiddenField.length; k++) {
-			hiddenField[k].value = hiddenValue;
+			hiddenField[k].value = hiddenValue.toString();
 		}
 
 		for (k = 0; k < SpeakerSimilarityField.length; k++) {
-			SpeakerSimilarityField[k].value = hiddenValue;
+			SpeakerSimilarityField[k].value = hiddenValue.toString();
 		}
 
 		resolve();
@@ -32,6 +32,7 @@ async function get_and_set_sliders(list, setPagePosition=false){
 		window.scrollBy(0, -350);
 	}
 
+    let timeout = 0;
 	for(let j=0; j<ewok_buds_cards.length; j++){
 		if(ewok_buds_cards[j].innerText.includes("No Rating Required")){
 			continue;
@@ -40,9 +41,10 @@ async function get_and_set_sliders(list, setPagePosition=false){
 		let sliders = ewok_buds_cards[j].getElementsByClassName("evl-slider2");
 		for(let s = 0; s<sliders.length; s++){
 			await setSliders(sliders[s], list[s][0], list[s][1]);
-			await new Promise(resolve => setTimeout(resolve, 1000));
+			await new Promise(resolve => setTimeout(resolve, 500));
 		}
 	}
+
 }
 
 function set_all_radios(block, value, setPagePosition=false){
@@ -520,7 +522,6 @@ if (type === "Side By Side") {
 		console.log("APP SXS FOUND");
 		let list = [["70%", "3.5"],["70%", "3.5"]];
 		get_and_set_sliders(list, false);
-
 		set_all_radios(document, "AboutTheSameAs", false);
 		set_all_radios(document, "navigational", true);
 	}
