@@ -32,7 +32,6 @@ function get_and_set_sliders(list, setPagePosition=false){
 		window.scrollBy(0, -350);
 	}
 
-    let timeout = 0;
 	for(let j=0; j<ewok_buds_cards.length; j++){
 		if(ewok_buds_cards[j].innerText.includes("No Rating Required")){
 			continue;
@@ -214,7 +213,8 @@ function CheckTextOnDocument(block, string){
 
 function DecodeStringUrl(url){
 	var uri = String(decodeURIComponent(url));
-	let [first, ...s] = uri.split("q=");
+	let first, s;
+	[first, ...s] = uri.split("q=");
 	s = s.join("q=");
 	return s;
 }
