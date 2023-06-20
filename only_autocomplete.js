@@ -1,30 +1,30 @@
 function setSliders(block, percentage, hiddenValue){
-	return new Promise( resolve => {
-		let k;
+	let k;
 
-		const sliderBar = block.getElementsByClassName("evl-slider2-bar-selected");
-		const sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
-		const hiddenField = block.querySelectorAll('input[type="hidden"].evl-slider2-value-field');
-		const SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
+	let sliderBar = block.getElementsByClassName("evl-slider2-bar-selected");
+	let sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
+	let hiddenField = block.querySelectorAll('input[type="hidden"].evl-slider2-value-field');
+	let SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
 
 
-		for (k = 0; k < sliderBar.length; k++) {
-			sliderBar[k].style.width = percentage;
-			sliderTriangle[k].style.left = percentage
-		}
-		for (k = 0; k < hiddenField.length; k++) {
-			hiddenField[k].value = hiddenValue.toString();
-		}
+	for (k = 0; k < sliderBar.length; k++) {
+		sliderBar[k].style.width = percentage;
+	}
 
-		for (k = 0; k < SpeakerSimilarityField.length; k++) {
-			SpeakerSimilarityField[k].value = hiddenValue.toString();
-		}
+	for (k = 0; k < sliderTriangle.length; k++) {
+		sliderTriangle[k].style.left = percentage;
+	}
 
-		resolve();
-	});
+	for (k = 0; k < hiddenField.length; k++) {
+		hiddenField[k].value = hiddenValue;
+	}
+
+	for (k = 0; k < SpeakerSimilarityField.length; k++) {
+		SpeakerSimilarityField[k].value = hiddenValue;
+	}
 }
 
-async function get_and_set_sliders(list, setPagePosition=false){
+function get_and_set_sliders(list, setPagePosition=false){
 	let ewok_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
 
 	if(setPagePosition){
@@ -40,8 +40,7 @@ async function get_and_set_sliders(list, setPagePosition=false){
 
 		let sliders = ewok_buds_cards[j].getElementsByClassName("evl-slider2");
 		for(let s = 0; s<sliders.length; s++){
-			await setSliders(sliders[s], list[s][0], list[s][1]);
-			await new Promise(resolve => setTimeout(resolve, 500));
+			setSliders(sliders[s], list[s][0], list[s][1]);
 		}
 	}
 
