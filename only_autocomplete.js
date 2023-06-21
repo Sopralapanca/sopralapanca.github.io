@@ -223,11 +223,15 @@ function CheckTextOnDocument(block, string){
 }
 
 function DecodeStringUrl(url){
-	var uri = String(decodeURIComponent(url));
+	let uri = decodeURIComponent(url);
+	let [, s] = uri.split("q=");
+	return s;
+
+	/*let uri = String(decodeURIComponent(url));
 	let first, s;
 	[first, ...s] = uri.split("q=");
 	s = s.join("q=");
-	return s;
+	return s;*/
 }
 
 function getUrlFromTag(a){
@@ -299,13 +303,21 @@ function OpenLink(block, wait_time=wait_time_sec){
 
 function ExactText(element, testo){
 	let blocks = element.getElementsByClassName("ewok-buds-card");
+	for (let i = 0; i < blocks.length; i++) {
+		let s = blocks[i].innerText.trim().replace(/\s+/g, "");
+		if (s === testo) {
+			return true;
+		}
+	}
+	return false;
+	/*let blocks = element.getElementsByClassName("ewok-buds-card");
 	for(let block of blocks){
 		let s = String(block.innerText).trim().replace((/  |\r\n|\n|\r/gm),"");
 		if(s===testo){
 			return true;
 		}
 	}
-	return false;
+	return false;*/
 }
 
 let list_of_comments = ["The result is very helpful because provides helpful information about the query", "the result provides correct information",
