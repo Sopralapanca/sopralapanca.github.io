@@ -41,6 +41,14 @@ function get_and_set_sliders(list, setPagePosition=false){
 		for(let s = 0; s<sliders.length; s++){
 			setSliders(sliders[s], list[s][0], list[s][1]);
 		}
+		for(let s=0; s<sliders.length; s++){
+			let hiddenField = sliders[s].querySelectorAll('input[type="hidden"].evl-slider2-value-field');
+			for(let h of hiddenField) {
+				if(h.value==="0"){
+					h.value=list[s][1];
+				}
+			}
+		}
 	}
 
 }
