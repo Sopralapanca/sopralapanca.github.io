@@ -687,8 +687,10 @@ if (type === "Experimental") {
 	testo="Consider whether the query likely implies a direct request for information that can be satisfied by a Direct Answer Block.";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("big def found");
-		let list = [["90%", "4.5"],["90%", "4.5"]];
-		get_and_set_sliders(list, true);
+		let list = [["90%", "4.5"]];
+		let d = document.getElementsByClassName("ewok-buds-side")[0];
+		d.scrollIntoView();
+		get_and_set_sliders(list, false);
 		/* per forza in questo modo, non funziona con checked=true */
 		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
 		var dupesText = dupes1.innerText;
