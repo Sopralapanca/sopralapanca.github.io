@@ -25,12 +25,15 @@ function setSliders(block, percentage, hiddenValue){
 }
 
 function get_and_set_sliders(list, setPagePosition=false){
-	let ewok_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
-
+	let d = document.getElementsByClassName("ewok-buds-card")[0];
 	if(setPagePosition){
-		ewok_buds_cards[0].scrollIntoView();
-		window.scrollBy(0, -350);
+		if (d !== undefined){
+			d.scrollIntoView();
+			window.scrollBy(0, -100);
+		}
 	}
+
+	let ewok_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
 
 	for(let j=0; j<ewok_buds_cards.length; j++){
 		if(ewok_buds_cards[j].innerText.includes("No Rating Required")){
@@ -696,9 +699,7 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("big def found");
 		let list = [["90%", "4.5"]];
-		let d = document.getElementsByClassName("ewok-buds-side")[0];
-		d.scrollIntoView();
-		get_and_set_sliders(list, false);
+		get_and_set_sliders(list, true);
 		/* per forza in questo modo, non funziona con checked=true */
 		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
 		var dupesText = dupes1.innerText;
