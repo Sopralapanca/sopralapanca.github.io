@@ -25,7 +25,7 @@ function setSliders(block, percentage, hiddenValue){
 }
 
 function get_and_set_sliders(list, setPagePosition=false){
-	let d = document.getElementsByClassName("ewok-buds-card")[0];
+	let d = document.getElementsByClassName("ewok-buds-card ewok-buds-result")[0];
 	if(setPagePosition){
 		if (d !== undefined){
 			d.scrollIntoView();
