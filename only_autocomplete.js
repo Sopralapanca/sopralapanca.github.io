@@ -482,6 +482,8 @@ if (type === "Side By Side") {
 		'You will not be shown the standard Needs Met slider, Page Quality slider, or flags for either of the result pages.';
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("SXS NO NEEDS MET");
+		let d = document.getElementsByClassName("ewok-buds-side ewok-buds-column")[1];
+		d.style.cssFloat = "left";
 		set_all_radios(document, "AboutTheSameAs");
 	}
 
