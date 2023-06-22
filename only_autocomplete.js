@@ -302,22 +302,22 @@ function OpenLink(block, wait_time=wait_time_sec){
 }
 
 function ExactText(element, testo){
-	let blocks = element.getElementsByClassName("ewok-buds-card");
+	/*let blocks = element.getElementsByClassName("ewok-buds-card");
 	for (let i = 0; i < blocks.length; i++) {
 		let s = blocks[i].innerText.trim().replace(/\s+/g, "");
 		if (s === testo) {
 			return true;
 		}
 	}
-	return false;
-	/*let blocks = element.getElementsByClassName("ewok-buds-card");
+	return false;*/
+	let blocks = element.getElementsByClassName("ewok-buds-card");
 	for(let block of blocks){
 		let s = String(block.innerText).trim().replace((/  |\r\n|\n|\r/gm),"");
 		if(s===testo){
 			return true;
 		}
 	}
-	return false;*/
+	return false;
 }
 
 let list_of_comments = ["The result is very helpful because provides helpful information about the query", "the result provides correct information",
