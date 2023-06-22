@@ -312,7 +312,7 @@ function ExactText(element, testo){
 	return false;*/
 	let blocks = element.getElementsByClassName("ewok-buds-card");
 	for(let block of blocks){
-		let s = String(block.innerText).trim().replace((/  |\r\n|\n|\r/gm),"");
+		let s = String(block.innerText).trim().replace((/ |\r\n|\n|\r/gm),"");
 		if(s===testo){
 			return true;
 		}
