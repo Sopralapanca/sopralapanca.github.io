@@ -1,3 +1,5 @@
+console.log('version 1.0.0');
+
 function setSliders(block, percentage, hiddenValue){
 	let k;
 
@@ -9,14 +11,23 @@ function setSliders(block, percentage, hiddenValue){
 
 	for (k = 0; k < sliderBar.length; k++) {
 		sliderBar[k].style.width = percentage;
+		sliderBar[k].addEventListener('click', function(event) {
+			event.preventDefault();
+		});
 	}
 
 	for (k = 0; k < sliderTriangle.length; k++) {
 		sliderTriangle[k].style.left = percentage;
+		sliderTriangle[k].addEventListener('click', function(event) {
+			event.preventDefault();
+		});
 	}
 
 	for (k = 0; k < hiddenField.length; k++) {
 		hiddenField[k].value = hiddenValue;
+		hiddenField[k].addEventListener('click', function(event) {
+			event.preventDefault();
+		});
 	}
 
 	for (k = 0; k < SpeakerSimilarityField.length; k++) {
