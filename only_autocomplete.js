@@ -1,4 +1,4 @@
-console.log('version 1.0.2');
+console.log('version 1.0.3');
 
 function setSliders(block, percentage, hiddenValue){
 	let k;
@@ -7,15 +7,13 @@ function setSliders(block, percentage, hiddenValue){
 	let sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
 	let hiddenField = block.querySelectorAll('input[type="hidden"].evl-slider2-value-field');
 	let SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
-
-	block.addEventListener('input', function(event) {
-		let clickedSlider = event.target;
-		let sliderIndex = Array.from(sliderBar).indexOf(clickedSlider);
-
-		if (sliderIndex !== -1) {
-			hiddenField[sliderIndex].value = clickedSlider.value;
+	function updateHiddenFieldValues() {
+		for (let i = 0; i < sliderBar.length; i++) {
+			hiddenField[i].value = hiddenValue;
 		}
-	});
+	}
+
+	setInterval(updateHiddenFieldValues, 500);
 
 	for (k = 0; k < sliderBar.length; k++) {
 		sliderBar[k].style.width = percentage;
