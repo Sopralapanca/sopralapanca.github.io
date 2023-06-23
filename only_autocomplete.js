@@ -7,14 +7,14 @@ function setSliders(block, percentage, hiddenValue){
 	let sliderTriangle = block.getElementsByClassName("evl-slider2-thumb evl-slider2-thumb-value goog-slider-thumb");
 	let hiddenField = block.querySelectorAll('input[type="hidden"].evl-slider2-value-field');
 	let SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
-	function updateHiddenFieldValues() {
+	/*function updateHiddenFieldValues() {
 		for (let i = 0; i < sliderBar.length; i++) {
 			hiddenField[i].value = hiddenValue;
 		}
 	}
 
 	setInterval(updateHiddenFieldValues, 500);
-
+	*/
 	for (k = 0; k < sliderBar.length; k++) {
 		sliderBar[k].style.width = percentage;
 	}
