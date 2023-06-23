@@ -92,7 +92,7 @@ async function open_links_set_sliders_set_radios(block, list, radios_value="Abou
 
 
 function radiosClick(doc, task) {
-	var radios = doc.querySelectorAll('input[type=radio]');
+	let radios = doc.querySelectorAll('input[type=radio]');
 	let j;
 	if (task === "entitysubtopic"){
 		for(j = 0; j<radios.length; j++){
@@ -152,7 +152,7 @@ function radiosClick(doc, task) {
 	}
 
 	if (task === "ytexpadult"){
-		/* forse si può semplificare con solo i value 0  */
+		/* forse si può semplificare con solo i value zero  */
 		for(j = 0; j<radios.length; j++){
 			if(radios[j].name.includes("IsTitleRacy") && radios[j].value === "0"){
 				radios[j].click();
@@ -237,7 +237,7 @@ function DecodeStringUrl(url){
 }
 
 function getUrlFromTag(a){
-	var url = a.dataset.oldhref;
+	let url = a.dataset.oldhref;
 	if (typeof url !== "undefined") {
 		return url;
 	}
@@ -257,7 +257,7 @@ function OpenAllLinks(wait_time=10000, doc) {
 	}
 
 	let s;
-	var allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question");
+	let allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question");
 	const mySet1 = new Set();
 
 	for(let block of allBlocks) {
@@ -268,7 +268,7 @@ function OpenAllLinks(wait_time=10000, doc) {
 		if (!html_block) {
 			continue;
 		}
-		var url = getUrlFromTag(html_block);
+		let url = getUrlFromTag(html_block);
 
 		if (url && url!== ""){
 			s = DecodeStringUrl(url);
@@ -278,7 +278,7 @@ function OpenAllLinks(wait_time=10000, doc) {
 		}
 	}
 	const array = Array.from(mySet1);
-	var opened_pages = [];
+	let opened_pages = [];
 	for (let j = 0; j < array.length; j++) {
 		let openWindow = window.open(array[j], '_blank');
 		opened_pages.push(openWindow);
@@ -294,8 +294,8 @@ function OpenAllLinks(wait_time=10000, doc) {
 /* opens one link */
 function OpenLink(block, wait_time=wait_time_sec){
 	try{
-		var search_link = block.getElementsByTagName('a')[0].href;
-		var openWindow = window.open(search_link, '_blank');
+		let search_link = block.getElementsByTagName('a')[0].href;
+		let openWindow = window.open(search_link, '_blank');
 		setTimeout(function(){openWindow.close();},wait_time);
 	}catch (error){
 		console.log(error);
@@ -364,14 +364,14 @@ function PlayAudio(element, field_name="", play_twice=false){
 			audio_clips[0].scrollIntoView();
 	}
 
-	for(var i = 0; i<audio_clips.length; i++){
+	for(let i = 0; i<audio_clips.length; i++){
 		audio_clips[i].play();
 		audio_clips[i].volume = 0.1;
 	}
 
 	if(play_twice){
 		setTimeout(function(){
-				for(var i = 0; i<audio_clips.length; i++){
+				for(let i = 0; i<audio_clips.length; i++){
 					audio_clips[i].play();
 					audio_clips[i].volume = 0.1;
 				}
@@ -562,7 +562,7 @@ if (type === "Side By Side") {
 
 		blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
 		for (let j = 0; j < blocks.length; j++) {
-			var hidden = blocks[j].querySelector('input[type="hidden"]');
+			let hidden = blocks[j].querySelector('input[type="hidden"]');
 			if (hidden != null) {
 				hidden.value = "looks_good";
 				set_all_checkboxes(blocks[j], "looks_good", false);
@@ -717,14 +717,14 @@ if (type === "Experimental") {
 		let list = [["90%", "4.5"]];
 		get_and_set_sliders(list, true);
 		/* per forza in questo modo, non funziona con checked=true */
-		var dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
-		var dupesText = dupes1.innerText;
-		var skip=false;
+		let dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
+		let dupesText = dupes1.innerText;
+		let skip=false;
 		if(dupesText.includes("Same as")){
 			skip=true;
 		}
 		const check = document.querySelectorAll('input[name*="landing_page.N"]');
-		for(j = 0; j<check.length; j++){
+		for(let j = 0; j<check.length; j++){
             if(check[j].value==="1"){
                 check[j].click();
             }
