@@ -1,4 +1,4 @@
-console.log('version 1.0.0');
+console.log('version 1.0.1');
 
 function setSliders(block, percentage, hiddenValue){
 	let k;
@@ -8,26 +8,25 @@ function setSliders(block, percentage, hiddenValue){
 	let hiddenField = block.querySelectorAll('input[type="hidden"].evl-slider2-value-field');
 	let SpeakerSimilarityField = block.getElementsByTagName("SpeakerSimilarity");
 
+	block.addEventListener('click', function(event) {
+		let clickedSlider = event.target;
+		let sliderIndex = Array.from(sliderBar).indexOf(clickedSlider);
+
+		if (sliderIndex !== -1) {
+			hiddenField[sliderIndex].value = hiddenValue;
+		}
+	});
 
 	for (k = 0; k < sliderBar.length; k++) {
 		sliderBar[k].style.width = percentage;
-		sliderBar[k].addEventListener('click', function(event) {
-			event.preventDefault();
-		});
 	}
 
 	for (k = 0; k < sliderTriangle.length; k++) {
 		sliderTriangle[k].style.left = percentage;
-		sliderTriangle[k].addEventListener('click', function(event) {
-			event.preventDefault();
-		});
 	}
 
 	for (k = 0; k < hiddenField.length; k++) {
 		hiddenField[k].value = hiddenValue;
-		hiddenField[k].addEventListener('click', function(event) {
-			event.preventDefault();
-		});
 	}
 
 	for (k = 0; k < SpeakerSimilarityField.length; k++) {
