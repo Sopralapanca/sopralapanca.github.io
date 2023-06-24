@@ -320,9 +320,10 @@ function ExactText(element, testo){
 		}
 	}
 	return false;*/
+	testo = testo.trim().replace(/\s/g, "");
 	let blocks = element.getElementsByClassName("ewok-buds-card");
 	for(let block of blocks){
-		let s = String(block.innerText).trim().replace((/ |\r\n|\n|\r/gm),"");
+		let s = block.innerText.trim().trim().replace(/\s/g, "");
 		if(s===testo){
 			return true;
 		}
@@ -1031,12 +1032,14 @@ if (type === "Experimental") {
 	}
 
 	/* NEEDS MET */
+
+
 	testo="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.";
 	testo2="InstructionsPlease refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale. Keep in mind that users are people from many different backgrounds (including people of all ages, genders, races, religions, political affiliations, etc.), whose experiences and needs may differ from your own.Reminder: Your ratings should be based on the instructions and examples given in the General Guidelines (refer to Section 0.2: Raters Must Represent People in their Rating Locale). Ratings should not be based on your personal opinions, preferences, religious beliefs, or political views. Always use your best judgment and represent the cultural standards of your rating locale.The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
 	testo3="InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
-	testo4="InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale.";
+	testo4="InstructionsIMPORTANT(PLEASEREAD):ThelinksinthistaskshouldbeopenedonyourmobiledevicebyfollowingtheSendtoDeviceInstructions.Notethatyouwillnotbeabletoaccessthelandingpagelinksonyourcomputer/desktop.PleaserefertotheGeneralGuidelinesforinstructionsonhowtoratetheseresultsfromtheperspectiveofamobileuser,usingtheNeedsMetscale.";
 	let list = [[],[]];
-	if(ExactText(document, testo) || ExactText(document, testo2) || ExactText(document, testo3) || ExactText(document, testo4)){
+	if(ExactText(document, testo) || ExactText(document, testo2) || ExactText(document, testo3) || ExactText(document, testo4) || ExactText(document, testo5)){
 		if(FillTextArea(document, "comment")) {
 			console.log("PSYCHO FOUND");
 			list = [["90%", "4.5"],["80%", "4"]];
