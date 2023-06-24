@@ -1025,7 +1025,8 @@ if (type === "Experimental") {
 		let list = [["90%", "4.5"]];
 		get_and_set_sliders(list);
 
-		PlayAudio(document);
+		let el = document.getElementsByClassName("ewok-buds-sides")[0];
+		PlayAudio(el);
 		FillTextArea(document, "comment");
 	}
 
