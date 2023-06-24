@@ -52,7 +52,7 @@ function get_and_set_sliders(list, setPagePosition=false){
 		for(let s = 0; s<sliders.length; s++){
 			setSliders(sliders[s], list[s][0], list[s][1]);
 		}
-		// sleep 2 seconds before executing the next loop
+
 		setTimeout(function(){}, 2000);
 		for(let s=0; s<sliders.length; s++){
 			let hiddenField = sliders[s].querySelectorAll('input[type="hidden"].evl-slider2-value-field');
