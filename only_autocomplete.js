@@ -260,7 +260,7 @@ function getUrlFromTag(a){
 
 /* open all links */
 function OpenAllLinks(wait_time=10000, doc) {
-	if(doc === undefined){
+	if (typeof doc === "undefined") {
 		doc = document.querySelectorAll(".ewok-buds-sides-container")[0];
 	}
 
@@ -272,10 +272,11 @@ function OpenAllLinks(wait_time=10000, doc) {
 		if (String(block.innerText).includes("No Rating Required")) {
 			continue;
 		}
-		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a");
+		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a");
 		if (!html_block) {
 			continue;
 		}
+
 		let url = getUrlFromTag(html_block);
 
 		if (url && url!== ""){
@@ -762,7 +763,7 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("STALE URL");
 		let block = document.getElementById("editable-289");
-		OpenAllLinks(wait_time_sec, doc=block);
+		OpenAllLinks(wait_time_sec, block);
 		set_all_radios(document, "OK", true);
 		set_all_radios(document, "evergreen", false);
 	}
@@ -916,7 +917,7 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document,"In this task, you will be given links to landing pages and asked if each landing page corresponds to any of following categories of Lowest Quality content, as defined in")){
 		console.log("uo harmful found");
 		let d = document.getElementById("editable-6");
-		OpenAllLinks(wait_time_sec, doc=d);
+		OpenAllLinks(wait_time_sec, d);
 		set_all_radios(document, 'likely_yes', setPagePosition=false);
 	}
 
@@ -954,7 +955,7 @@ if (type === "Experimental") {
 	testo="Review each snapshot and make a note of the Top 3 Prominent News Topics that are common between them.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log("news and blogs found");
-		OpenAllLinks(wait_time_sec);
+		OpenAllLinks(wait_time_sec, document);
 		set_all_radios(document, "1", false);
 	}
 
