@@ -272,7 +272,9 @@ function OpenAllLinks(wait_time=10000, doc) {
 		if (String(block.innerText).includes("No Rating Required")) {
 			continue;
 		}
-		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a");
+		// get all a tag inside block which have data-oldhref attribute
+		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref], a");
+
 		if (!html_block) {
 			continue;
 		}
@@ -509,6 +511,14 @@ if (type === "Side By Side") {
 		let d = document.getElementsByClassName("ewok-buds-side ewok-buds-column")[1];
 		d.style.cssFloat = "left";
 		set_all_radios(document, "AboutTheSameAs");
+	}
+
+	/* SXS VIDEO ENGANINGNESS */
+	testo = "In this task, you will be given a query and corresponding result blocks linking to videos. For each result block, please click through, watch the video, and read the title and description if provided.";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("SXS VIDEO ENGANINGNESS FOUND");
+		OpenAllLinks(wait_time_sec);
+
 	}
 
 	/* ENGANGING YT SXS */
