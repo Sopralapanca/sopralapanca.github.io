@@ -272,8 +272,9 @@ function OpenAllLinks(wait_time=10000, doc) {
 		if (String(block.innerText).includes("No Rating Required")) {
 			continue;
 		}
-		// get all a tag inside block which have data-oldhref attribute
-		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref], a");
+
+		/* get all a tag inside block which have data-oldhref attribute se metto anche a alla fine non funziona più */
+		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref]");
 
 		if (!html_block) {
 			continue;
