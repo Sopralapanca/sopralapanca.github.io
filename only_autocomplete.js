@@ -92,9 +92,9 @@ function set_all_checkboxes(block, value, setPagePosition=true){
 }
 
 
-async function open_links_set_sliders_set_radios(block, list, radios_value="AboutTheSameAs", set_page_position=true){
+function open_links_set_sliders_set_radios(block, list, radios_value="AboutTheSameAs", set_page_position=true){
 	OpenAllLinks(wait_time_sec, block);
-	await get_and_set_sliders(list, set_page_position);
+	get_and_set_sliders(list, set_page_position);
 	set_all_radios(block, radios_value);
 }
 
@@ -274,7 +274,7 @@ function OpenAllLinks(wait_time=10000, doc) {
 		}
 
 		/* get all a tag inside block which have data-oldhref attribute se metto anche a alla fine non funziona più */
-		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref]");
+		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a");
 
 		if (!html_block) {
 			continue;
