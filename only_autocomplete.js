@@ -316,14 +316,6 @@ function OpenLink(block, wait_time=wait_time_sec){
 }
 
 function ExactText(element, testo){
-	/*let blocks = element.getElementsByClassName("ewok-buds-card");
-	for (let i = 0; i < blocks.length; i++) {
-		let s = blocks[i].innerText.trim().replace(/\s+/g, "");
-		if (s === testo) {
-			return true;
-		}
-	}
-	return false;*/
 	testo = testo.trim().replace(/\s/g, "");
 	let blocks = element.getElementsByClassName("ewok-buds-card");
 	for(let block of blocks){
@@ -666,6 +658,17 @@ if (type === "Side By Side") {
 
 let lastCheckBox;
 if (type === "Experimental") {
+	/* human genuine voice */
+	if(CheckTextOnDocument(document, "In this task, you will be given a list of URLs. For each page, you are to determine whether the main content (MC) is presented in a Genuine Human Voice.")){
+		console.log("Genuine Human Voice Found");
+		set_all_checkboxes(document, "none", false);
+		let list = [["33.3333%", "1"], ["33.3333%", "1"]];
+		get_and_set_sliders(list);
+		let table = document.getElementById("editable-269");
+		OpenAllLinks(wait_time_sec, table);
+
+	}
+
 	/* labeled virtual assistant response */
 	if(CheckTextOnDocument(document,"In this task, you will see part or all of a conversation between a user and a Virtual Assistant. Your job is to evaluate the last response shown from the assistant, labeled Virtual Assistant's Response")){
 		console.log("labeled virtual assistant response found");
