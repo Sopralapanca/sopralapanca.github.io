@@ -1059,7 +1059,9 @@ if (type === "Experimental") {
 			console.log("PSYCHO FOUND");
 			list = [["90%", "4.5"],["80%", "4"]];
 		}else{
-			list = [["70%", "3.5"], ["70%", "3.5"]];
+			let temp_list1 = [["70%", "3.5"], ["70%", "3.5"]];
+			let temp_list2 = [["70%", "3.5"], ["80%", "4"]];
+			list = Math.random() < 0.5 ? temp_list1 : temp_list2;
 			console.log("NEEDS MET FOUND");
 		}
 		let d = document.getElementsByClassName("ewok-buds-sides")[0];
