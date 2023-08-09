@@ -32,8 +32,10 @@ function setSliders(block, percentage, hiddenValue){
 	}
 }
 
-function get_and_set_sliders(list, setPagePosition=false){
-	let d = document.getElementsByClassName("ewok-buds-card ewok-buds-result")[0];
+function get_and_set_sliders(list, setPagePosition=false, d=undefined){
+	if(d==undefined) {
+		d = document.getElementsByClassName("ewok-buds-card ewok-buds-result")[0];
+	}
 	if(setPagePosition){
 		if (d !== undefined){
 			d.scrollIntoView();
@@ -50,6 +52,10 @@ function get_and_set_sliders(list, setPagePosition=false){
 
 		let sliders = ewok_buds_cards[j].getElementsByClassName("evl-slider2");
 		for(let s = 0; s<sliders.length; s++){
+			console.log(sliders[s]);
+			console.log(list[s][0]);
+			console.log(list[s][1]);
+
 			setSliders(sliders[s], list[s][0], list[s][1]);
 		}
 
@@ -78,13 +84,13 @@ function set_all_radios(block, value, setPagePosition=false){
 	}
 }
 
-function set_all_checkboxes(block, value, setPagePosition=true){
+function set_all_checkboxes(block, name, setPagePosition=true){
 	let cboxes = block.querySelectorAll('input[type="checkbox"]');
 	if(setPagePosition) {
 		cboxes[0].scrollIntoView();
 	}
 	for(let j = 0; j<cboxes.length; j++){
-		if(cboxes[j].name.includes(value)){
+		if(cboxes[j].name.includes(name)){
             cboxes[j].click();
 			cboxes[j].checked = true;
 		}
@@ -470,6 +476,32 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 }
 
 if (type === "Side By Side") {
+	/* PROMPT SXS */
+	testo = "In this task, you will be provided with a Prompt from a user (e.g., a question, instruction, statement) to an AI chatbot along with two potential machine-generated Responses to the Prompt.";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("PROMPT SXS");
+		document.getElementById("editable-2475").scrollIntoView();
+		set_all_radios(document, "1");
+		set_all_checkboxes(document, "checkNone");
+
+		let first = document.getElementById("editable-2033_copy");
+		setSliders(first, "90%", "4.5");
+
+
+
+
+		let comments = [
+			"The AI-generated content proves highly beneficial for all parties involved, offering identical information on both ends.",
+			"The text produced by the machine is extremely advantageous for both sides, presenting identical information.",
+			"From both perspectives, the machine-generated text is incredibly useful and imparts the same information.",
+			"The information provided by the AI-generated text is equally valuable on either side, proving its usefulness.",
+			"On both sides, the machine-generated text is exceptionally helpful and imparts the same information effectively.",
+			"The utility of the machine-generated content is evident on both sides, delivering identical information seamlessly."]
+		FillTextArea(document, comments);
+
+	}
+
+
 	/* SXS VIEWPORT */
 	testo = "The viewport, that is the map that the user was viewing prior to issuing the query (represented by a red rectangle on the Map).";
 	if (CheckTextOnDocument(document, testo)) {
