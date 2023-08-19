@@ -24,12 +24,12 @@ intervalID  = setInterval( () => {
         const audio = new Audio("https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/changes-cut.mp3?raw=true");
 
         audio.play()
-                .then(() => {
-                    console.log('button found');
-                })
-                .catch((error) => {
-                    console.error('Error playing audio:', error);
-                });
+            .then(() => {
+                console.log('button found');
+            })
+            .catch((error) => {
+                console.error('Error playing audio:', error);
+            });
 
         audio.addEventListener('ended', function() {
             for(let button of buttons) {
@@ -49,6 +49,7 @@ intervalID  = setInterval( () => {
 
         clearInterval(intervalID);
     }
+
 
     document.documentElement.innerHTML += '';
 
