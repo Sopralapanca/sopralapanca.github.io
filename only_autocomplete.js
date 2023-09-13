@@ -716,8 +716,9 @@ if (type === "Experimental") {
 			setSliders(sliders[s], list[s][0], list[s][1]);
 			new Promise(resolve => setTimeout(resolve, 1000));
 		}
-		alert("stai attento con il needs met, a volte è fully");
+		alert("Pay attention to the needs met, sometimes is fully :)");
 	}
+
 
 	/* search product or background and reputation*/
 	if(CheckTextOnDocument(document,"In this task, you will be provided with a particular User Intent as additional context to the query.")){
