@@ -716,12 +716,7 @@ if (type === "Experimental") {
 			setSliders(sliders[s], list[s][0], list[s][1]);
 			new Promise(resolve => setTimeout(resolve, 1000));
 		}
-		let comments_list = ["No issues has been found", "Response is ok", "Response is good",
-										"The response is ok", "No problems found", "No issues found",
-										"Everything looks fine","No errors detected","Response is satisfactory",
-										"No irregularities found","Response is within acceptable parameters"]
-
-		FillTextArea(document,null, comments_list);
+		alert("stai attento con il needs met, a volte è fully");
 	}
 
 	/* search product or background and reputation*/
