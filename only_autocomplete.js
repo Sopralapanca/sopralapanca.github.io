@@ -52,10 +52,6 @@ function get_and_set_sliders(list, setPagePosition=false, d=undefined){
 
 		let sliders = ewok_buds_cards[j].getElementsByClassName("evl-slider2");
 		for(let s = 0; s<sliders.length; s++){
-			console.log(sliders[s]);
-			console.log(list[s][0]);
-			console.log(list[s][1]);
-
 			setSliders(sliders[s], list[s][0], list[s][1]);
 		}
 
@@ -476,6 +472,26 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 }
 
 if (type === "Side By Side") {
+
+	/* NEXT STEP SXS */
+	testo = "When these suggestion blocks have titles and a set of entities associated with that suggestion, assign your rating to the whole group including entities and title";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("NEXT STEP SXS");
+		set_all_radios(document, "0");
+		set_all_radios(document, "yes");
+		
+		let list = [["60%", "3"]];
+		get_and_set_sliders(list);
+
+		b = LeftOrRightSideMB();
+		if(b !== false){
+			set_all_radios(document, "AboutTheSameAs");
+		}
+
+	}
+
+
+
 	/* PROMPT SXS */
 	testo = "In this task, you will be provided with a Prompt from a user (e.g., a question, instruction, statement) to an AI chatbot along with two potential machine-generated Responses to the Prompt.";
 	if (CheckTextOnDocument(document, testo)) {
