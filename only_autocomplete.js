@@ -51,8 +51,6 @@ function get_and_set_sliders(list, setPagePosition=false, d=undefined){
 		}
 
 		let sliders = ewok_buds_cards[j].getElementsByClassName("evl-slider2");
-		
-		console.log(sliders);
 
 		for(let s = 0; s<sliders.length; s++){
 			setSliders(sliders[s], list[s][0], list[s][1]);
@@ -272,9 +270,8 @@ function OpenAllLinks(wait_time=10000, doc) {
 
 	let s;
 	let allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question");
-	
+
 	const uniqueLinks = new Set();
-	const linkDataMap = new Map();
 
 	for(let block of allBlocks) {
 		if (String(block.innerText).includes("No Rating Required")) {
@@ -283,7 +280,7 @@ function OpenAllLinks(wait_time=10000, doc) {
 		
 
 		/* get all a tag inside block which have data-oldhref attribute se metto anche a alla fine non funziona più */
-		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a");
+		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a");
 
 		if (!html_block) {
 			continue;
@@ -293,25 +290,20 @@ function OpenAllLinks(wait_time=10000, doc) {
 
 		if (url && url!== ""){
 			s = DecodeStringUrl(url);
-			if(!s.includes("www.google.") && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && s !== ""){
-				if (!uniqueLinks.has(s)) {
-					uniqueLinks.add(s);
-					let headers = block.getElementsByClassName("ewok-buds-result-label");
-					if (headers !== "undefined"){
-						blockname = headers[0].innerText;
-						linkDataMap.set(s, blockname);
-					}
-				  }				
+			
+			/* link così devono essere inclusi
+			https://www.google.com/evaluation/result/static/a/5494654946/it_Repubblica_230806_2209.png
+			*/
+
+			if(!s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && s !== ""){
+				uniqueLinks.add(s);			
 			}
 		}
 	}
 	
 	let opened_pages = [];
-	for (const [link, name] of linkDataMap) {
+	for (const link of uniqueLinks) {
 		let openWindow = window.open(link, '_blank');
-		openWindow.onload = function() {
-			openWindow.document.title = name;
-		  };
 		opened_pages.push(openWindow);
 	}
 
@@ -1049,6 +1041,19 @@ if (type === "Experimental") {
 		console.log("news and blogs found");
 		OpenAllLinks(wait_time_sec, document);
 		set_all_radios(document, "1", false);
+		FillTextArea(document, "ProminentNews1", ["none"]);
+		FillTextArea(document, "ProminentNews2", ["none"]);
+		FillTextArea(document, "ProminentNews3", ["none"]);
+
+		let list = [];
+		for (let i = 0; i < 2; i++) {
+			const randomElement = Math.random() < 0.5 ? ["80%", "4"] : ["60%", "3"];
+			list.push(randomElement);
+			list.push(randomElement);
+		}
+		let d = document.getElementById("editable-59");
+		get_and_set_sliders(list, false, d);
+
 	}
 
 	/* PAGE QUALITY UO */
@@ -1152,7 +1157,6 @@ if (type === "Experimental") {
 		console.log("other uo found");
 		set_all_checkboxes(document, "Category_None", true);
 		set_all_radios(document, "0");
-		console.log("done");
 	}
 
 	console.log("done");
