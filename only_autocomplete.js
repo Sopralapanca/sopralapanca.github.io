@@ -268,12 +268,15 @@ function OpenAllLinks(wait_time=10000, doc) {
 
 	let s;
 	let allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question");
-	const mySet1 = new Set();
+	
+	const uniqueLinks = new Set();
+	const linkDataMap = new Map();
 
 	for(let block of allBlocks) {
 		if (String(block.innerText).includes("No Rating Required")) {
 			continue;
 		}
+		
 
 		/* get all a tag inside block which have data-oldhref attribute se metto anche a alla fine non funziona più */
 		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a");
@@ -287,14 +290,24 @@ function OpenAllLinks(wait_time=10000, doc) {
 		if (url && url!== ""){
 			s = DecodeStringUrl(url);
 			if(!s.includes("www.google.") && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && s !== ""){
-				mySet1.add(s);
+				if (!uniqueLinks.has(s)) {
+					uniqueLinks.add(s);
+					let headers = block.getElementsByClassName("ewok-buds-result-label");
+					if (headers !== "undefined"){
+						blockname = headers[0].innerText;
+						linkDataMap.set(s, blockname);
+					}
+				  }				
 			}
 		}
 	}
-	const array = Array.from(mySet1);
+	
 	let opened_pages = [];
-	for (let j = 0; j < array.length; j++) {
-		let openWindow = window.open(array[j], '_blank');
+	for (const [link, name] of linkDataMap) {
+		let openWindow = window.open(link, '_blank');
+		openWindow.onload = function() {
+			openWindow.document.title = name;
+		  };
 		opened_pages.push(openWindow);
 	}
 
@@ -429,7 +442,7 @@ if(additional !== undefined) additional = additional.innerText;
 let time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
 time = time.textContent;
 const wait_time = time.split(" ")[2];
-const wait_time_sec = ((parseInt(wait_time) * 60)/2)*1000;
+const wait_time_sec = ((parseInt(wait_time) * 60))*1000;
 
 
 var ewokBudsQuery = document.getElementById("ewok-buds-query");
@@ -578,15 +591,12 @@ if (type === "Side By Side") {
 		open_links_set_sliders_set_radios(document, list, "1");
 	}
 
-
 	/* IMAGE-SXS*/
 	testo = 'In this task, you will be given a query issued to image search, followed by two sets of image search results';
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("IMAGE SXS FOUND")
 		let list = [["80%", "4"], ["75%", "3"], ["62.5%", "2.5"], ["70%", "3.5"]];
 		open_links_set_sliders_set_radios(document, list, "AboutTheSameAs");
-
-
 	}
 
 	/* MINI NEWS AND BLOGS */
@@ -706,6 +716,18 @@ if (type === "Side By Side") {
 
 let lastCheckBox;
 if (type === "Experimental") {
+
+	/* IMAGE-EXP*/
+	testo = 'In this task, you will be given a query issued to image search, followed by a set of image search results';
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("IMAGE EXPERIMENTAL FOUND")
+		let list = [["80%", "4"], ["75%", "3"], ["62.5%", "2.5"], ["70%", "3.5"]];
+		get_and_set_sliders(list);
+		OpenAllLinks(wait_time_sec);
+	}
+
+
+
 	/* human genuine voice */
 	if(CheckTextOnDocument(document, "In this task, you will be given a list of URLs. For each page, you are to determine whether the main content (MC) is presented in a Genuine Human Voice.")){
 		console.log("Genuine Human Voice Found");
