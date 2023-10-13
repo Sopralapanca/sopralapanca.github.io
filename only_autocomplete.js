@@ -238,7 +238,7 @@ function CheckTextOnDocument(block, string){
 
 function DecodeStringUrl(url){
 	let uri = decodeURIComponent(url);
-	let [, s] = uri.split("q=");
+	let [, s] = uri.split("https://www.google.com/evaluation/url?q=");
 	return s;
 
 	/*let uri = String(decodeURIComponent(url));
@@ -268,9 +268,10 @@ function OpenAllLinks(wait_time=10000, doc) {
 		doc = document.querySelectorAll(".ewok-buds-sides-container")[0];
 	}
 
+
 	let s;
 	let allBlocks = doc.querySelectorAll(".ewok-buds-card, .ewok-buds-result, .ewok-buds-result-has-dupes, .ewok-buds-result-highlight, .ewok-editor-editable-column, .ewok-buds-question,  .ewok-buds-result-question");
-
+	
 	const uniqueLinks = new Set();
 
 	for(let block of allBlocks) {
@@ -279,8 +280,8 @@ function OpenAllLinks(wait_time=10000, doc) {
 		}
 		
 
-		/* get all a tag inside block which have data-oldhref attribute se metto anche a alla fine non funziona più */
-		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a");
+		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref]");
+
 
 		if (!html_block) {
 			continue;
@@ -294,6 +295,8 @@ function OpenAllLinks(wait_time=10000, doc) {
 			/* link così devono essere inclusi
 			https://www.google.com/evaluation/result/static/a/5494654946/it_Repubblica_230806_2209.png
 			*/
+			
+			console.log(s);
 
 			if(!s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && s !== ""){
 				uniqueLinks.add(s);			
