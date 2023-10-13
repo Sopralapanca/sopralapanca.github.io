@@ -778,7 +778,8 @@ if (type === "Experimental") {
 
 
 	testo = "In this task, you will be asked to rate the quality of two different translations of the source text, using the rating scale below";
-	if (CheckTextOnDocument(document, testo)) {
+	testo6 = "Rate the following translations of the above text";
+	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo6)) {
 		console.log("ROSETTA FOUND");
 		let min = 4;
 		let max = 7;
