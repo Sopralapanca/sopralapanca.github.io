@@ -43,7 +43,7 @@ function get_and_set_sliders(list, setPagePosition=false, d=undefined){
 		}
 	}
 
-	let ewok_buds_cards = document.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
+	let ewok_buds_cards = d.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
 
 	for(let j=0; j<ewok_buds_cards.length; j++){
 		if(ewok_buds_cards[j].innerText.includes("No Rating Required")){
@@ -51,10 +51,14 @@ function get_and_set_sliders(list, setPagePosition=false, d=undefined){
 		}
 
 		let sliders = ewok_buds_cards[j].getElementsByClassName("evl-slider2");
+		
+		console.log(sliders);
+
 		for(let s = 0; s<sliders.length; s++){
 			setSliders(sliders[s], list[s][0], list[s][1]);
 		}
 
+		
 		setTimeout(function(){}, 2000);
 		for(let s=0; s<sliders.length; s++){
 			let hiddenField = sliders[s].querySelectorAll('input[type="hidden"].evl-slider2-value-field');
@@ -513,10 +517,17 @@ if (type === "Side By Side") {
 		set_all_radios(document, "1");
 		set_all_checkboxes(document, "checkNone");
 
-		let first = document.getElementById("editable-2033_copy");
-		setSliders(first, "90%", "4.5");
+		let first_l = document.getElementById("editable-2033");
+		setSliders(first_l, "90%", "4.5");
 
+		let first_r = document.getElementById("editable-2033_copy");
+		setSliders(first_r, "90%", "4.5");
 
+		let second_l = document.getElementById("editable-2033_copy3");
+		setSliders(second_l, "83.3333%", "4");
+
+		let second_r = document.getElementById("editable-2033_copy5");
+		setSliders(second_r, "83.3333%", "4");
 
 
 		let comments = [
@@ -526,7 +537,8 @@ if (type === "Side By Side") {
 			"The information provided by the AI-generated text is equally valuable on either side, proving its usefulness.",
 			"On both sides, the machine-generated text is exceptionally helpful and imparts the same information effectively.",
 			"The utility of the machine-generated content is evident on both sides, delivering identical information seamlessly."]
-		FillTextArea(document, comments);
+		FillTextArea(document, "comment", comments);
+		set_all_radios(document, "AboutTheSameAs");
 
 	}
 
