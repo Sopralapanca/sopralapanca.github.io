@@ -43,6 +43,7 @@ function get_and_set_sliders(list, setPagePosition=false, d=undefined){
 		}
 	}
 
+
 	let ewok_buds_cards = d.querySelectorAll(".ewok-buds-result-controls, .ewok-buds-summary-row, .ewok-editor-editable-column");
 
 	for(let j=0; j<ewok_buds_cards.length; j++){
@@ -98,7 +99,7 @@ function set_all_checkboxes(block, name, setPagePosition=true){
 
 function open_links_set_sliders_set_radios(block, list, radios_value="AboutTheSameAs", set_page_position=true){
 	OpenAllLinks(wait_time_sec, block);
-	get_and_set_sliders(list, set_page_position);
+	get_and_set_sliders(list, set_page_position, block);
 	set_all_radios(block, radios_value);
 }
 
@@ -240,12 +241,6 @@ function DecodeStringUrl(url){
 	let uri = decodeURIComponent(url);
 	let [, s] = uri.split("https://www.google.com/evaluation/url?q=");
 	return s;
-
-	/*let uri = String(decodeURIComponent(url));
-	let first, s;
-	[first, ...s] = uri.split("q=");
-	s = s.join("q=");
-	return s;*/
 }
 
 function getUrlFromTag(a){
@@ -294,11 +289,18 @@ function OpenAllLinks(wait_time=10000, doc) {
 			
 			/* link così devono essere inclusi
 			https://www.google.com/evaluation/result/static/a/5494654946/it_Repubblica_230806_2209.png
+
+
+			link cosi devono essere esclusi
+
+			https://www.google.it/travel/flights?sca_esv=573429464&quantum=noanimation&uuld=l+AjIBFAAAEVSQTA5AGgmiggRRQTqohE5YgU6URAUgIBLAfSQAfwAAAAAKmwEKDwgBEAMqBFJvbWWqAQI4ARICCA0SAggGEgIIFBICCAMSAggJGAEqbgoUChIJu46S-ZZhLxMROG5lkwZ3D7lfFvCor9UcN79RjAxAw0rXGxGKJRMRAIE4sppPCQM1ZTo15u4kExEphaPxZJBKbwPSjUSC_tQSEW9eYyRc9SziCo9AKgQVEgIIChICCBAYCQ&hl=it&gl=it&uitype=cuAA&curr=EUR&gsas=1&tfs=CAEQAhojEgoyMDIzLTEwLTIxagwIAhIIL20vMGZoc3pyBwgBEgNQTUkaIxIKMjAyMy0xMC0yOGoHCAESA1BNSXIMCAISCC9tLzBmaHN6emRDalJJTTBkbmRWaEhZMVJUYUZGQlNYcE5hMmRDUnkwdExTMHRMUzB0TFhCbWIyUXhPRUZCUVVGQlIxVnhaV2gzU0dadmFVbEJFZ0p1S2hvS0NNUXNFQUlhQTBWVlVqZ3djT2d1
+			http://www.google.it/search?absolute_url_host=https://www.google.com&ampcct=7&funbox_frozen_clock=1&korean_age_verification=0&optts=e:HighTrafficLaunches&q=prezzi+oro&quantum=noanimation&utm_campaign=nohsi&uuld=l+AhcBCACar6AegkC9NwACtADQLXQBAAAAAAosCgQIARBAEgIIChICCBASAggVGAEqFgoUChIJA9KNRIL-1BIRb15jJFz1LOIK4wEKLAgGEEpAWWABaANw04XhnuECigEYCgoNmMcSGhV9grYGEgoNZhkXGhWDfbwGEgIIDRICCBcSAggUEgIIARICCA8SAggGGAEqbgoUChIJrdbSgKZWKhMRAyrH7xd51ZMKFAoSCd9MpNOgVioTEdmXYIlopUW6ChQKEgljdr14oPgqExFggOTjkCwIAwp7NIAQUyvUEhGrWSBbusPGMgkKA0FEUxICCBpCHgocCEQaGAoKDZgYxCg&hl=it&gl=IT&host=www.google.it&ibp=oshop&prds=headlineOfferDocid:11835916127701566990,imageDocid:13197979411514268923,productid:11835916127701566990,pvt:hg
 			*/
 			
 			console.log(s);
 
-			if(!s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && s !== ""){
+			if(!s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && s !== "" 
+				&& s !== "www.google.it"){
 				uniqueLinks.add(s);			
 			}
 		}
@@ -442,6 +444,8 @@ let time = document.getElementsByClassName("ewok-estimated-task-weight")[0];
 time = time.textContent;
 const wait_time = time.split(" ")[2];
 const wait_time_sec = ((parseInt(wait_time) * 60))*1000;
+
+let background_found = false;
 
 
 var ewokBudsQuery = document.getElementById("ewok-buds-query");
@@ -774,6 +778,7 @@ if (type === "Experimental") {
 		get_and_set_sliders(list);
 		OpenAllLinks(wait_time_sec);
 		set_all_checkboxes(document, "acknowledgement", false);
+		background_found = true;
 	}
 
 
@@ -1141,19 +1146,22 @@ if (type === "Experimental") {
 	testo3="InstructionsIMPORTANT (PLEASE READ): The links in this task should be opened on your mobile device by following the Send to Device Instructions. Note that you will not be able to access the landing page links on your computer/desktop.Please refer to the General Guidelines for instructions on how to rate these results from the perspective of a mobile user, using the Needs Met scale.Special InstructionsIn this task, you may see blocks that are not numbered (e.g., L1, L2, etc.) and cannot be rated on the Needs Met or Page Quality rating scales. For example:These blocks are referred to as \"contextual headings\" (usually appearing near the top of the results) because they typically contain headings or title information, and are meant to provide context for the other results below them on that side. While you will not be asked to rate contextual headings, please treat them as extra information to help you understand what the overall result set is about.";
 	testo4="InstructionsIMPORTANT(PLEASEREAD):ThelinksinthistaskshouldbeopenedonyourmobiledevicebyfollowingtheSendtoDeviceInstructions.Notethatyouwillnotbeabletoaccessthelandingpagelinksonyourcomputer/desktop.PleaserefertotheGeneralGuidelinesforinstructionsonhowtoratetheseresultsfromtheperspectiveofamobileuser,usingtheNeedsMetscale.";
 	let list = [[],[]];
-	if(ExactText(document, testo) || ExactText(document, testo2) || ExactText(document, testo3) || ExactText(document, testo4) || ExactText(document, testo5)){
-		if(FillTextArea(document, "comment")) {
-			console.log("PSYCHO FOUND");
-			list = [["90%", "4.5"],["80%", "4"]];
-		}else{
-			let temp_list1 = [["70%", "3.5"], ["70%", "3.5"]];
-			let temp_list2 = [["70%", "3.5"], ["80%", "4"]];
-			list = Math.random() < 0.5 ? temp_list1 : temp_list2;
-			console.log("NEEDS MET FOUND");
+	if(!background_found){
+		if(ExactText(document, testo) || ExactText(document, testo2) || ExactText(document, testo3) || ExactText(document, testo4) || ExactText(document, testo5)){
+			if(FillTextArea(document, "comment")) {
+				console.log("PSYCHO FOUND");
+				list = [["90%", "4.5"],["80%", "4"]];
+			}else{
+				let temp_list1 = [["70%", "3.5"], ["70%", "3.5"]];
+				let temp_list2 = [["70%", "3.5"], ["80%", "4"]];
+				list = Math.random() < 0.5 ? temp_list1 : temp_list2;
+				console.log("NEEDS MET FOUND");
+			}
+			let d = document.getElementsByClassName("ewok-buds-sides")[0];
+			open_links_set_sliders_set_radios(d, list);
 		}
-		let d = document.getElementsByClassName("ewok-buds-sides")[0];
-		open_links_set_sliders_set_radios(d, list);
 	}
+	
 
 	/* OTHER UO */
 	testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
