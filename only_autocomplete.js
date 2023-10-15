@@ -277,10 +277,11 @@ function OpenAllLinks(wait_time=10000, doc) {
 
 		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref]");
 
-
 		if (!html_block) {
 			continue;
 		}
+		
+		//html_block.getElementsByClassName("ewok-buds-result-visited-input")[0].value = "true";
 
 		let url = getUrlFromTag(html_block);
 
@@ -296,10 +297,8 @@ function OpenAllLinks(wait_time=10000, doc) {
 			https://www.google.it/travel/flights?sca_esv=573429464&quantum=noanimation&uuld=l+AjIBFAAAEVSQTA5AGgmiggRRQTqohE5YgU6URAUgIBLAfSQAfwAAAAAKmwEKDwgBEAMqBFJvbWWqAQI4ARICCA0SAggGEgIIFBICCAMSAggJGAEqbgoUChIJu46S-ZZhLxMROG5lkwZ3D7lfFvCor9UcN79RjAxAw0rXGxGKJRMRAIE4sppPCQM1ZTo15u4kExEphaPxZJBKbwPSjUSC_tQSEW9eYyRc9SziCo9AKgQVEgIIChICCBAYCQ&hl=it&gl=it&uitype=cuAA&curr=EUR&gsas=1&tfs=CAEQAhojEgoyMDIzLTEwLTIxagwIAhIIL20vMGZoc3pyBwgBEgNQTUkaIxIKMjAyMy0xMC0yOGoHCAESA1BNSXIMCAISCC9tLzBmaHN6emRDalJJTTBkbmRWaEhZMVJUYUZGQlNYcE5hMmRDUnkwdExTMHRMUzB0TFhCbWIyUXhPRUZCUVVGQlIxVnhaV2gzU0dadmFVbEJFZ0p1S2hvS0NNUXNFQUlhQTBWVlVqZ3djT2d1
 			http://www.google.it/search?absolute_url_host=https://www.google.com&ampcct=7&funbox_frozen_clock=1&korean_age_verification=0&optts=e:HighTrafficLaunches&q=prezzi+oro&quantum=noanimation&utm_campaign=nohsi&uuld=l+AhcBCACar6AegkC9NwACtADQLXQBAAAAAAosCgQIARBAEgIIChICCBASAggVGAEqFgoUChIJA9KNRIL-1BIRb15jJFz1LOIK4wEKLAgGEEpAWWABaANw04XhnuECigEYCgoNmMcSGhV9grYGEgoNZhkXGhWDfbwGEgIIDRICCBcSAggUEgIIARICCA8SAggGGAEqbgoUChIJrdbSgKZWKhMRAyrH7xd51ZMKFAoSCd9MpNOgVioTEdmXYIlopUW6ChQKEgljdr14oPgqExFggOTjkCwIAwp7NIAQUyvUEhGrWSBbusPGMgkKA0FEUxICCBpCHgocCEQaGAoKDZgYxCg&hl=it&gl=IT&host=www.google.it&ibp=oshop&prds=headlineOfferDocid:11835916127701566990,imageDocid:13197979411514268923,productid:11835916127701566990,pvt:hg
 			*/
-			
-			console.log(s);
-
-			if(!s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && s !== "" 
+	
+			if(s !== undefined && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && s !== "" 
 				&& s !== "www.google.it"){
 				uniqueLinks.add(s);			
 			}
@@ -663,7 +662,8 @@ if (type === "Side By Side") {
 			radios_value = "AboutTheSameAs";
 		}
 		let list = [["70%", "3.5"],["70%", "3.5"]];
-		open_links_set_sliders_set_radios(document, list, radios_value, true);
+		let d = document.getElementsByClassName("ewok-buds-sides-container")[0];
+		open_links_set_sliders_set_radios(d, list, radios_value, true);
 	}
 
 	/* sxs one big block */
