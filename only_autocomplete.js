@@ -487,7 +487,6 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 }
 
 if (type === "Side By Side") {
-
 	/* NEXT STEP SXS */
 	testo = "When these suggestion blocks have titles and a set of entities associated with that suggestion, assign your rating to the whole group including entities and title";
 	if (CheckTextOnDocument(document, testo)) {
@@ -504,8 +503,6 @@ if (type === "Side By Side") {
 		}
 
 	}
-
-
 
 	/* PROMPT SXS */
 	testo = "In this task, you will be provided with a Prompt from a user (e.g., a question, instruction, statement) to an AI chatbot along with two potential machine-generated Responses to the Prompt.";
@@ -727,6 +724,13 @@ if (type === "Side By Side") {
 
 let lastCheckBox;
 if (type === "Experimental") {
+	/* GROUP A GROUP B */
+	testo = "Your job is to identify the main story from the first group (Group A).";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("GROUP A/B FOUND");
+		document.getElementById("editable-188_copy-input").click();
+	}
+
 
 	/* IMAGE-EXP*/
 	testo = 'In this task, you will be given a query issued to image search, followed by a set of image search results';
