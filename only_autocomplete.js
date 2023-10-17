@@ -76,6 +76,8 @@ function set_all_radios(block, value, setPagePosition=false){
 	if(setPagePosition) {
 		radios[0].scrollIntoView();
 	}
+
+
 	for(let j = 0; j<radios.length; j++){
 		if(radios[j].value===value){
 			radios[j].click();
@@ -281,8 +283,6 @@ function OpenAllLinks(wait_time=10000, doc) {
 			continue;
 		}
 		
-		//html_block.getElementsByClassName("ewok-buds-result-visited-input")[0].value = "true";
-
 		let url = getUrlFromTag(html_block);
 
 		if (url && url!== ""){
@@ -487,6 +487,16 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 }
 
 if (type === "Side By Side") {
+	/* BREADTH QUERIES */
+	testo = "Please review the special instructions for the Breadth of Query and the Diversity SxS ratings you will be providing in this task.";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("BREADTH QUERIES");
+		let list = [["70%", "3.5"], ["70%", "3.5"]];
+		let block = document.getElementsByClassName("ewok-buds")[0];
+		get_and_set_sliders(list, true, block);
+		OpenAllLinks(wait_time_sec, block);
+		set_all_radios(document, "AboutTheSameAs");
+	} 
 
 	/* NEXT STEP SXS */
 	testo = "When these suggestion blocks have titles and a set of entities associated with that suggestion, assign your rating to the whole group including entities and title";
