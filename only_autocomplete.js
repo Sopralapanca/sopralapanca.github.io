@@ -37,7 +37,7 @@ function get_and_set_sliders(list, setPagePosition=false, d=undefined){
 		d = document.getElementsByClassName("ewok-buds-card ewok-buds-result")[0];
 	}
 	if(setPagePosition){
-		if (d !== undefined){
+		if (d !== undefined && d != document){
 			d.scrollIntoView();
 			window.scrollBy(0, -100);
 		}
@@ -296,10 +296,15 @@ function OpenAllLinks(wait_time=10000, doc) {
 
 			https://www.google.it/travel/flights?sca_esv=573429464&quantum=noanimation&uuld=l+AjIBFAAAEVSQTA5AGgmiggRRQTqohE5YgU6URAUgIBLAfSQAfwAAAAAKmwEKDwgBEAMqBFJvbWWqAQI4ARICCA0SAggGEgIIFBICCAMSAggJGAEqbgoUChIJu46S-ZZhLxMROG5lkwZ3D7lfFvCor9UcN79RjAxAw0rXGxGKJRMRAIE4sppPCQM1ZTo15u4kExEphaPxZJBKbwPSjUSC_tQSEW9eYyRc9SziCo9AKgQVEgIIChICCBAYCQ&hl=it&gl=it&uitype=cuAA&curr=EUR&gsas=1&tfs=CAEQAhojEgoyMDIzLTEwLTIxagwIAhIIL20vMGZoc3pyBwgBEgNQTUkaIxIKMjAyMy0xMC0yOGoHCAESA1BNSXIMCAISCC9tLzBmaHN6emRDalJJTTBkbmRWaEhZMVJUYUZGQlNYcE5hMmRDUnkwdExTMHRMUzB0TFhCbWIyUXhPRUZCUVVGQlIxVnhaV2gzU0dadmFVbEJFZ0p1S2hvS0NNUXNFQUlhQTBWVlVqZ3djT2d1
 			http://www.google.it/search?absolute_url_host=https://www.google.com&ampcct=7&funbox_frozen_clock=1&korean_age_verification=0&optts=e:HighTrafficLaunches&q=prezzi+oro&quantum=noanimation&utm_campaign=nohsi&uuld=l+AhcBCACar6AegkC9NwACtADQLXQBAAAAAAosCgQIARBAEgIIChICCBASAggVGAEqFgoUChIJA9KNRIL-1BIRb15jJFz1LOIK4wEKLAgGEEpAWWABaANw04XhnuECigEYCgoNmMcSGhV9grYGEgoNZhkXGhWDfbwGEgIIDRICCBcSAggUEgIIARICCA8SAggGGAEqbgoUChIJrdbSgKZWKhMRAyrH7xd51ZMKFAoSCd9MpNOgVioTEdmXYIlopUW6ChQKEgljdr14oPgqExFggOTjkCwIAwp7NIAQUyvUEhGrWSBbusPGMgkKA0FEUxICCBpCHgocCEQaGAoKDZgYxCg&hl=it&gl=IT&host=www.google.it&ibp=oshop&prds=headlineOfferDocid:11835916127701566990,imageDocid:13197979411514268923,productid:11835916127701566990,pvt:hg
+			https://www.google.it/travel/hotels/Pizzo%20VV/entity/CgoI7MnTxbKWquRnEAE?gsas=1&hl=it-IT&gl=it&ssta=1&q=beb+pizzo&ts=CAESCAoCCAMKAggDGhwSGhIUCgcI5w8QChgTEgcI5w8QChgUGAEyAhAAKgcKBToDRVVS&rp=EOzJ08WylqrkZxDXvPfM--PX55ABEKPmrJ3-uYj5JxCIwbDf2c-Fz8IBOAFAAEgCogEIUGl6em8gVlbAAQOaAgIIAA&ap=aAE&ictx=1
 			*/
-	
-			if(s !== undefined && !s.includes("support.google.com/websearch?p=featured_snippets&hl=it-IT") && s !== "" 
-				&& s !== "www.google.it"){
+		
+
+			if(s !== undefined && s !== "" &&
+				!s.includes("support.google.com/websearch") &&
+				!s.includes("google.it/travel") &&
+				!s.includes("google.it/searc") && 
+				s !== "www.google.it" ){
 				uniqueLinks.add(s);			
 			}
 		}
@@ -669,8 +674,7 @@ if (type === "Side By Side") {
 			radios_value = "AboutTheSameAs";
 		}
 		let list = [["70%", "3.5"],["70%", "3.5"]];
-		let d = document.getElementsByClassName("ewok-buds-sides-container")[0];
-		open_links_set_sliders_set_radios(d, list, radios_value, true);
+		open_links_set_sliders_set_radios(document, list, radios_value, true);
 	}
 
 	/* sxs one big block */
