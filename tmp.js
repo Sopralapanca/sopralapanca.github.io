@@ -8,7 +8,6 @@ document.documentElement.innerHTML = '';
 document.documentElement.appendChild(iframeElement);
 document.title = 'Rater Hub';
 
-const delay = ms => new Promise(res => setTimeout(res, ms));
 
 console.log('version 1.0.0');
 
