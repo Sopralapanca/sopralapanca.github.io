@@ -33,23 +33,22 @@ intervalID  = setInterval( () => {
                     console.error('Error playing audio:', error);
                 });
 
-            audio.addEventListener('ended', function() {
-                for(let button of buttons) {
-                    if(button.innerText.toLowerCase().includes("audio")) {
-                        audioButtons.push(button);
-                    }else if(button.innerText.toLowerCase().includes("adult") || button.innerText.toLowerCase().includes("offensive")) {
-                        adultButtons.push(button);
-                    }else{
-                        restButtons.push(button);
-                    }
+           
+            for(let button of buttons) {
+                if(button.innerText.toLowerCase().includes("audio")) {
+                    audioButtons.push(button);
+                }else if(button.innerText.toLowerCase().includes("adult") || button.innerText.toLowerCase().includes("offensive")) {
+                    adultButtons.push(button);
+                }else{
+                    restButtons.push(button);
                 }
-                let allButtons = [...audioButtons, ...adultButtons, ...restButtons];
-                const href = allButtons[0].getAttribute('href');
-                window.open(href, '_blank');
-                document.documentElement.innerHTML = '<h1 style="text-align: center; margin-top: 50px;">CLOSE THIS PAGE</h1>';
-            });
-
+            }
+            let allButtons = [...audioButtons, ...adultButtons, ...restButtons];
+            const href = allButtons[0].getAttribute('href');
+            window.open(href, '_blank');
+            document.documentElement.innerHTML = '<h1 style="text-align: center; margin-top: 50px;">CLOSE THIS PAGE</h1>';
+        
             clearInterval(intervalID);
         }
-    }, 5000);
-},60000);
+    }, 3000);
+},62000);
