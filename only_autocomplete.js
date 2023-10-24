@@ -316,6 +316,8 @@ function OpenAllLinks(wait_time=10000, doc) {
 		opened_pages.push(openWindow);
 	}
 
+	window.focus();
+	
 	setTimeout(() => {
 		for (let win of opened_pages) {
 			if(win !== null)  win.close();

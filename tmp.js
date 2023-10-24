@@ -45,7 +45,11 @@ intervalID  = setInterval( () => {
             let allButtons = [...audioButtons, ...adultButtons, ...restButtons];
             const href = allButtons[0].getAttribute('href');
             window.open(href, '_blank');
-            document.documentElement.innerHTML = '<h1 style="text-align: center; margin-top: 50px;">CLOSE THIS PAGE</h1>';
+
+            audio.addEventListener('ended', function() {
+                close();
+            });
+            
         
             clearInterval(intervalID);
         }
