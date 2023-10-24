@@ -839,7 +839,8 @@ if (type === "Experimental") {
 	if (CheckTextOnDocument(document, testo)){
 		console.log("big def found");
 		let list = [["90%", "4.5"]];
-		get_and_set_sliders(list, true);
+		let d = document.getElementsByClassName("ewok-buds-sides")[0];
+		get_and_set_sliders(list, true, d);
 		/* per forza in questo modo, non funziona con checked=true */
 		let dupes1 = document.getElementsByClassName("ewok-buds-result-dupes")[0];
 		let dupesText = dupes1.innerText;
