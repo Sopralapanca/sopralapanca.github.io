@@ -53,5 +53,5 @@ intervalID  = setInterval( () => {
         
             clearInterval(intervalID);
         }
-    }, 3000);
-},62000);
+    }, 1500);
+},65000);
