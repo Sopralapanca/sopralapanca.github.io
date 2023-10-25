@@ -512,10 +512,13 @@ if (type === "Side By Side") {
 		set_all_radios(document, "yes");
 		
 		let list = [["60%", "3"]];
-		get_and_set_sliders(list);
+		let d = document.getElementsByClassName("ewok-buds")[0];
+		get_and_set_sliders(list, true, d);
 
 		b = LeftOrRightSideMB();
 		if(b !== false){
+			set_all_radios(document, b);
+		}else{
 			set_all_radios(document, "AboutTheSameAs");
 		}
 
