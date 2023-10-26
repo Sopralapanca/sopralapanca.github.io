@@ -311,12 +311,15 @@ function OpenAllLinks(wait_time=10000, doc) {
 	}
 	
 	let opened_pages = [];
+	let currentWindow = window;
 	for (const link of uniqueLinks) {
 		let openWindow = window.open(link, '_blank');
+		openWindow.blur();
+        currentWindow.focus();
 		opened_pages.push(openWindow);
 	}
 
-	window.focus();
+	currentWindow.focus();
 	
 	setTimeout(() => {
 		for (let win of opened_pages) {
