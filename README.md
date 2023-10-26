@@ -88,3 +88,6 @@ Unfortunately, the development of this script takes a long time since it has to 
 
 * When using refresh script, if a task appears and is acquired, but expires immediately after being acquired, the homepage will be opened in a new tab, simply click on the refresh bookmarklet to restart the script.
 
+* For autocomplete script, task are added one by one, there may be the case that two tasks are similar and may cause overlapping when autocompleted
+
+* Tested only for italian locale, there may be tasks in your locale that are not present in the Italian one or that are slightly different
