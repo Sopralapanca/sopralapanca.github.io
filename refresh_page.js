@@ -47,7 +47,9 @@ intervalID  = setInterval( () => {
             window.open(href, '_blank');
 
             audio.addEventListener('ended', function() {
+                console.log("closing");
                 close();
+                window.close();
             });
             
         
