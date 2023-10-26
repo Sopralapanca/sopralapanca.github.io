@@ -42,7 +42,7 @@ intervalID  = setInterval( () => {
                     restButtons.push(button);
                 }
             }
-            let allButtons = [...audioButtons, ...adultButtons, ...restButtons];
+            let allButtons = [...adultButtons, ...audioButtons, ...restButtons];
             const href = allButtons[0].getAttribute('href');
             window.open(href, '_blank');
 
