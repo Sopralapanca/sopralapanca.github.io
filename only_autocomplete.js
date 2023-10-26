@@ -744,6 +744,15 @@ if (type === "Side By Side") {
 
 let lastCheckBox;
 if (type === "Experimental") {
+
+	/* HEALTH AND FITNESS */
+	testo = "Using your best judgment based on viewing the video snapshot, please evaluate if the main topic of the video is likely to be 'Health and/or Fitness.'";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("HEALT & FITNESS FOUND");
+		set_all_radios(document, "yes", true);
+	}
+
+
 	/* GROUP A GROUP B */
 	testo = "Your job is to identify the main story from the first group (Group A).";
 	if(CheckTextOnDocument(document, testo)){
