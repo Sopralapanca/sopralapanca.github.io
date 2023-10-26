@@ -109,6 +109,25 @@ function open_links_set_sliders_set_radios(block, list, radios_value="AboutTheSa
 function radiosClick(doc, task) {
 	let radios = doc.querySelectorAll('input[type=radio]');
 	let j;
+	
+	if (task === "followups"){
+		for(j = 0; j<radios.length; j++){
+			if (radios[j].name.includes("too_similar") && radios[j].value === "1"){
+				radios[j].click();
+			}
+
+			if (radios[j].name.includes("upsettingoffensive") && radios[j].value === "0"){
+				radios[j].click();
+			}
+
+			if (radios[j].name.includes("prefixSeekingFringe") && radios[j].value === "0"){
+				radios[j].click();
+			}
+		}
+	}
+	
+	
+	
 	if (task === "entitysubtopic"){
 		for(j = 0; j<radios.length; j++){
 			if (radios[j].name === "match_meaning" && radios[j].value === "1"){
@@ -442,10 +461,10 @@ function LeftOrRightSideMB(){
 
 }
 
-/* type restituisce sxs o experimental */
+/* type returns sxs o experimental */
 const type = document.getElementsByClassName("ewok-task-action-header")[0].children[0].innerText;
 
-/* additional restituisce contenuto aggiuntivo nel titolo come headphone required*/
+/* additional returns additional content on title like headphone required*/
 let additional = document.getElementsByClassName("ewok-task-action-header")[0].children[1];
 if(additional !== undefined) additional = additional.innerText;
 
@@ -497,6 +516,25 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 }
 
 if (type === "Side By Side") {
+
+	/* SXS FOLLOW-UP */
+	testo = "In this task, you will be shown an original query and some Follow-Up queries. Please follow the steps listed below.";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("SXS FOLLOW-UP FOUND");
+		let list = [["75%", "3"]];
+		let block = document.getElementsByClassName("ewok-buds")[0];
+		get_and_set_sliders(list, true, block);
+		b = LeftOrRightSideMB();
+		if(b !== false){
+			set_all_radios(document, b);
+		}else{
+			set_all_radios(document, "AboutTheSameAs");
+		}
+
+		radiosClick(document, "followups");
+		set_all_checkboxes(document, "confirm_flags");
+	}
+
 	/* BREADTH QUERIES */
 	testo = "Please review the special instructions for the Breadth of Query and the Diversity SxS ratings you will be providing in this task.";
 	if (CheckTextOnDocument(document, testo)) {
