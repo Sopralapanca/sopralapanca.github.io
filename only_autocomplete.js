@@ -522,8 +522,7 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("SXS FOLLOW-UP FOUND");
 		let list = [["75%", "3"]];
-		let block = document.getElementsByClassName("ewok-buds")[0];
-		get_and_set_sliders(list, true, block);
+		get_and_set_sliders(list, true, document);
 		b = LeftOrRightSideMB();
 		if(b !== false){
 			set_all_radios(document, b);
