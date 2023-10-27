@@ -33,20 +33,20 @@ Then to create a bookmarklet go to this page [MrColes](https://mrcoles.com/bookm
 </p>
 
 In "Enter your javascript code here:" just copy & paste a script from
-[refresh_page.js](https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/refresh_bookmarklet.js) or [autosubmit_autocomplete.js](https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/invoice.js)
+[refresh_page.js](https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/refresh_bookmarklet.js) or [autocomplete_bookmarklet.js](https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/autocomplete_bookmarklet.js)
 
 
-Give it a name that you want lik "refresh" or "autosubmit".
+Give it a name that you want like "refresh" or "autosubmit".
 
 Check the field **'include jQuery 1.11'** and for the autocomplete script also tick the field **'include custom script'** and insert this link https://cdn.jsdelivr.net/npm/easytimer@1.1.1/src/easytimer.min.js
 
-Finally click on Convert to bookmarklet and something like the image below will appear
+Finally click on Convert to bookmarklet and a blue box will appear on the page
 
 <p align="center">
-<img src="imgs/bookmarklet_complete.png" height="250" />
+<img src="imgs/full_example.png" height="300" />
 </p>
 
-You can then drag the little blue box that appears below that has the name you’ve given the bookmarklet to your bookmark bar and you are done.
+You can then drag the little blue box that has the name you’ve given the bookmarklet to your bookmark bar and you are done as is shown on the image above.
 Each time you are on the task homepage click on the "refresh" bookmarklet to start refreshing the page in search of tasks, each time you acquire a task click on the "autocomplete" bookmarklet to autocomplete the task and auto-submit it when time expires.
 
 ## How it works
@@ -62,9 +62,9 @@ In the event that the automatic warning for too many page refreshes pops up, sim
 ### Autocomplete and Autosubmit
 Once you have acquired the task, you can use this script to automate the sending of the task when time runs out and to autocomplete certain tasks.
 This script in particular:
-* Set tasks with sliders all to a specific default value,
+* Set tasks with sliders to a specific default value,
 * Set some checkboxes and radio buttons in the most common way,
-* Opens some links in the browser and not from the phone, although it is **STRONGLY RECOMMENDED TO OPEN THE LINKS FROM THE PHONE** to give the best possible rating and avoid mismatches between web and mobile version of the page.
+* Opens some links in the browser although it is **STRONGLY RECOMMENDED TO OPEN THE LINKS FROM THE PHONE** to give the best possible rating and avoid mismatches between web and mobile version of the page.
 
 ## Donation
 If you would like to support the work, please consider a donation by clicking the button below. Your help is really important to us and motivates us to continue the work. If you want to be included in the list of donators who supports the projects, please leave a nickname as a message when donating.
