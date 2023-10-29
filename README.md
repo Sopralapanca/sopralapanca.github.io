@@ -69,7 +69,7 @@ This script in particular:
 ## Donation
 If you would like to support the work, please consider a donation by clicking the button below. Your help is really important to us and motivates us to continue the work. If you want to be included in the list of donators who supports the projects, please leave a nickname as a message when donating.
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://bit.ly/scriptdonations)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://bit.ly/scriptdonations) [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/sopralapanca)
 
 List of donators:
 * MoonShadow
