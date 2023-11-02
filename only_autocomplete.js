@@ -401,18 +401,20 @@ function FillTextArea(element, field_name, comments=list_of_comments){
 	return true;
 }
 
-function PlayAudio(element, field_name="", play_twice=false){
+function PlayAudio(element, field_name="", play_twice=false, setPagePosition=false){
 	let audio_clips
         if(field_name!==""){
             audio_clips = element.querySelectorAll('audio[id*=' + field_name + ']');
         }else{
             audio_clips = element.getElementsByTagName('audio');
         }
-
-	if (typeof audio_clips[0] !== 'undefined') {
+	
+	if(setPagePosition){
+		if (typeof audio_clips[0] !== 'undefined') {
 			audio_clips[0].scrollIntoView();
-	}
-
+		}
+	}	
+	
 	for(let i = 0; i<audio_clips.length; i++){
 		audio_clips[i].play();
 		audio_clips[i].volume = 0.1;
@@ -827,6 +829,11 @@ if (type === "Experimental") {
 	if(CheckTextOnDocument(document,"In this task, you will see part or all of a conversation between a user and a Virtual Assistant. Your job is to evaluate the last response shown from the assistant, labeled Virtual Assistant's Response")){
 		console.log("labeled virtual assistant response found");
 		PlayAudio(document);
+		let el = document.getElementById("editable-680_copy");
+		el.scrollIntoView();
+		window.scrollBy(0, -100);
+
+
 		// choose one random between ["100%", "5"] ["90%", "4.5"] and ["80%", "4"]
 		let last = [["100%", "5"], ["90%", "4.5"], ["80%", "4"]];
 		let last_selected = last[Math.floor(Math.random() * last.length)]
