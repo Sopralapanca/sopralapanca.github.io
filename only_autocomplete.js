@@ -829,7 +829,7 @@ if (type === "Experimental") {
 	if(CheckTextOnDocument(document,"In this task, you will see part or all of a conversation between a user and a Virtual Assistant. Your job is to evaluate the last response shown from the assistant, labeled Virtual Assistant's Response")){
 		console.log("labeled virtual assistant response found");
 		PlayAudio(document);
-		let el = document.getElementById("editable-680_copy");
+		let el = document.getElementById("editable-680_copy").style.backgroundColor = "#FDFF47";
 		el.scrollIntoView();
 		window.scrollBy(0, -100);
 
