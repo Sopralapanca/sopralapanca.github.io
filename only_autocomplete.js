@@ -511,18 +511,22 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 	}else if(CheckTextOnDocument(document, testo3)){
 		console.log('native speaker speech sample');
 		PlayAudio(document, "", false, true);
-		let radios = document.querySelectorAll('input[type="radio"]');
-		for (let j = 0; j < radios.length; j++) {
-			if (Math.random() < 0.70) {
-				if (radios[j].value === "Yes") {
-			  		radios[j].click();
-				}
-		  	} else {
-				if (radios[j].value === "Somewhat") {
-			  	radios[j].click();
-				}
-		  	}
+
+		const elements = document.querySelectorAll('[class~="ewok-editor-editable-column"]');
+		const filteredElements = Array.from(elements).filter(element => {
+			const classes = element.classList;
+			return classes.length === 1 && classes.contains('ewok-editor-editable-column');
+		});
+
+		for(let r of filteredElements){
+			let n = Math.random();
+			if (n < 0.80) {
+				set_all_radios(r, "Yes");
+			}else{
+				set_all_radios(r, "Somewhat"); 
+			}
 		}
+
 	}else if(CheckTextOnDocument(document, testo2)){
 		console.log('audio speech samples sxs found');
 		block = document.getElementById("editable-1072");
