@@ -855,8 +855,6 @@ if (type === "Experimental") {
 		el.scrollIntoView();
 		window.scrollBy(0, -100);
 
-
-		// choose one random between ["100%", "5"] ["90%", "4.5"] and ["80%", "4"]
 		let last = [["100%", "5"], ["90%", "4.5"], ["80%", "4"]];
 		let last_selected = last[Math.floor(Math.random() * last.length)]
 
