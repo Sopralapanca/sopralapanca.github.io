@@ -295,7 +295,6 @@ function OpenAllLinks(wait_time=10000, doc) {
 			continue;
 		}
 		
-
 		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref]");
 
 		if (!html_block) {
@@ -317,7 +316,6 @@ function OpenAllLinks(wait_time=10000, doc) {
 			http://www.google.it/search?absolute_url_host=https://www.google.com&ampcct=7&funbox_frozen_clock=1&korean_age_verification=0&optts=e:HighTrafficLaunches&q=prezzi+oro&quantum=noanimation&utm_campaign=nohsi&uuld=l+AhcBCACar6AegkC9NwACtADQLXQBAAAAAAosCgQIARBAEgIIChICCBASAggVGAEqFgoUChIJA9KNRIL-1BIRb15jJFz1LOIK4wEKLAgGEEpAWWABaANw04XhnuECigEYCgoNmMcSGhV9grYGEgoNZhkXGhWDfbwGEgIIDRICCBcSAggUEgIIARICCA8SAggGGAEqbgoUChIJrdbSgKZWKhMRAyrH7xd51ZMKFAoSCd9MpNOgVioTEdmXYIlopUW6ChQKEgljdr14oPgqExFggOTjkCwIAwp7NIAQUyvUEhGrWSBbusPGMgkKA0FEUxICCBpCHgocCEQaGAoKDZgYxCg&hl=it&gl=IT&host=www.google.it&ibp=oshop&prds=headlineOfferDocid:11835916127701566990,imageDocid:13197979411514268923,productid:11835916127701566990,pvt:hg
 			https://www.google.it/travel/hotels/Pizzo%20VV/entity/CgoI7MnTxbKWquRnEAE?gsas=1&hl=it-IT&gl=it&ssta=1&q=beb+pizzo&ts=CAESCAoCCAMKAggDGhwSGhIUCgcI5w8QChgTEgcI5w8QChgUGAEyAhAAKgcKBToDRVVS&rp=EOzJ08WylqrkZxDXvPfM--PX55ABEKPmrJ3-uYj5JxCIwbDf2c-Fz8IBOAFAAEgCogEIUGl6em8gVlbAAQOaAgIIAA&ap=aAE&ictx=1
 			*/
-		
 
 			if(s !== undefined && s !== "" &&
 				!s.includes("support.google.com/websearch") &&
@@ -330,15 +328,10 @@ function OpenAllLinks(wait_time=10000, doc) {
 	}
 	
 	let opened_pages = [];
-	let currentWindow = window;
 	for (const link of uniqueLinks) {
 		let openWindow = window.open(link, '_blank');
 		opened_pages.push(openWindow);
 	}
-	
-	setTimeout(() => {
-		currentWindow.focus();
-	}, 1000);
 	
 	setTimeout(() => {
 		for (let win of opened_pages) {
@@ -1156,7 +1149,50 @@ if (type === "Experimental") {
 	testo="Review each snapshot and make a note of the Top 3 Prominent News Topics that are common between them.";
 	if(CheckTextOnDocument(document, testo)){
 		console.log("news and blogs found");
-		OpenAllLinks(wait_time_sec, document);
+
+		let allBlocks = document.getElementsByClassName("ewok-editor-editable-column");
+		let links = new Set();
+
+		for(let block of allBlocks) {
+			let html_block = block.querySelector("a");
+
+			if (!html_block) {
+				continue;
+			}
+			
+			let url = getUrlFromTag(html_block);
+
+			if (url && url!== ""){
+				s = DecodeStringUrl(url);
+				
+				if(s !== undefined && s !== "" &&
+					!s.includes("support.google.com/websearch") &&
+					!s.includes("google.it/travel") &&
+					!s.includes("google.it/searc") && 
+					s !== "www.google.it" ){
+					links.add(s);			
+				}
+			}
+		}
+		
+		let opened_pages = [];
+		for (const link of links) {
+			let openWindow = window.open(link, '_blank');
+			opened_pages.push(openWindow);
+		}
+		
+		setTimeout(() => {
+			for (let win of opened_pages) {
+				if(win !== null){
+					try {
+						win.close();
+					}catch(err) {
+						console.log(err);
+					}
+				}
+			}
+		}, wait_time);
+
 		set_all_radios(document, "1", false);
 		FillTextArea(document, "ProminentNews1", ["none"]);
 		FillTextArea(document, "ProminentNews2", ["none"]);
@@ -1164,13 +1200,12 @@ if (type === "Experimental") {
 
 		let list = [];
 		for (let i = 0; i < 2; i++) {
-			const randomElement = Math.random() < 0.5 ? ["80%", "4"] : ["60%", "3"];
+			const randomElement = Math.random() < 0.7 ? ["80%", "4"] : ["60%", "3"];
 			list.push(randomElement);
 			list.push(randomElement);
 		}
 		let d = document.getElementById("editable-59");
 		get_and_set_sliders(list, false, d);
-
 	}
 
 	/* PAGE QUALITY UO */
