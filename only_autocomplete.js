@@ -950,6 +950,59 @@ if (type === "Experimental") {
 		console.log("MACHINE GENERATED RESPONSES");
 		set_all_radios(document, "fully", true);
 		set_all_checkboxes(document, "none_sentence_html", false);
+
+		let table = document.getElementById("editable-45");
+		let cells = table.getElementsByClassName("borderless ewok-editor-editable-column");
+		for( let cell of cells){
+			let mark = cell.getElementsByTagName("mark")[0].innerText;
+			let el = cell.getElementsByClassName("ewok-buds-card")[0];
+			let evidence = el.innerText;
+			
+			console.log(mark);
+			console.log(evidence);
+			
+			let pattern = /\[\s*\d+\s*(,\s*\d+\s*)*\]/g;
+			markModified = mark.replace(pattern, '');
+			evidenceModified = evidence.replace(pattern, '');
+			
+			let maxSubstring = '';
+		
+			for (let i = 0; i < evidenceModified.length; i++) {
+				for (let j = i + 1; j <= markModified.length; j++) {
+					const substring = markModified.substring(i, j);
+					if (evidenceModified.includes(substring) && substring.length > maxSubstring.length) {
+						maxSubstring = substring;
+					}
+				}
+			}
+			
+			let index = evidence.indexOf(maxSubstring);
+			if (index !== -1) {
+				/* Create a new HTML span element to wrap the highlighted text */
+				let span = document.createElement('span');
+				span.style.backgroundColor = 'Cornsilk'; 
+				
+				/* Split the text content into parts before and after the substring */
+				let beforeText = evidence.substring(0, index);
+				let afterText = evidence.substring(index + maxSubstring.length);
+			
+				/* Create text nodes for the parts before and after the substring */
+				let textNodeBefore = document.createTextNode(beforeText);
+				let textNodeAfter = document.createTextNode(afterText);
+			
+				/* Create a text node for the highlighted substring */
+				let highlightedTextNode = document.createTextNode(maxSubstring);
+				span.appendChild(highlightedTextNode); 
+				
+				/* Clear the content of the original element */
+				el.innerHTML = '';
+			
+				/* Append text nodes and the span element back to the original element */
+				el.appendChild(textNodeBefore);
+				el.appendChild(span);
+				el.appendChild(textNodeAfter);
+			}
+		}
 	}
 
 	/* STALE URL */
