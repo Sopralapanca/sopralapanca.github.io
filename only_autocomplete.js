@@ -315,12 +315,16 @@ function OpenAllLinks(wait_time=10000, doc) {
 			https://www.google.it/travel/flights?sca_esv=573429464&quantum=noanimation&uuld=l+AjIBFAAAEVSQTA5AGgmiggRRQTqohE5YgU6URAUgIBLAfSQAfwAAAAAKmwEKDwgBEAMqBFJvbWWqAQI4ARICCA0SAggGEgIIFBICCAMSAggJGAEqbgoUChIJu46S-ZZhLxMROG5lkwZ3D7lfFvCor9UcN79RjAxAw0rXGxGKJRMRAIE4sppPCQM1ZTo15u4kExEphaPxZJBKbwPSjUSC_tQSEW9eYyRc9SziCo9AKgQVEgIIChICCBAYCQ&hl=it&gl=it&uitype=cuAA&curr=EUR&gsas=1&tfs=CAEQAhojEgoyMDIzLTEwLTIxagwIAhIIL20vMGZoc3pyBwgBEgNQTUkaIxIKMjAyMy0xMC0yOGoHCAESA1BNSXIMCAISCC9tLzBmaHN6emRDalJJTTBkbmRWaEhZMVJUYUZGQlNYcE5hMmRDUnkwdExTMHRMUzB0TFhCbWIyUXhPRUZCUVVGQlIxVnhaV2gzU0dadmFVbEJFZ0p1S2hvS0NNUXNFQUlhQTBWVlVqZ3djT2d1
 			http://www.google.it/search?absolute_url_host=https://www.google.com&ampcct=7&funbox_frozen_clock=1&korean_age_verification=0&optts=e:HighTrafficLaunches&q=prezzi+oro&quantum=noanimation&utm_campaign=nohsi&uuld=l+AhcBCACar6AegkC9NwACtADQLXQBAAAAAAosCgQIARBAEgIIChICCBASAggVGAEqFgoUChIJA9KNRIL-1BIRb15jJFz1LOIK4wEKLAgGEEpAWWABaANw04XhnuECigEYCgoNmMcSGhV9grYGEgoNZhkXGhWDfbwGEgIIDRICCBcSAggUEgIIARICCA8SAggGGAEqbgoUChIJrdbSgKZWKhMRAyrH7xd51ZMKFAoSCd9MpNOgVioTEdmXYIlopUW6ChQKEgljdr14oPgqExFggOTjkCwIAwp7NIAQUyvUEhGrWSBbusPGMgkKA0FEUxICCBpCHgocCEQaGAoKDZgYxCg&hl=it&gl=IT&host=www.google.it&ibp=oshop&prds=headlineOfferDocid:11835916127701566990,imageDocid:13197979411514268923,productid:11835916127701566990,pvt:hg
 			https://www.google.it/travel/hotels/Pizzo%20VV/entity/CgoI7MnTxbKWquRnEAE?gsas=1&hl=it-IT&gl=it&ssta=1&q=beb+pizzo&ts=CAESCAoCCAMKAggDGhwSGhIUCgcI5w8QChgTEgcI5w8QChgUGAEyAhAAKgcKBToDRVVS&rp=EOzJ08WylqrkZxDXvPfM--PX55ABEKPmrJ3-uYj5JxCIwbDf2c-Fz8IBOAFAAEgCogEIUGl6em8gVlbAAQOaAgIIAA&ap=aAE&ictx=1
+			http://www.google.com/search?q=Antica%20Bottega%20Del%20Santuario&ludocid=13348062662273639522&ibp=gwp;0,7
 			*/
+
+			console.log(s);
 
 			if(s !== undefined && s !== "" &&
 				!s.includes("support.google.com/websearch") &&
 				!s.includes("google.it/travel") &&
-				!s.includes("google.it/searc") && 
+				!s.includes("google.it/search") &&
+				!s.includes("google.com/search") && 
 				s !== "www.google.it" ){
 				uniqueLinks.add(s);			
 			}
