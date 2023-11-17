@@ -620,7 +620,8 @@ if (type === "Side By Side") {
 	/* SXS VIEWPORT */
 	testo = "The viewport, that is the map that the user was viewing prior to issuing the query (represented by a red rectangle on the Map).";
 	testo2 = "In this task, you will be presented with a query made while the user is walking from one location to another";
-	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo2)) {
+	testo3 = "In this task, you will be presented with a query made while the user is driving from one location to another.";
+	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo2) || CheckTextOnDocument(document, testo3)) {
 		console.log("SXS VIEWPORT or SXS NAVIGATIONAL found");
 		let list = [["80%", "4"], ["80%", "4"]];
 		get_and_set_sliders(list, false, document);
