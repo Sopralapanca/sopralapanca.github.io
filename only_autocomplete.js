@@ -297,7 +297,12 @@ function OpenAllLinks(wait_time=10000, doc) {
 			continue;
 		}
 		
-		let html_block = block.querySelector(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref]");
+		let blocks = block.querySelectorAll(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref]");
+		if (blocks.length === 4){
+			continue;
+		}	
+
+		let html_block = blocks[0];
 
 		if (!html_block) {
 			continue;
@@ -319,7 +324,7 @@ function OpenAllLinks(wait_time=10000, doc) {
 			https://www.google.it/travel/hotels/Pizzo%20VV/entity/CgoI7MnTxbKWquRnEAE?gsas=1&hl=it-IT&gl=it&ssta=1&q=beb+pizzo&ts=CAESCAoCCAMKAggDGhwSGhIUCgcI5w8QChgTEgcI5w8QChgUGAEyAhAAKgcKBToDRVVS&rp=EOzJ08WylqrkZxDXvPfM--PX55ABEKPmrJ3-uYj5JxCIwbDf2c-Fz8IBOAFAAEgCogEIUGl6em8gVlbAAQOaAgIIAA&ap=aAE&ictx=1
 			http://www.google.com/search?q=Antica%20Bottega%20Del%20Santuario&ludocid=13348062662273639522&ibp=gwp;0,7
 			*/
-			
+
 			if(s !== undefined && s !== "" &&
 				!s.includes("support.google.com/websearch") &&
 				!s.includes("google.it/travel") &&
@@ -565,6 +570,7 @@ if (type === "Side By Side") {
 		let block = document.getElementsByClassName("ewok-buds")[0];
 		get_and_set_sliders(list, true, block);
 		OpenAllLinks(wait_time_sec, block);
+		set_all_radios(document, "broad");
 		set_all_radios(document, "AboutTheSameAs");
 	} 
 	/* NEXT STEP SXS */
