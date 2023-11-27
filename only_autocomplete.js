@@ -58,15 +58,18 @@ function get_and_set_sliders(list, setPagePosition=false, d=undefined){
 		}
 
 		
-		setTimeout(function(){}, 2000);
-		for(let s=0; s<sliders.length; s++){
-			let hiddenField = sliders[s].querySelectorAll('input[type="hidden"].evl-slider2-value-field');
-			for(let h of hiddenField) {
-				if(h.value==="0"){
-					h.value=list[s][1];
+		setTimeout(function(){
+			for(let s=0; s<sliders.length; s++){
+				let hiddenField = sliders[s].querySelectorAll('input[type="hidden"].evl-slider2-value-field');
+				for(let h of hiddenField) {
+					console.log(h);
+					if(h.value==="0"){
+						h.value=list[s][1];
+					}
 				}
 			}
-		}
+		}, 2000);
+		
 	}
 
 }
