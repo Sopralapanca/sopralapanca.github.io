@@ -1050,7 +1050,7 @@ if (type === "Experimental") {
 		let el = document.getElementsByClassName("with-first-row-headers ewok-editor-editable-columngroup")[0];
 		OpenAllLinks(wait_time_sec, el);
 		let list = [["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"], ["75%", "2"],];
-		get_and_set_sliders(list);
+		get_and_set_sliders(list, true, el);
 	}
 
 	/* SHORT DESCRIPTION */
