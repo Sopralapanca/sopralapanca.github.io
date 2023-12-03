@@ -545,6 +545,45 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 
 if (type === "Side By Side") {
 
+	/* SERP */
+	testo = "In this task, you will be asked to evaluate two mobile Search Engine Result Pages (SERPs), arranged side by side. Each side will be truncated at a certain point, and your evaluation should be based only on what is visible in the task";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("SERP FOUND");
+		set_all_radios(document, "0");
+		let comments = [
+			"The query might be about ",
+			"This query can talk about ",
+			"The entity might be about "
+		]
+		FillTextArea(document, "queryinterpretationexplanation", comments);
+
+		var divElement = document.getElementById('editable-2038');
+		var divText = divElement.textContent;
+
+		var query = divElement.innerText;
+		
+		var pattern = /\[(.*?)\]/;
+
+		
+		var matches = query.match(pattern);
+
+		if (matches) {
+			var searchText = matches[1];
+
+			var link = document.createElement('a');
+			link.href = 'https://www.google.com/search?q=' + searchText;
+			link.target = '_blank';
+			link.textContent = 'open';
+
+			divElement.textContent = divText.replace(pattern, '[' + searchText + '] ');
+			divElement.appendChild(link);
+		}
+
+		set_all_radios(document, "AboutTheSameAs");
+		
+	}
+
+
 	/* SXS FOLLOW-UP */
 	testo = "In this task, you will be shown an original query and some Follow-Up queries. Please follow the steps listed below.";
 	if (CheckTextOnDocument(document, testo)) {
