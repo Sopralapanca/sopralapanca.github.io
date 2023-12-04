@@ -857,7 +857,14 @@ if (type === "Side By Side") {
 
 let lastCheckBox;
 if (type === "Experimental") {
+	/* UO REFINEMENT */
+	testo="For each refinement, answer a series of questions about whether the following issues apply to the Topic and refinement pair.  Note that a refinement simply being off-topic or unhelpful is not, by itself, evidence of any of these issues.";
+	if(CheckTextOnDocument(document, testo)){
+		console.log("UO REFINEMENT");
+		set_all_radios(document, "0", true);
+	}
 
+	
 	/* HEALTH AND FITNESS */
 	testo = "Using your best judgment based on viewing the video snapshot, please evaluate if the main topic of the video is likely to be 'Health and/or Fitness.'";
 	if(CheckTextOnDocument(document, testo)){
