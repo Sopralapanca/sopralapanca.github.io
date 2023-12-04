@@ -10,6 +10,14 @@ javascript: (function() {
 			document.getElementsByTagName('head')[0].appendChild(e);
 		}
 	};
+	
+	
+	function createNotification() {
+		var notification = new Notification("Yukon Bot", {
+			body: "Task Completed!"
+		});
+	
+	}  
 
 	/* link to incluce in the bookmarklet creation for the sound */
 	/* https://cdn.jsdelivr.net/npm/easytimer@1.1.1/src/easytimer.min.js  */
@@ -96,45 +104,19 @@ javascript: (function() {
 			$('#countdown .values').html('Off we go...!!');
 			soundalert.play();
 			setTimeout(function(){ 
+				if (!("Notification" in window)) {
+					alert("This browser does not support system notifications");
+				} else if (Notification.permission === "granted") {
+					createNotification();
+				} else if (Notification.permission !== "denied") {
+					Notification.requestPermission().then(function (permission) {
+						if (permission === "granted") {
+							createNotification();
+						}
+					});
+				}
 				$('#ewok-task-submit-button').trigger('click'); 
 			}, delaySubmit);
-		});
-		
-		$('#countdown .startButton').click(function () {
-			timer.start({countdown:true, startValues: {seconds: AETsec - delayTimer}});
-		});
-		
-		$('#countdown .stopButton').click(function () {
-			timer.stop();
-		});
-
-		$('#countdown .ToIndex').click(function () {
-			$('#countdown .statusofautosubmit').html('Submit and Return to Index set.');
-			timer.removeEventListener('targetAchieved', function(e){});
-			timer.addEventListener('targetAchieved', function (e) {
-				$('#countdown .values').html('Off we go...!!');
-				soundalert.play();
-				setTimeout(function(){ 
-					$('#ewok-task-submit-done-button').trigger('click'); 
-				}, delaySubmit);
-    
-				localStorage.setItem('SubmitToIndex',1);
-				localStorage.setItem('AutosubmitNextTask',0);
-			});
-		});
-
-
-
-		$('#countdown .NextTask').click(function () {
-			$('#countdown .statusofautosubmit').html('Submit and Acquire Next Task set.');
-			timer.removeEventListener('targetAchieved', function(e){});
-			timer.addEventListener('targetAchieved', function (e) {
-				$('#countdown .values').html('Off we go...!!');
-				soundalert.play();
-				setTimeout(function(){ $('#ewok-task-submit-button').trigger('click'); }, delaySubmit);	
-				localStorage.setItem('SubmitToIndex',0);
-				localStorage.setItem('AutosubmitNextTask',1); 
-			});
 		});
 	}
 
