@@ -564,7 +564,6 @@ if (type === "Side By Side") {
 		
 		var pattern = /\[(.*?)\]/;
 
-		
 		var matches = query.match(pattern);
 
 		if (matches) {
@@ -857,6 +856,45 @@ if (type === "Side By Side") {
 
 let lastCheckBox;
 if (type === "Experimental") {
+
+	/* SUBTOPICS */
+	testo = "In this task, you will be asked to evaluate two list of subtopics with respect to the original query. Your first job is to understand the original query and rate whether it has a clear topic.";
+	if (CheckTextOnDocument(document, testo)) {
+		console.log("SUBTOPICS FOUND");
+		set_all_radios(document, "0");
+		let comments = [
+			"The query might be about ",
+			"This query can talk about ",
+			"The entity might be about "
+		]
+
+		FillTextArea(document, "queryinterpretationexplanation", comments);
+
+		var divElement = document.getElementById('editable-2038');
+		var divText = divElement.textContent;
+
+		var query = divElement.innerText;
+		
+		var pattern = /\[(.*?)\]/;
+
+		var matches = query.match(pattern);
+
+		if (matches) {
+			var searchText = matches[1];
+
+			var link = document.createElement('a');
+			link.href = 'https://www.google.com/search?q=' + searchText;
+			link.target = '_blank';
+			link.textContent = 'open';
+
+			divElement.textContent = divText.replace(pattern, '[' + searchText + '] ');
+			divElement.appendChild(link);
+		}
+
+		set_all_radios(document, "not_important_subtopic", false);
+	}
+
+
 	/* UO REFINEMENT */
 	testo="For each refinement, answer a series of questions about whether the following issues apply to the Topic and refinement pair.  Note that a refinement simply being off-topic or unhelpful is not, by itself, evidence of any of these issues.";
 	if(CheckTextOnDocument(document, testo)){
