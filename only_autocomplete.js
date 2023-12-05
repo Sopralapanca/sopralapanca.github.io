@@ -815,7 +815,8 @@ if (type === "Side By Side") {
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("Snippet SXS found");
 		let list = [["60%", "2"],["80%", "3"]];
-		get_and_set_sliders(list, true);
+		let el = document.getElementById("editable-5");;
+		get_and_set_sliders(list, true, el);
 		set_all_radios(document, "AboutTheSameAs");
 	}
 
@@ -839,13 +840,13 @@ if (type === "Side By Side") {
 
 	/* WEB SXS */
 
-	/* rifare web sxs */
+	/* rifare web sxs vanno in conflitto con snippet sxs */
 	testo2 = 'Instructions\n' +
 		'\n' +
 		'IMPORTANT (PLEASE READ): For the purposes of this task, please assume the query was issued on a desktop computer.\n' +
 		'\n' +
 		'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results.';
-	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo1) || CheckTextOnDocument(document, testo2)) {
+	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo1)) {
 		console.log("local sxs hotel, web sxs or local viewport found");
 		/*let list = [["80%", "4"],["80%", "4"]];
 		open_links_set_sliders_set_radios(document, list, "AboutTheSameAs", true);*/
