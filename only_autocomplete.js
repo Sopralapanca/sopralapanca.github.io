@@ -509,7 +509,14 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 	if(CheckTextOnDocument(document, testo)){
 		console.log('audio natural sentences found');
 		PlayAudio(document, "task_clip_speech");
-		set_all_radios(document, "Good");
+		let n = Math.random();
+		if (n < 0.50) {
+			set_all_radios(document, "Good");
+		}else if (n >=  0.50 && n < 0.70){
+			set_all_radios(r, "VeryGood"); 
+		}else {
+			set_all_radios(document, "SomewhatGood");
+		}
 	}else if(CheckTextOnDocument(document, testo3)){
 		console.log('native speaker speech sample');
 		PlayAudio(document, "", false, true);
