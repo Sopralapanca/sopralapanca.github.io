@@ -1049,54 +1049,56 @@ if (type === "Experimental") {
 
 		let table = document.getElementById("editable-45");
 		let cells = table.getElementsByClassName("borderless ewok-editor-editable-column");
+		let pattern = /\[\s*\d+\s*(,\s*\d+\s*)*\]/g;		
 		for( let cell of cells){
-			let mark = cell.getElementsByTagName("mark")[0].innerText;
 			let el = cell.getElementsByClassName("ewok-buds-card")[0];
 			let evidence = el.innerText;
-			
-			console.log(mark);
-			console.log(evidence);
-			
-			let pattern = /\[\s*\d+\s*(,\s*\d+\s*)*\]/g;
-			markModified = mark.replace(pattern, '');
-			evidenceModified = evidence.replace(pattern, '');
-			
-			let maxSubstring = '';
 		
-			for (let i = 0; i < evidenceModified.length; i++) {
-				for (let j = i + 1; j <= markModified.length; j++) {
-					const substring = markModified.substring(i, j);
-					if (evidenceModified.includes(substring) && substring.length > maxSubstring.length) {
-						maxSubstring = substring;
+			let marks = cell.getElementsByTagName("mark");
+			for(let mark of marks){
+				mark = mark.innerText;
+				markModified = mark.replace(pattern, '').replace(/\*/g, '');
+				
+				let markwords = markModified.split(/\s+/);
+				let sub_found = false;
+				for (let length = markwords.length; length >= 3; length--) {
+					for (let start = 0; start <= markwords.length - length; start++) {
+						let substring = markwords.slice(start, start + length).join(' ');
+						let index = evidence.indexOf(substring);
+						if (index !== -1) {
+							/* Create a new HTML span element to wrap the highlighted text */
+							let span = document.createElement('span');
+							span.style.backgroundColor = 'Cornsilk'; 
+							
+							/* Split the text content into parts before and after the substring */
+							let beforeText = evidence.substring(0, index);
+							let afterText = evidence.substring(index + substring.length);
+						
+							/* Create text nodes for the parts before and after the substring */
+							let textNodeBefore = document.createTextNode(beforeText);
+							let textNodeAfter = document.createTextNode(afterText);
+						
+							/* Create a text node for the highlighted substring */
+							let highlightedTextNode = document.createTextNode(substring);
+							span.appendChild(highlightedTextNode); 
+							
+							/* Clear the content of the original element */
+							el.innerHTML = '';
+						
+							/* Append text nodes and the span element back to the original element */
+							el.appendChild(textNodeBefore);
+							el.appendChild(span);
+							el.appendChild(textNodeAfter);
+
+							el = cell.getElementsByClassName("ewok-buds-card")[0];
+							evidence = el.innerText;
+
+							sub_found = true;
+							break;
+						}
 					}
+					if(sub_found) break;
 				}
-			}
-			
-			let index = evidence.indexOf(maxSubstring);
-			if (index !== -1) {
-				/* Create a new HTML span element to wrap the highlighted text */
-				let span = document.createElement('span');
-				span.style.backgroundColor = 'Cornsilk'; 
-				
-				/* Split the text content into parts before and after the substring */
-				let beforeText = evidence.substring(0, index);
-				let afterText = evidence.substring(index + maxSubstring.length);
-			
-				/* Create text nodes for the parts before and after the substring */
-				let textNodeBefore = document.createTextNode(beforeText);
-				let textNodeAfter = document.createTextNode(afterText);
-			
-				/* Create a text node for the highlighted substring */
-				let highlightedTextNode = document.createTextNode(maxSubstring);
-				span.appendChild(highlightedTextNode); 
-				
-				/* Clear the content of the original element */
-				el.innerHTML = '';
-			
-				/* Append text nodes and the span element back to the original element */
-				el.appendChild(textNodeBefore);
-				el.appendChild(span);
-				el.appendChild(textNodeAfter);
 			}
 		}
 	}
