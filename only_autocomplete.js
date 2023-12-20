@@ -1342,7 +1342,7 @@ if (type === "Experimental") {
 					}
 				}
 			}
-		}, wait_time);
+		}, wait_time_sec);
 
 		set_all_radios(document, "1", false);
 		FillTextArea(document, "ProminentNews1", ["none"]);
