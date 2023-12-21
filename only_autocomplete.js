@@ -417,6 +417,18 @@ function FillTextArea(element, field_name, comments=list_of_comments){
 	return true;
 }
 
+function playNextAudio(audio_clips, currentIndex) {
+    if(audio_clips[currentIndex] !== 'undefined'){    
+        audio_clips[currentIndex].volume = 0.1;
+        audio_clips[currentIndex].addEventListener('ended', () => {
+            currentIndex++;
+            playNextAudio(audio_clips, currentIndex);
+        });
+
+        audio_clips[currentIndex].play();
+	}
+}
+
 function PlayAudio(element, field_name="", play_twice=false, setPagePosition=false){
 	let audio_clips
         if(field_name!==""){
@@ -431,10 +443,7 @@ function PlayAudio(element, field_name="", play_twice=false, setPagePosition=fal
 		}
 	}	
 	
-	for(let i = 0; i<audio_clips.length; i++){
-		audio_clips[i].play();
-		audio_clips[i].volume = 0.1;
-	}
+	playNextAudio(audio_clips, 0);
 
 	if(play_twice){
 		setTimeout(function(){
