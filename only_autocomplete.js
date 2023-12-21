@@ -533,7 +533,12 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 		console.log('audio speech samples sxs found');
 		block = document.getElementById("editable-1072");
 		PlayAudio(block, "editable-", play_twice=false);
-		set_all_radios(document, "AboutTheSameAs");
+		let randomValue = Math.random();
+		if (randomValue < 0.7){
+			set_all_radios(document, "BetterThan");
+		}else{
+			set_all_radios(document, "WorseThan");	
+		}
 	} else{
 		console.log("headphones similar");
 		radiosClick(document, "headphones");
