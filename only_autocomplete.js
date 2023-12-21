@@ -73,16 +73,24 @@ function get_and_set_sliders(list, setPagePosition=false, d=undefined){
 
 }
 
-function set_all_radios(block, value, setPagePosition=false){
-	let radios = block.querySelectorAll('input[type="radio"]');
+function set_all_radios(block, value, setPagePosition=false, alternative=""){
+	let radios = block.querySelectorAll('input[type="radio"][value='+value+']')
 	if(setPagePosition) {
 		radios[0].scrollIntoView();
 	}
+	let alternativeRadios = null;
+	if(alternative!==""){
+		alternativeRadios = block.querySelectorAll('input[type="radio"][value='+alternative+']')
+	}
 
-
+	
 	for(let j = 0; j<radios.length; j++){
-		if(radios[j].value===value){
-			radios[j].click();
+		radios[j].click();
+		if(alternative!==""){
+			let n = Math.random();
+			if(n >= 0.65){
+				alternativeRadios[j].click();
+			}
 		}
 	}
 }
@@ -509,7 +517,7 @@ if (type === "Experimental" && (additional === "Headphones or Speakers Required"
 	if(CheckTextOnDocument(document, testo)){
 		console.log('audio natural sentences found');
 		PlayAudio(document, "task_clip_speech");
-		set_all_radios(document, "Good", true);
+		set_all_radios(document, "Good", true, "VeryGood");
 	}else if(CheckTextOnDocument(document, testo3)){
 		console.log('native speaker speech sample');
 		PlayAudio(document, "", false, true);
