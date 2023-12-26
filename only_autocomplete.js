@@ -855,23 +855,16 @@ if (type === "Side By Side") {
 	}
 
 	/* SXS LOCAL HOTEL */
-	teso = "This is a hotel search task. Please assume that the user issuing the query wants to travel and potentially book a hotel from a list of hotels.";
+	testo = "This is a hotel search task. Please assume that the user issuing the query wants to travel and potentially book a hotel from a list of hotels.";
 	/* SXS LOCAL VIEWPORT*/
 	testo1 = "Understand the user's intent by considering the query in the context of the area of interest, which may be determined by the following:\n" +
 		"Some location mentioned in the query text itself.";
 
-	/* WEB SXS */
-
-	/* rifare web sxs vanno in conflitto con snippet sxs */
-	testo2 = 'Instructions\n' +
-		'\n' +
-		'IMPORTANT (PLEASE READ): For the purposes of this task, please assume the query was issued on a desktop computer.\n' +
-		'\n' +
-		'Please refer to the General Guidelines and Side-by-Side Rating Guidelines for instructions on how to rate these results.';
+	/* WEB SXS rifare web sxs vanno in conflitto con snippet sxs */
 	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo1)) {
 		console.log("local sxs hotel, web sxs or local viewport found");
-		/*let list = [["80%", "4"],["80%", "4"]];
-		open_links_set_sliders_set_radios(document, list, "AboutTheSameAs", true);*/
+		let list = [["80%", "4"],["80%", "4"]];
+		open_links_set_sliders_set_radios(document, list, "AboutTheSameAs", true);
 	}
 
 	console.log("done");
