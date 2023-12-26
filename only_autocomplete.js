@@ -437,21 +437,24 @@ function PlayAudio(element, field_name="", play_twice=false, setPagePosition=fal
             audio_clips = element.getElementsByTagName('audio');
         }
 	
-	if(setPagePosition){
-		if (typeof audio_clips[0] !== 'undefined') {
-			audio_clips[0].scrollIntoView();
-		}
-	}	
-	
-	playNextAudio(audio_clips, 0);
 
-	if(play_twice){
-		setTimeout(function(){
-				for(let i = 0; i<audio_clips.length; i++){
-					audio_clips[i].play();
-					audio_clips[i].volume = 0.1;
-				}
-			},30000+(Math.round(Math.random()*2000)));
+	if(audio_clips.length > 0){
+		if(setPagePosition){
+			if (typeof audio_clips[0] !== 'undefined') {
+				audio_clips[0].scrollIntoView();
+			}
+		}	
+		
+		playNextAudio(audio_clips, 0);
+	
+		if(play_twice){
+			setTimeout(function(){
+					for(let i = 0; i<audio_clips.length; i++){
+						audio_clips[i].play();
+						audio_clips[i].volume = 0.1;
+					}
+				},30000+(Math.round(Math.random()*2000)));
+		}
 	}
 }
 
