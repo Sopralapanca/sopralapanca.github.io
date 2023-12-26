@@ -332,7 +332,7 @@ function OpenAllLinks(wait_time=10000, doc) {
 			https://www.google.it/travel/hotels/Pizzo%20VV/entity/CgoI7MnTxbKWquRnEAE?gsas=1&hl=it-IT&gl=it&ssta=1&q=beb+pizzo&ts=CAESCAoCCAMKAggDGhwSGhIUCgcI5w8QChgTEgcI5w8QChgUGAEyAhAAKgcKBToDRVVS&rp=EOzJ08WylqrkZxDXvPfM--PX55ABEKPmrJ3-uYj5JxCIwbDf2c-Fz8IBOAFAAEgCogEIUGl6em8gVlbAAQOaAgIIAA&ap=aAE&ictx=1
 			http://www.google.com/search?q=Antica%20Bottega%20Del%20Santuario&ludocid=13348062662273639522&ibp=gwp;0,7
 			*/
-			
+
 			if(s !== undefined && s !== "" &&
 				!s.includes("support.google.com/websearch") &&
 				!s.includes("google.it/travel") &&
@@ -419,7 +419,7 @@ function FillTextArea(element, field_name, comments=list_of_comments){
 }
 
 function playNextAudio(audio_clips, currentIndex) {
-    if(audio_clips[currentIndex] !== 'undefined'){    
+    if(audio_clips[currentIndex] !== undefined){    
         audio_clips[currentIndex].volume = 0.1;
         audio_clips[currentIndex].addEventListener('ended', () => {
             currentIndex++;
