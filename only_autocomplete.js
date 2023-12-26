@@ -317,7 +317,7 @@ function OpenAllLinks(wait_time=10000, doc) {
 		}
 		
 		let url = getUrlFromTag(html_block);
-
+		
 		if (url && url!== ""){
 			s = DecodeStringUrl(url);
 			
@@ -332,12 +332,13 @@ function OpenAllLinks(wait_time=10000, doc) {
 			https://www.google.it/travel/hotels/Pizzo%20VV/entity/CgoI7MnTxbKWquRnEAE?gsas=1&hl=it-IT&gl=it&ssta=1&q=beb+pizzo&ts=CAESCAoCCAMKAggDGhwSGhIUCgcI5w8QChgTEgcI5w8QChgUGAEyAhAAKgcKBToDRVVS&rp=EOzJ08WylqrkZxDXvPfM--PX55ABEKPmrJ3-uYj5JxCIwbDf2c-Fz8IBOAFAAEgCogEIUGl6em8gVlbAAQOaAgIIAA&ap=aAE&ictx=1
 			http://www.google.com/search?q=Antica%20Bottega%20Del%20Santuario&ludocid=13348062662273639522&ibp=gwp;0,7
 			*/
-
+			
 			if(s !== undefined && s !== "" &&
 				!s.includes("support.google.com/websearch") &&
 				!s.includes("google.it/travel") &&
 				!s.includes("google.it/search") &&
-				!s.includes("google.com/search") && 
+				!s.includes("google.com/search") &&
+				!s.includes("https://www.google.com/intl/it-IT_IT/help/terms_maps.html") && 
 				s !== "www.google.it" ){
 				uniqueLinks.add(s);			
 			}
