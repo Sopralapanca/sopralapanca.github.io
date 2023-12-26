@@ -74,13 +74,13 @@ function get_and_set_sliders(list, setPagePosition=false, d=undefined){
 }
 
 function set_all_radios(block, value, setPagePosition=false, alternative=""){
-	let radios = block.querySelectorAll('input[type="radio"][value='+value+']')
+	let radios = block.querySelectorAll('input[type="radio"][value=\''+value+'\']');
 	if(setPagePosition) {
 		radios[0].scrollIntoView();
 	}
 	let alternativeRadios = null;
 	if(alternative!==""){
-		alternativeRadios = block.querySelectorAll('input[type="radio"][value='+alternative+']')
+		alternativeRadios = block.querySelectorAll('input[type="radio"][value='+alternative+']');
 	}
 
 	
