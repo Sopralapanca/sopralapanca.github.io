@@ -1480,7 +1480,41 @@ if (type === "Experimental") {
 	testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("other uo found");
-		set_all_checkboxes(document, "Category_None", true);
+
+		document.getElementById("editable-85").scrollIntoView();
+		let queryDiv = document.getElementById("editable-371");
+
+		let table = document.getElementById("editable-86");
+		let queriesSpan = table.getElementsByClassName("ewok-buds-query ewok-task-query");
+
+		let newTextDiv = document.createElement('div');
+		newTextDiv.style.position = 'fixed';
+		newTextDiv.style.top = '0';
+		newTextDiv.style.left = '0';
+		newTextDiv.style.backgroundColor = '#ffffff';
+		newTextDiv.style.padding = '10px';
+		newTextDiv.style.zIndex = '999';
+		let ul = document.createElement('ul');
+		
+		for (let el of queriesSpan) {
+			let text = el.innerText;
+			let anchor = document.createElement('a');
+				anchor.href = `#${text}`;
+				anchor.textContent = text;
+				anchor.onclick = function () {
+					el.scrollIntoView({ behavior: 'smooth' });
+				};
+
+				let li = document.createElement('li');
+				li.appendChild(anchor);
+				
+				ul.appendChild(li);
+		}
+
+		newTextDiv.appendChild(ul);
+		queryDiv.appendChild(newTextDiv);
+
+		set_all_checkboxes(document, "Category_None");
 		set_all_radios(document, "0");
 	}
 
