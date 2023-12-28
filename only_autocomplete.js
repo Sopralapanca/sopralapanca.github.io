@@ -1514,7 +1514,7 @@ if (type === "Experimental") {
 		newTextDiv.appendChild(ul);
 		queryDiv.appendChild(newTextDiv);
 
-		set_all_checkboxes(document, "Category_None");
+		set_all_checkboxes(document, "Category_None", false);
 		set_all_radios(document, "0");
 	}
 
