@@ -5,20 +5,20 @@ This project contains a series of bookmarklet scripts that can be used on the Yu
 Note: These are not official scripts, use them at your own risk. Although these scripts allow you to automate a number of repetitive tasks, always check your work to perform at your best and avoid quality audits.
 
 
-## What's new
-
-We will provide a brief summary of the newly added features:
-
-* Refresh Page & Auto-Acquire new tasks
-* Autocomplete & autosubmit tasks
-
-
 ## What it includes
 
 This is the list of all the available scripts:
 
 1. Refresh Page and Auto-Acquire new tasks
 2. Autocomplete & autosubmit tasks
+3. Vertical Alignment of the sides
+
+## Donation
+If you would like to support the work, please consider a donation by clicking the button below. Your help is really important to us and motivates us to continue the work. If you want to be included in the list of donators who supports the projects, please leave a nickname as a message when donating.
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://bit.ly/scriptdonations) [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/sopralapanca)
+
+List of donators:
 
 ## Run the scripts
 
@@ -66,15 +66,14 @@ This script in particular:
 * Set some checkboxes and radio buttons in the most common way,
 * Opens some links in the browser although it is **STRONGLY RECOMMENDED TO OPEN THE LINKS FROM THE PHONE** to give the best possible rating and avoid mismatches between web and mobile version of the page.
 
-## Donation
-If you would like to support the work, please consider a donation by clicking the button below. Your help is really important to us and motivates us to continue the work. If you want to be included in the list of donators who supports the projects, please leave a nickname as a message when donating.
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://bit.ly/scriptdonations) [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/sopralapanca)
+## What's new
 
-List of donators:
-* MoonShadow
-* StarGazer
-* ThunderStrike
+We will provide a brief summary of the newly added features:
+
+* Refresh Page & Auto-Acquire new tasks
+* Autocomplete & autosubmit tasks
+* Vertical alignment
 
 ## Search for contributors
 Unfortunately, the development of this script takes a long time since it has to be tested for each new task that is inserted, and since I am not a pro developer with javascript. Anyone who wants to help with the development is welcome and for any information you can contact me at email giacomo__95@hotmail.it
