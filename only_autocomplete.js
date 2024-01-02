@@ -1480,6 +1480,10 @@ if (type === "Experimental") {
 	testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("other uo found");
+		let el = document.getElementsByClassName("ewok-buds");
+		for(let e of el){
+			e.style.width='400px';
+		}
 
 		document.getElementById("editable-85").scrollIntoView();
 		let queryDiv = document.getElementById("editable-371");
