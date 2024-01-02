@@ -32,7 +32,7 @@ Then to create a bookmarklet go to this page [MrColes](https://mrcoles.com/bookm
 <img src="imgs/bookmarklet_screenshot.png" height="250" />
 </p>
 
-In "Enter your javascript code here:" just copy & paste one of the script provided in these files:
+In "Enter your javascript code here:" you need to insert the javascript code, so open one of the files below and just copy & paste one of the script provided on MrColes website:
 * [refresh_bookmarklet.js](https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/refresh_bookmarklet.js) 
 * [autocomplete_bookmarklet.js](https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/autocomplete_bookmarklet.js)
 * [vertical_alignment_bookmarklet.js](https://github.com/Sopralapanca/sopralapanca.github.io/blob/master/vertical_alignment_bookmarklet.js)
