@@ -68,12 +68,8 @@ This script in particular:
 * Set some checkboxes and radio buttons in the most common way,
 * Opens some links in the browser although it is **STRONGLY RECOMMENDED TO OPEN THE LINKS FROM THE PHONE** to give the best possible rating and avoid mismatches between web and mobile version of the page.
 
-### Autocomplete and Autosubmit
-Once you have acquired the task, you can use this script to automate the sending of the task when time runs out and to autocomplete certain tasks.
-This script in particular:
-* Set tasks with sliders to a specific default value,
-* Set some checkboxes and radio buttons in the most common way,
-* Opens some links in the browser although it is **STRONGLY RECOMMENDED TO OPEN THE LINKS FROM THE PHONE** to give the best possible rating and avoid mismatches between web and mobile version of the page.
+### Vertical Alignment
+For side by side tasks, this script will put right side just under the left side. This is optimal for people that uses vertical monitor.
 
 ## What's new
 
