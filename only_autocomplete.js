@@ -1063,10 +1063,11 @@ if (type === "Experimental") {
 	testo = "In this task, you will be provided with a long Machine-Generated Response to a user’s question(s) along with several Target Sentences and their cited Evidence. The Target Sentences should be based on information found within the cited Evidence, however it will often either misrepresent the information or will provide additional information not found in the Evidence.";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("MACHINE GENERATED RESPONSES");
-		set_all_radios(document, "fully", true);
+		set_all_radios(document, "fully", false);
 		set_all_checkboxes(document, "none_sentence_html", false);
 
 		let table = document.getElementById("editable-45");
+		table.scrollIntoView();
 		let cells = table.getElementsByClassName("borderless ewok-editor-editable-column");
 		let pattern = /\[\s*\d+\s*(,\s*\d+\s*)*\]/g;		
 		for( let cell of cells){
