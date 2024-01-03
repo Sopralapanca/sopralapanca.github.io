@@ -1087,7 +1087,8 @@ if (type === "Experimental") {
 						if (index !== -1) {
 							/* Create a new HTML span element to wrap the highlighted text */
 							let span = document.createElement('span');
-							span.style.backgroundColor = 'Cornsilk'; 
+							span.style.backgroundColor = 'PaleGreen';
+							span.style.color = 'navy';
 							
 							/* Split the text content into parts before and after the substring */
 							let beforeText = evidence.substring(0, index);
