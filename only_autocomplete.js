@@ -677,8 +677,6 @@ if (type === "Side By Side") {
 		let second_r = document.getElementById("editable-2033_copy5");
 		setSliders(second_r, "83.3333%", "4");
 
-		set_all_radios(document, "AboutTheSameAs");
-
 	}
 
 
