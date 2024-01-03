@@ -677,15 +677,6 @@ if (type === "Side By Side") {
 		let second_r = document.getElementById("editable-2033_copy5");
 		setSliders(second_r, "83.3333%", "4");
 
-
-		let comments = [
-			"The AI-generated content proves highly beneficial for all parties involved, offering identical information on both ends.",
-			"The text produced by the machine is extremely advantageous for both sides, presenting identical information.",
-			"From both perspectives, the machine-generated text is incredibly useful and imparts the same information.",
-			"The information provided by the AI-generated text is equally valuable on either side, proving its usefulness.",
-			"On both sides, the machine-generated text is exceptionally helpful and imparts the same information effectively.",
-			"The utility of the machine-generated content is evident on both sides, delivering identical information seamlessly."]
-		FillTextArea(document, "comment", comments);
 		set_all_radios(document, "AboutTheSameAs");
 
 	}
