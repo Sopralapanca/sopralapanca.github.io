@@ -301,14 +301,12 @@ function OpenAllLinks(wait_time=10000, doc) {
 	const uniqueLinks = new Set();
 
 	for(let block of allBlocks) {
+	
 		if (String(block.innerText).includes("No Rating Required")) {
 			continue;
 		}
 		
 		let blocks = block.querySelectorAll(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref]");
-		if (blocks.length === 4){
-			continue;
-		}	
 
 		let html_block = blocks[0];
 
@@ -340,7 +338,7 @@ function OpenAllLinks(wait_time=10000, doc) {
 				!s.includes("google.com/search") &&
 				!s.includes("https://www.google.com/intl/it-IT_IT/help/terms_maps.html") && 
 				s !== "www.google.it" ){
-				uniqueLinks.add(s);			
+					uniqueLinks.add(s);			
 			}
 		}
 	}
