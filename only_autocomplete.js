@@ -301,14 +301,12 @@ function OpenAllLinks(wait_time=10000, doc) {
 	const uniqueLinks = new Set();
 
 	for(let block of allBlocks) {
+	
 		if (String(block.innerText).includes("No Rating Required")) {
 			continue;
 		}
 		
 		let blocks = block.querySelectorAll(".ewok-buds-result-html a, .wrap-long-url a, a[data-oldhref]");
-		if (blocks.length === 4){
-			continue;
-		}	
 
 		let html_block = blocks[0];
 
@@ -340,7 +338,7 @@ function OpenAllLinks(wait_time=10000, doc) {
 				!s.includes("google.com/search") &&
 				!s.includes("https://www.google.com/intl/it-IT_IT/help/terms_maps.html") && 
 				s !== "www.google.it" ){
-				uniqueLinks.add(s);			
+					uniqueLinks.add(s);			
 			}
 		}
 	}
@@ -676,17 +674,6 @@ if (type === "Side By Side") {
 
 		let second_r = document.getElementById("editable-2033_copy5");
 		setSliders(second_r, "83.3333%", "4");
-
-
-		let comments = [
-			"The AI-generated content proves highly beneficial for all parties involved, offering identical information on both ends.",
-			"The text produced by the machine is extremely advantageous for both sides, presenting identical information.",
-			"From both perspectives, the machine-generated text is incredibly useful and imparts the same information.",
-			"The information provided by the AI-generated text is equally valuable on either side, proving its usefulness.",
-			"On both sides, the machine-generated text is exceptionally helpful and imparts the same information effectively.",
-			"The utility of the machine-generated content is evident on both sides, delivering identical information seamlessly."]
-		FillTextArea(document, "comment", comments);
-		set_all_radios(document, "AboutTheSameAs");
 
 	}
 
@@ -1063,10 +1050,11 @@ if (type === "Experimental") {
 	testo = "In this task, you will be provided with a long Machine-Generated Response to a user’s question(s) along with several Target Sentences and their cited Evidence. The Target Sentences should be based on information found within the cited Evidence, however it will often either misrepresent the information or will provide additional information not found in the Evidence.";
 	if (CheckTextOnDocument(document, testo)){
 		console.log("MACHINE GENERATED RESPONSES");
-		set_all_radios(document, "fully", true);
+		set_all_radios(document, "fully", false);
 		set_all_checkboxes(document, "none_sentence_html", false);
 
 		let table = document.getElementById("editable-45");
+		table.scrollIntoView();
 		let cells = table.getElementsByClassName("borderless ewok-editor-editable-column");
 		let pattern = /\[\s*\d+\s*(,\s*\d+\s*)*\]/g;		
 		for( let cell of cells){
@@ -1087,7 +1075,8 @@ if (type === "Experimental") {
 						if (index !== -1) {
 							/* Create a new HTML span element to wrap the highlighted text */
 							let span = document.createElement('span');
-							span.style.backgroundColor = 'Cornsilk'; 
+							span.style.backgroundColor = 'PaleGreen';
+							span.style.color = 'navy';
 							
 							/* Split the text content into parts before and after the substring */
 							let beforeText = evidence.substring(0, index);
@@ -1478,6 +1467,10 @@ if (type === "Experimental") {
 	testo = 'Results are shown beneath the query to help you research the topic. You may also click on the query to do further research.';
 	if (CheckTextOnDocument(document, testo)){
 		console.log("other uo found");
+		let el = document.getElementsByClassName("ewok-buds");
+		for(let e of el){
+			e.style.width='400px';
+		}
 
 		document.getElementById("editable-85").scrollIntoView();
 		let queryDiv = document.getElementById("editable-371");
