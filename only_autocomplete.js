@@ -810,7 +810,8 @@ if (type === "Side By Side") {
 		}
 		let list = [["70%", "3.5"],["70%", "3.5"]];
 		open_links_set_sliders_set_radios(document, list, radios_value, true);
-		set_all_radios(document, "1", false);
+		
+		/* perchè? set_all_radios(document, "1", false); */
 	}
 
 	/* sxs one big block */
