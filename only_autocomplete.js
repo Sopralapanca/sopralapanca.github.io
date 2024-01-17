@@ -800,7 +800,7 @@ if (type === "Side By Side") {
 
 		/* for sxs with harmful content */
 		let sides = document.getElementsByClassName("ewok-buds-sides")[0];
-		set_all_radios(sides, "0", false);
+		set_all_radios(document, "0", false);
 
 
 
