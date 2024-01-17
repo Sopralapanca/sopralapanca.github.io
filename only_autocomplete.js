@@ -797,6 +797,13 @@ if (type === "Side By Side") {
 	testo2 = "In this task, you will be given a query and up to 10 search results which are products for this query. A product result will include an image, title, and optionally a review star rating. Some parts, like the title, might be truncated. Clicking on such a product result will lead to a new search results page for that specific product.";
 	if (CheckTextOnDocument(document, testo) || CheckTextOnDocument(document, testo2)) {
 		console.log("GENERAL SXS FOUND");
+
+		/* for sxs with harmful content */
+		let sides = document.getElementsByClassName("ewok-buds-sides")[0];
+		set_all_radios(sides, "0", false);
+
+
+
 		let radios_value = LeftOrRightSideMB();
 		if(!radios_value){
 			radios_value = "AboutTheSameAs";
@@ -838,10 +845,13 @@ if (type === "Side By Side") {
 		CheckTextOnDocument(document, "In this task, you will be asked to provide Needs Met and Page Quality ratings for queries that were issued on www.youtube.com. Please be aware of the user intent difference when the query is issued on YouTube rather than a general search engine.")) {
 
 		console.log("yt sxs racy found");
+		/*
+		RIVEDERE VA IN CONFLITTO CON GENERAL SXS SE CI SONO HARMFUL
 		let list = [["70%", "3.5"],["70%", "3.5"]];
 		open_links_set_sliders_set_radios(document, list, "AboutTheSameAs");
 		set_all_radios(document, "0");
 		set_all_radios(document, "3");
+		*/
 
 	}
 
