@@ -271,6 +271,9 @@ function CheckTextOnDocument(block, string){
 function DecodeStringUrl(url){
 	let uri = decodeURIComponent(url);
 	let [, s] = uri.split("https://www.google.com/evaluation/url?q=");
+	if(s===undefined){
+		[, s] = uri.split("https://www.raterhub.com/evaluation/url?q=");
+	}
 	return s;
 }
 
@@ -1409,6 +1412,19 @@ if (type === "Experimental") {
 		console.log("common pq found");
 		let url_div = document.getElementsByClassName("pq-task-main-info")[0];
 		OpenLink(url_div, wait_time_sec);
+
+		let search_link = url_div.getElementsByTagName('a')[0].href;
+		search_link = DecodeStringUrl(search_link);
+		let url = new URL(search_link); 
+		let hostname = url.hostname;
+		let domainParts = hostname.split(".");
+		let firstPartOfDomain = domainParts[0];
+		let t_url = "https://www.trustpilot.com/search?query="+firstPartOfDomain;
+		let f_url = "https://www.feedaty.com/recensioni/"+firstPartOfDomain;
+		window.open(t_url, '_blank');
+		window.open(f_url, '_blank');
+		
+
 		document.getElementsByName('purposeComment')[0].value = "The purpose of this landing page is to ";
 		set_all_radios(document, "no", false);
 		set_all_radios(document, "not-ymyl", false);
