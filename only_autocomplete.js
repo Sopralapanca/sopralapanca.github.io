@@ -1424,9 +1424,9 @@ if (type === "Experimental") {
 		let f_url = "https://www.feedaty.com/recensioni/"+firstPartOfDomain;
 		window.open(t_url, '_blank');
 		window.open(f_url, '_blank');
-		
 
 		document.getElementsByName('purposeComment')[0].value = "The purpose of this landing page is to ";
+		document.getElementsByName('comment')[0].value = "The purpose of this landing page is to ";
 		set_all_radios(document, "no", false);
 		set_all_radios(document, "not-ymyl", false);
 		set_all_radios(document, "website-responsible", false);
