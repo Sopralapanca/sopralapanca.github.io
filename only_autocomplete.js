@@ -1417,8 +1417,9 @@ if (type === "Experimental") {
 		search_link = DecodeStringUrl(search_link);
 		let url = new URL(search_link); 
 		let hostname = url.hostname;
-		let domainParts = hostname.split(".");
-		let firstPartOfDomain = domainParts[0];
+		let domainWithoutSubdomain = hostname.replace(/^www\./, '');
+		domainWithoutSubdomain = domainWithoutSubdomain.split(".");
+		let firstPartOfDomain = domainWithoutSubdomain[0];
 		let t_url = "https://www.trustpilot.com/search?query="+firstPartOfDomain;
 		let f_url = "https://www.feedaty.com/recensioni/"+firstPartOfDomain;
 		window.open(t_url, '_blank');
