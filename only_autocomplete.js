@@ -366,15 +366,13 @@ function OpenAllLinks(wait_time=10000, doc) {
 }
 
 /* opens one link */
-function OpenLink(block, wait_time=wait_time_sec){
-	try{
-		let search_link = block.getElementsByTagName('a')[0].href;
-		let openWindow = window.open(search_link, '_blank');
-		setTimeout(function(){openWindow.close();},wait_time);
-	}catch (error){
-		console.log(error);
+function OpenLink(search_link, wait_time=wait_time_sec){
+	if(typeof(search_link)!=="string"){
+		search_link = search_link.getElementsByTagName('a')[0].href;
 	}
-
+	let openWindow = window.open(search_link, '_blank');
+	setTimeout(function(){openWindow.close();},wait_time);
+	return search_link;
 }
 
 function ExactText(element, testo){
@@ -1411,19 +1409,17 @@ if (type === "Experimental") {
 	if(CheckTextOnDocument(document, testo)){
 		console.log("common pq found");
 		let url_div = document.getElementsByClassName("pq-task-main-info")[0];
-		OpenLink(url_div, wait_time_sec);
-
-		let search_link = url_div.getElementsByTagName('a')[0].href;
-		search_link = DecodeStringUrl(search_link);
-		let url = new URL(search_link); 
+		let page_link = OpenLink(url_div, wait_time_sec);
+		page_link = DecodeStringUrl(page_link);
+		let url = new URL(page_link); 
 		let hostname = url.hostname;
 		let domainWithoutSubdomain = hostname.replace(/^www\./, '');
 		domainWithoutSubdomain = domainWithoutSubdomain.split(".");
 		let firstPartOfDomain = domainWithoutSubdomain[0];
 		let t_url = "https://www.trustpilot.com/search?query="+firstPartOfDomain;
 		let f_url = "https://www.feedaty.com/recensioni/"+firstPartOfDomain;
-		window.open(t_url, '_blank');
-		window.open(f_url, '_blank');
+		OpenLink(t_url, wait_time_sec);
+		OpenLink(f_url, wait_time_sec);
 
 		document.getElementsByName('purposeComment')[0].value = "The purpose of this landing page is to ";
 		document.getElementsByName('comment')[0].value = "The purpose of this landing page is to ";
