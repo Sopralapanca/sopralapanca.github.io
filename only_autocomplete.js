@@ -778,8 +778,9 @@ if (type === "Side By Side") {
 	testo = 'In this task, you will be given a user-issued query and a list of computer-generated "related questions". Each related question is accompanied by a computer-selected answer passage taken from the web. Your job is to:';
 	if (CheckTextOnDocument(document, testo)) {
 		console.log("related question found");
+		let el = document.getElementById("editable-1");
 		let list = [["80%", "4"],["80%", "4"]];
-		get_and_set_sliders(list);
+		get_and_set_sliders(list, true, el);
 		set_all_radios(document, "no", false);
 
 		blocks = document.getElementsByClassName('ewok-buds-question ewok-buds-result-question');
@@ -791,6 +792,7 @@ if (type === "Side By Side") {
 			}
 		}
 		set_all_radios(document, "1", false);
+		set_all_radios(document, "AboutTheSameAs", false);
 	}
 
 	/* GENERAL SXS */
