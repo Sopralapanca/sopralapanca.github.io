@@ -772,6 +772,8 @@ if (type === "Side By Side") {
 		get_and_set_sliders(list, false);
 		set_all_radios(document, "AboutTheSameAs", false);
 		set_all_radios(document, "navigational", true);
+
+		
 	}
 
 	/* RELATED QUESTION */
