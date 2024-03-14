@@ -519,6 +519,14 @@ if(ewokBudsQuery != null) {
 	ewokBudsQuery.appendChild(newDiv);
 }
 
+/* Image Review */
+if (type === "Image Review"){
+	testo = "In this task, you will be shown the thumbnails of several videos. For each thumbnail, your job is to determine whether it would be considered mature, pornographic or racy by most users in your locale. If you cannot access or understand the thumbnail, select the appropriate radio button. Otherwise, determine which of the following best applies to the thumbnail:"
+	if(CheckTextOnDocument(document, testo)){
+		console.log("Image Review found");
+		set_all_radios(document, "safe", true);
+	}
+}
 
 /* AUDIO */
 if (type === "Experimental" && (additional === "Headphones or Speakers Required" || additional === "Headphones required" || additional === "Headphones Required")){
